@@ -10,12 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_30_223357) do
+ActiveRecord::Schema.define(version: 2018_09_30_223809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.text "tags", default: [], array: true
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.text "tags", default: [], array: true
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -106,6 +129,95 @@ ActiveRecord::Schema.define(version: 2018_09_30_223357) do
     t.index ["token"], name: "index_oauth_credentials_on_token"
     t.index ["uid"], name: "index_oauth_credentials_on_uid"
     t.index ["user_id"], name: "index_oauth_credentials_on_user_id"
+  end
+
+  create_table "pulitzer_categories", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "parent_id"
+    t.string "name"
+    t.string "type"
+    t.integer "lft"
+    t.integer "rgt"
+    t.text "description"
+    t.string "avatar"
+    t.string "cover_image"
+    t.integer "status", default: 1
+    t.integer "availability", default: 1
+    t.integer "seq"
+    t.string "slug"
+    t.hstore "properties", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lft"], name: "index_pulitzer_categories_on_lft"
+    t.index ["parent_id"], name: "index_pulitzer_categories_on_parent_id"
+    t.index ["rgt"], name: "index_pulitzer_categories_on_rgt"
+    t.index ["slug"], name: "index_pulitzer_categories_on_slug", unique: true
+    t.index ["type"], name: "index_pulitzer_categories_on_type"
+    t.index ["user_id"], name: "index_pulitzer_categories_on_user_id"
+  end
+
+  create_table "pulitzer_media", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "managed_by_id"
+    t.string "public_id"
+    t.bigint "category_id"
+    t.bigint "working_media_version_id"
+    t.bigint "parent_id"
+    t.integer "lft"
+    t.integer "rgt"
+    t.string "type"
+    t.string "media_type"
+    t.string "sub_type"
+    t.string "title"
+    t.string "subtitle"
+    t.text "avatar"
+    t.string "cover_image"
+    t.string "avatar_caption"
+    t.string "layout"
+    t.string "template"
+    t.text "description"
+    t.text "meta_description"
+    t.text "content"
+    t.string "slug"
+    t.string "redirect_url"
+    t.boolean "is_commentable", default: true
+    t.boolean "is_sticky", default: false
+    t.boolean "show_title", default: true
+    t.datetime "modified_at"
+    t.text "keywords", default: [], array: true
+    t.text "tags", default: [], array: true
+    t.string "duration"
+    t.integer "cached_char_count", default: 0
+    t.integer "cached_word_count", default: 0
+    t.integer "status", default: 1
+    t.integer "availability", default: 1
+    t.datetime "publish_at"
+    t.hstore "properties", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_pulitzer_media_on_category_id"
+    t.index ["managed_by_id"], name: "index_pulitzer_media_on_managed_by_id"
+    t.index ["parent_id"], name: "index_pulitzer_media_on_parent_id"
+    t.index ["public_id"], name: "index_pulitzer_media_on_public_id"
+    t.index ["slug", "type"], name: "index_pulitzer_media_on_slug_and_type"
+    t.index ["slug"], name: "index_pulitzer_media_on_slug", unique: true
+    t.index ["status", "availability"], name: "index_pulitzer_media_on_status_and_availability"
+    t.index ["tags"], name: "index_pulitzer_media_on_tags", using: :gin
+    t.index ["user_id"], name: "index_pulitzer_media_on_user_id"
+    t.index ["working_media_version_id"], name: "index_pulitzer_media_on_working_media_version_id"
+  end
+
+  create_table "pulitzer_media_versions", force: :cascade do |t|
+    t.bigint "media_id"
+    t.bigint "user_id"
+    t.integer "status", default: 1
+    t.json "versioned_attributes", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["media_id", "id"], name: "index_pulitzer_media_versions_on_media_id_and_id"
+    t.index ["media_id", "status", "id"], name: "index_pulitzer_media_versions_on_media_id_and_status_and_id"
+    t.index ["media_id"], name: "index_pulitzer_media_versions_on_media_id"
+    t.index ["user_id"], name: "index_pulitzer_media_versions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+	root to: 'root#index' # homepage
 
 	resources :admin
 
@@ -11,4 +12,8 @@ Rails.application.routes.draw do
 
 	mount SwellId::Engine, at: '/'
 
+	mount Pulitzer::Engine, at: '/'
+
+	# quick catch-all route for static pages set root route to field any media
+	get '/:id', to: 'root#show', as: 'root_show'
 end
