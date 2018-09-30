@@ -14,6 +14,13 @@ Rails.application.routes.draw do
 
 	mount Pulitzer::Engine, at: '/'
 
+	resources :bazaar_media_admin do
+		get :preview, on: :member
+		delete :empty_trash, on: :collection
+	end
+	
+	resources :bazaar_media, only: [:show, :index], path: BazaarMedia.mounted_path
+
 	# quick catch-all route for static pages set root route to field any media
 	get '/:id', to: 'root#show', as: 'root_show'
 end
