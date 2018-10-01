@@ -429,6 +429,7 @@ DEPENDENCIES
   newrelic_rpm
   numbers_in_words
   omniauth
+  pg
   pulitzer!
   puma (~> 3.11)
   rails (~> 5.2.1)
