@@ -31,11 +31,11 @@ GIT
 
 GIT
   remote: https://github.com/MeisterMichael/bazaar.git
-  revision: 86eca0522d3c5eac94533130d4fcef01f39778e9
+  revision: 7d1ff8f45a39a1611dbf68abb2015333485a1dc3
   branch: master
   tag: v0.2.0
   specs:
-    bazaar (0.2.0)
+    bazaar (0.4.0)
       credit_card_validations
       jbuilder
       pulitzer
@@ -44,7 +44,7 @@ GIT
 
 GIT
   remote: https://github.com/gkparishphilp/pulitzer.git
-  revision: 2df71b331dc09f759859fe8fc1a00eeaaeaa4e8c
+  revision: fcc2e0b45e318ec42079e56c656ae9e07f0b3bca
   branch: master
   tag: v1.1.2
   specs:
@@ -151,7 +151,7 @@ GEM
     browser (2.5.3)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (3.8.2)
+    capybara (3.9.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -285,7 +285,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (5.4.0.347)
     nio4r (2.3.1)
-    nokogiri (1.8.4)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     numbers_in_words (0.4.0)
       activesupport
@@ -356,9 +356,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.14.0)
+    selenium-webdriver (3.14.1)
       childprocess (~> 0.5)
-      rubyzip (~> 1.2)
+      rubyzip (~> 1.2, >= 1.2.2)
     sidekiq (5.2.2)
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
@@ -449,7 +449,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 2.3.2p217
+   ruby 2.5.1p57
 
 BUNDLED WITH
    1.16.5
