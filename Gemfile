@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.3.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
@@ -58,9 +58,9 @@ gem 'sidekiq'
 
 # Working against local gems without modifying your Gemfile
 # BEFORE: bundle config disable_local_branch_check true
-# CREATE: bundle config local.swell_media ../engines/swell_media
+# CREATE: bundle config local.pulitzer ../engines/pulitzer
 # LIST: bundle config
-# DELETE: bundle config --delete local.swell_media
+# DELETE: bundle config --delete local.pulitzer
 
 # dev
 swell_engines_path = ENV['SWELL_ENGINE_PATH'] || '../engines'
