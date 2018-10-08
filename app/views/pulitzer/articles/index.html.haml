@@ -1,0 +1,50 @@
+/
+	CONTENT --------------------------------------------------------------------------------->
+	<!-- Intro Section
+%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => image_path("app_theme/theme/onepage/img/full/15.jpg")}
+	.container
+		.row.title
+			%h2.h2 Blog
+			.page-breadcrumb
+				%a{ href: '/' } Home
+				\/
+				- if @tagged.present?
+
+					%a{ href: pulitzer.articles_path() } Blog
+					\/
+					%span=@tagged
+				- else
+					%span Blog
+
+/ End Intro Section
+/ Blog Post Section
+%section.ptb.ptb-sm-80
+	.container
+		/ Post Item
+		.row.masonry
+			- @articles.each do |article|
+				.col-md-6.col-sm-6.nf-item.spacing-grid
+					= render 'swell_media/articles/blog_post', media: article, args: {}
+
+		/ End Post Item
+		/ Pagination Nav
+
+		.pagination-nav.mt-60.mt-xs-30
+			= raw paginate @articles
+		-# .pagination-nav.mt-60.mt-xs-30
+			%ul
+				%li
+					%a{:href => "#"}
+						%i.fa.fa-angle-left
+				%li.active
+					%a{:href => "#"} 1
+				%li
+					%a{:href => "#"} 2
+				%li
+					%a{:href => "#"} 3
+				%li
+					%a{:href => "#"}
+						%i.fa.fa-angle-right
+		/ End Pagination Nav
+/ End Blog Post Section
+/ End CONTENT ----------------------------------------------------------------------------

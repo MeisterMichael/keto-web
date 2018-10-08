@@ -1,0 +1,43 @@
+/ Sidemenu
+%section#pushmenu-right.pushmenu.pushmenu-right.side-menu
+	%a#menu-sidebar-close-icon.menu-close
+		%i.ion.ion-android-close
+	- if current_user.present?
+		%h5.white Welcome #{current_user.full_name}
+	- else
+		%h5.white Sign In
+		.sign-in
+			= form_for User.new, as: 'user', url: main_app.user_session_path(), role: :form do |f|
+				= f.text_field :login, id: 'email', autofocus: true, placeholder: "Email", class: 'input-sm form-full', required: true, "aria-required" => "true"
+				= f.password_field :password, id: 'password', placeholder: "password", class: 'input-sm form-full', required: true, "aria-required" => "true"
+				-# = f.check_box :remember_me, checked: true
+
+				-# %a.btn.btn-primary.btn-facebook.col-xs-12.auth-pop{ href: main_app.user_facebook_omniauth_authorize_path( ga_client_id: ':ga_client_id' ) }
+					%i.fa.fa-facebook
+					Facebook
+				%input.btn.btn-md.btn-color-b.form-full{:type => "submit", :value => "Sign In"}/
+			%a{ href: main_app.new_user_registration_path() } New Member?
+			%a.pull-right{ href: "/forgot" } Forgot Password?
+	%ul
+		%li
+			%a{:href => '/' } Home
+		-# %li
+			%a{:href => main_app.new_user_registration_path() } Login Signup
+		%li
+			%a{:href => '/faq'} FAQ
+		%li
+			%a{:href => '/about'} About
+		%li
+			%a{:href => pulitzer.articles_path()} Blog
+		-# %li
+			%a{:href => "/cart"} Shopping Cart
+		-# %li
+			%a{:href => scuttlebutt.new_contact_path() } Contact Us
+		%li
+			%a{:href => '/privacy'} Privacy
+		%li
+			%a{:href => '/terms'} Terms
+		- if current_user.present?
+			%li
+				%a{:href => main_app.logout_path() } Log out
+/ End Sidemenu

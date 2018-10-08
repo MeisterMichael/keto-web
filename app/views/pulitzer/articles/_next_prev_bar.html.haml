@@ -1,0 +1,20 @@
+
+/ Post Next Prev Bar
+%section.mb-60
+	.container
+		.item-nav
+			- if (previous_media = SwellMedia::Article.published.where('publish_at < ?', @media.publish_at).order(id: :desc).first).present?
+				%a.item-prev{:href => previous_media.url}
+					.prev-btn
+						%i.fa.fa-angle-left
+					.item-prev-text.xs-hidden
+						%h6 Prev Post
+			%a.item-all-view{ href: pulitzer.articles_path() }
+				%h6 Blog Page
+			- if (next_media = SwellMedia::Article.published.where('publish_at > ?', @media.publish_at).order(id: :asc).first).present?
+				%a.item-next{:href => next_media.url}
+					.next-btn
+						%i.fa.fa-angle-right
+					.item-next-text.xs-hidden
+						%h6 Next Post
+/ End Post Next Prev Bar

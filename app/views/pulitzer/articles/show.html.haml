@@ -1,0 +1,384 @@
+- cache( @media, expires_in: 1.hour ) do
+	/ CONTENT -------------------------------------------------------------------------------
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => ( @media.cover_image.present? ? @media.cover_image : nil ) || "img/full/21.jpg"}
+		.container
+			.row.title
+				%h2.h2 Blog
+				.page-breadcrumb
+					%a{ href: '/' }> Home
+					\/
+					%a{ href: pulitzer.articles_path() }> Blog
+					\/
+					%span Post
+	/ End Intro Section
+	/ Blog Post Section
+	%section.ptb.ptb-sm-80
+		.container
+			.row
+				/ Post Bar
+				.col-lg-9.col-md-9.blog-post-hr
+					.blog-post.mb-30
+						.post-meta
+							- if @media.user.present?
+								%span
+									by
+									= succeed "," do
+										%a=@media.user.full_name
+							%span=@media.publish_at.strftime('%B %e, %Y')
+						.post-header
+							%h2=@media.title
+						.post-media
+							%img{:alt => "", :src => @media.avatar}/
+						.post-entry.fr-view
+							= raw @media.content
+						.post-tag.pull-left
+							- @media.tags.each do |tag|
+								%span
+									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
+									- unless tag == @media.tags.last
+										,
+					%hr/
+					- if @media.user.present?
+						.post-author
+							- if @media.user.avatar.present?
+								.post-author-img.pull-left
+									%img{:alt => "author", :src => @media.user.avatar}/
+							.post-author-details.pull-left
+								%h6= @media.user.full_name
+								-# %ul.social
+									%li
+										%a{:href => "https://www.facebook.com/", :target => "_blank"}
+											%i.fa.fa-facebook
+									%li
+										%a{:href => "https://www.twitter.com/", :target => "_blank"}
+											%i.fa.fa-twitter
+									%li
+										%a{:href => "https://www.dribbble.com/", :target => "_blank"}
+											%i.fa.fa-dribbble
+									%li
+										%a{:href => "https://www.pinterest.com/", :target => "_blank"}
+											%i.fa.fa-pinterest
+									%li
+										%a{:href => "https://www.behance.net/", :target => "_blank"}
+											%i.fa.fa-behance
+						%hr/
+						.clearfix
+					.fb-comments{"data-href" => @media.url, "data-numposts" => "5"}
+					-# .post-comment.mtb-30
+						%h4
+							Comments
+							%span.comment-numb (2)
+						%ul.comment-list.mt-30
+							%li
+								.comment-avatar
+									%img{:src => "img/user-av.jpg"}/
+								%div
+									.comment-detail
+										%h6 John Doe
+										.post-meta
+											%span March 16, 2015
+											|
+											%span
+												%a.comment-reply-btn
+													%i.fa.fa-reply>
+													Reply
+										%p Blandit vel, luctus pulvinar hendrerit id Maecenas tempus tellus eget lorem.
+									.comment-reply
+										.comment-avatar
+											%img{:src => "img/user-av.jpg"}/
+										%div
+											.comment-detail
+												%h6 John Doe
+												.post-meta
+													%span March 16, 2015
+													|
+													%span
+														%a.comment-reply-btn
+															%i.fa.fa-reply>
+															Reply
+												%p Blandit vel, luctus pulvinar hendrerit id Maecenas tempus tellus eget lorem.
+									.comment-reply
+										.comment-avatar
+											%img{:src => "img/user-av.jpg"}/
+										%div
+											.comment-detail
+												%h6 John Doe
+												.post-meta
+													%span March 16, 2015
+													|
+													%span
+														%a.comment-reply-btn
+															%i.fa.fa-reply>
+															Reply
+												%p Blandit vel, luctus pulvinar hendrerit id Maecenas tempus tellus eget lorem.
+							%li
+								.comment-avatar
+									%img{:src => "img/user-av.jpg"}/
+								%div
+									.comment-detail
+										%h6 John Doe
+										.post-meta
+											%span March 16, 2015
+											|
+											%span
+												%a.comment-reply-btn
+													%i.fa.fa-reply>
+													Reply
+										%p Blandit vel, luctus pulvinar hendrerit id Maecenas tempus tellus eget lorem.
+					-# .mtb-60
+						%h4 Leave a comment
+						.row.mt-30
+							%form.container
+								.row
+									.col-md-4
+										%input#name.input-lg.form-full{:name => "name", :placeholder => "Name", :required => "", :type => "text", :value => ""}/
+									.col-md-4
+										%input#email2.input-lg.form-full{:name => "email", :placeholder => "Email", :required => "", :type => "email", :value => ""}/
+									.col-md-4
+										%input#website.input-lg.form-full{:name => "website", :placeholder => "Website", :required => "", :type => "text", :value => ""}/
+									.col-md-12
+										%textarea#message.form-full{:name => "message", :placeholder => "Message", :required => ""}
+									.col-md-12
+										%button.btn.btn-lg.btn-black Post
+				/ End Post Bar
+				= render 'swell_media/articles/side_bar'
+	/ End Blog Post Section
+	= render 'swell_media/articles/next_prev_bar'
+	/ End CONTENT ----------------------------------------------------------------------------
+
+
+	-# .container
+		.row
+			/ article
+			.col-md-8.col-md-offset-2
+				.site-entry
+					%article.post.format-standard.hentry
+						.entry-header
+							%h1.entry-title= @media.title
+							.entry-meta
+								%span.posted-on
+									%a{:href => "single.html", :rel => "bookmark"}
+										%time.entry-date{:datetime => @media.publish_at.strftime('%B %e, %Y')}=@media.publish_at.strftime('%B %e, %Y')
+								/ .posted-on
+								-# %span.entry-comment
+									%span.comment-link
+										%a{:href => "#comments"}= pluralize @media.cached_comment_count, 'Comments'
+								/ .entry-cat
+								- if @media.category.present?
+									%span.entry-cat
+										%span.cat-link
+											%a{:href => pulitzer.category_path(@media.category.slug)}=@media.category.name.upcase
+								/ .entry-cat
+								-# %span.entry-like
+									%a{:href => ""}
+										%i.fa.fa-heart-o
+										42
+							/ .entry-meta
+						/ .entry-header
+						- if (featured_image = (@media.cover_path || @media.avatar)).present?
+							.entry-featured-image
+								%img{:alt => @media.avatar_caption || @media.title, :src => featured_image, 'data-pin-description' => sanitize(@media.description || @media.title), 'data-pin-media' => (@media.avatar_url(:pinterest) || @media.avatar_url(:featured) || featured_image)}/
+							/ .entry-featured-image
+						.entry-content.fr-view
+							= raw @media.content
+						/ .entry-content
+						%footer.entry-footer
+							- if @media.tags.present?
+								%span.tags-links
+									- @media.tags.each do |tag|
+										%a{ :href => pulitzer.category_path( :all, tag: tag ) }=tag
+
+								/ .tags-links
+							%span.share-links
+								%span Share this
+								= render_shareable( :static_link => true, :url => @media.url, :title => @media.title, :description => sanitize(@media.description), :text => sanitize(@media.description || @media.title), :hashtags => @media.tags.join(' #'), :button_only => true, :buttons => %w( facebook twitter google_plus pinterest linkedin ), :media => ( @media.cover_path || @media.avatar ), :pinterest => { media: (@media.avatar_url(:pinterest) || @media.avatar_url(:featured) || @media.url) } )
+
+							/ .share-links
+						/ .entry-footer
+					/ .post
+					%nav.navigation.post-navigation{:role => "navigation"}
+						%h2.screen-reader-text Post navigation
+						.nav-links
+							- if (previous_media = SwellMedia::Article.published.where('publish_at < ?', @media.publish_at).order(id: :desc).first).present?
+								.nav-previous
+									%a.image-link{:href => previous_media.url}
+										%img{:src => previous_media.avatar }/
+									%span Previous Post
+									%a.prev-link{:href => previous_media.url, :rel => "prev"}=previous_media.title
+							- else
+								.nav-previous{ style: 'visibility: hidden' }
+									%a.image-link{:href => @media.url}
+										%img{:src => @media.avatar }/
+									%span Previous Post
+									%a.prev-link{:href => @media.url, :rel => "prev"}=@media.title
+
+							- if (next_media = SwellMedia::Article.published.where('publish_at > ?', @media.publish_at).order(id: :asc).first).present?
+								.nav-next
+									%a.image-link{:href => next_media.url}
+										%img{:src => next_media.avatar }/
+									%span Next Post
+									%a.next-link{:href => next_media.url, :rel => "next"}=next_media.title
+							- else
+								.nav-previous{ style: 'visibility: hidden' }
+									%a.image-link{:href => @media.url}
+										%img{:src => @media.avatar }/
+									%span Previous Post
+									%a.prev-link{:href => @media.url, :rel => "next"}=@media.title
+					/ .navigation
+					/ author bio
+					.section-title
+						%h3 Written by
+					.entry-author-bio
+						.author-bio-avatar
+							%img.avatar{:alt => "author bio", :src => @media.user.avatar_url }/
+						/ .author-bio-avatar
+						.author-bio-description
+							%h4= @media.user.full_name || @media.user.name
+							%p= @media.user.short_bio
+							= render 'application/social_icons', args: {}
+						/ .author-bio-description
+					/ entry-author-bio
+					.related-posts
+						.section-title
+							%h3 You May Also Like
+						.row
+							- SwellMedia::Article.published.order(score: :desc).where.not( id: @media.id ).limit(3).each do |suggested_media|
+								.col-sm-4
+									.post-container
+										.post-thumbnail
+											%a{:href => suggested_media.url}
+												%img{:src => suggested_media.avatar}/
+										/ .post-thumbnail
+										%h3.post-title
+											%a{:href => suggested_media.url}=suggested_media.title
+										%span.post-meta
+											%a{:href => "#"}=suggested_media.publish_at.strftime('%B %e, %Y')
+									/ .post-container
+								/ .col-md-3
+						/ .row
+					/ .related-posts
+					-# #comments.comments-area
+						.section-title
+							%h3 4 Comments
+						%nav#comment-nav-above.navigation.comment-navigation{:role => "navigation"}
+							%h2.screen-reader-text Comment navigation
+							.nav-links
+								.nav-previous
+									%a{:href => "#comments"} Older Comments
+								.nav-next
+									%a{:href => "#comments"} Newer Comments
+							/ .nav-links
+						/ #comment-nav-above
+						%ol.comment-list
+							%li.comment.even.parent
+								%article.comment-body
+									%footer.comment-meta
+										.comment-author.vcard
+											%img.avatar{:alt => "", :src => image_path( "theme/img/astrif-comment-author-01.jpg")}/
+											%span.fn Jessica
+										/ .comment-author
+										.comment-metadata
+											%a{:href => "#"}
+												%time{:datetime => "2016-05-09T00:51:13+00:00"} May 9, 2016 at 11:21 am
+										/ .comment-metadata
+									/ .comment-meta
+									.comment-content
+										%p Nowadays, a family is simply a network of people who care for each other. It can contain hundreds or two. You can be born into one or build your own.
+									/ .comment-content
+									.reply
+										%a.comment-reply-link{:href => "#respond", :rel => "nofollow"} Reply
+								/ .comment-body
+								%ol.children
+									%li.comment.even.parent
+										%article.comment-body
+											%footer.comment-meta
+												.comment-author.vcard
+													%img.avatar{:alt => "", :src => image_path("theme/img/astrif-comment-author-02.jpg")}/
+													%span.fn Jane Doe
+												/ .comment-author
+												.comment-metadata
+													%a{:href => "#"}
+														%time{:datetime => "2016-05-09T00:51:13+00:00"} May 9, 2016 at 12:51 am
+												/ .comment-metadata
+											/ .comment-meta
+											.comment-content
+												%p Nowadays, a family is simply a network of people who care for each other. It can contain hundreds or two. You can be born into one or build your own.
+											/ .comment-content
+											.reply
+												%a.comment-reply-link{:href => "#respond", :rel => "nofollow"} Reply
+										/ .comment-body
+										%ol.children
+											%li.comment.even.parent
+												%article.comment-body
+													%footer.comment-meta
+														.comment-author.vcard
+															%img.avatar{:alt => "", :src => image_path("theme/img/astrif-comment-author-03.jpg")}/
+															%span.fn Diana Brown
+														/ .comment-author
+														.comment-metadata
+															%a{:href => "#"}
+																%time{:datetime => "2016-05-09T00:51:13+00:00"} May 9, 2016 at 12:51 am
+														/ .comment-metadata
+													/ .comment-meta
+													.comment-content
+														%p Nowadays, a family is simply a network of people who care for each other. It can contain hundreds or two. You can be born into one or build your own.
+													/ .comment-content
+													.reply
+														%a.comment-reply-link{:href => "#respond", :rel => "nofollow"} Reply
+												/ .comment-body
+												%ol.children
+													%li.comment.even.parent
+														%article.comment-body
+															%footer.comment-meta
+																.comment-author.vcard
+																	%img.avatar{:alt => "", :src => image_path("theme/img/astrif-comment-author-04.jpg")}/
+																	%span.fn Briana Smith
+																/ .comment-author
+																.comment-metadata
+																	%a{:href => "#"}
+																		%time{:datetime => "2016-05-09T00:51:13+00:00"} May 9, 2016 at 12:51 am
+																/ .comment-metadata
+															/ .comment-meta
+															.comment-content
+																%p Nowadays, a family is simply a network of people who care for each other. It can contain hundreds or two. You can be born into one or build your own.
+															/ .comment-content
+															.reply
+																%a.comment-reply-link{:href => "#respond", :rel => "nofollow"} Reply
+														/ .comment-body
+						/ .comment-list
+						%nav#comment-nav-below.navigation.comment-navigation{:role => "navigation"}
+							%h2.screen-reader-text Comment navigation
+							.nav-links
+								.nav-previous
+									%a{:href => "#comments"} Older Comments
+								.nav-next
+									%a{:href => "#comments"} Newer Comments
+							/ .nav-links
+						/ #comment-nav-below
+						#respond.comment-respond
+							.section-title
+								%h3 Leave a comment
+							%form.form-horizontal.comment-form
+								.form-group
+									.col-sm-12
+										%label Message
+										%textarea.form-control{:rows => "6"}
+								.form-group
+									.col-sm-4
+										%label Name *
+										%input.form-control{:type => "text"}/
+									.col-sm-4
+										%label Email *
+										%input.form-control{:type => "email"}/
+									.col-sm-4
+										%label Website
+										%input.form-control{:type => "url"}/
+								%p.form-submit
+									%input.btn.btn-default{:name => "submit", :type => "submit", :value => "Submit"}/
+						/ .comment-respond
+					/ .comments-area
+				/ .site-entry
+			/ .col-md-8
+		/ .row
+	/ .container

@@ -1,0 +1,42 @@
+.blog-post{ class: args[:class] }
+	- if media.cover_image.present?
+		%a.post-media{:href => media.url}
+			%img.item-container{:alt => media.title, :src => media.cover_image }/
+	- elsif media.avatar.present?
+		%a.post-media{ :href => media.url }
+			%img.item-container{:alt => "1", :src => media.avatar }/
+	-# .owl-carousel.item1-carousel.nf-carousel-theme
+	-# 	.item
+	-# 		%img{:alt => "", :src => image_path("app_theme/theme/general/img/full/26.jpg")}/
+	-# 	.item
+	-# 		%img{:alt => "", :src => image_path("app_theme/theme/general/img/full/04.jpg")}/
+	-# 	.item
+	-# 		%img{:alt => "", :src => image_path("app_theme/theme/general/img/full/28.jpg")}/
+	-# 			%iframe{:frameborder => "0", :height => "650", :src => "http://player.vimeo.com/video/60096045?title=0&byline=0&portrait=0&color=ffffff", :width => "1150"}
+	-# %iframe{:frameborder => "0", :height => "315", :src => "https://www.youtube.com/embed/S_kXyWhBB10", :width => "560"}
+	-# %blockquote We're not leaving here without Buster, man. Leave no crash-test dummy behind, We're not leaving here without Buster, man. Leave no crash-test dummy behind nihil impedit quo minus id quod maxime placeat facere!
+	-# %audio.audio{:controls => "controls", :src => asset_path("app_theme/theme/general/media/track1.mp3"), :type => "audio/mp3"}
+
+	.post-meta
+		- if media.user.present?
+			%span
+				by
+				= succeed "," do
+					%a= media.user.full_name
+		%span=media.publish_at.strftime('%B %e, %Y')
+	.post-header
+		%h5
+			%a{:href => media.url}=media.title
+	- unless args[:mode] == :thumb
+		.post-entry
+			= raw media.description
+		.post-tag.pull-left
+			- media.tags.each do |tag|
+				%span
+					%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
+					- unless tag == media.tags.last
+						,
+		.post-more-link.pull-right
+			%a{:href => media.url }
+				Read More
+				%i.fa.fa-long-arrow-right.right

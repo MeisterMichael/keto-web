@@ -1,0 +1,10 @@
+
+/ Search Overlay Menu
+.search-overlay-menu
+	%span.search-overlay-close
+		%i.ion.ion-ios-close-empty
+	%form#searchform{:action => "/search", :method => "get", :role => "search"}
+		%input{:name => "q", :placeholder => "Search...", :type => "search", :value => ""}/
+		%button{:type => "submit"}
+			%i.ion.ion-ios-search
+/ End Search Overlay Menu

@@ -8,6 +8,10 @@ class RootController < ApplicationController
 	# this is the homepage!
 	def index
 
+		@articles = Pulitzer::Article.published.order(publish_at: :desc)
+		@articles = @articles.page(params[:page]).per(3)
+
+		render layout: 'onepage'
 	end
 
 	# this handles all media in the pulitzer_media table

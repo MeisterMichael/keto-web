@@ -1,0 +1,53 @@
+.pagination-nav, .pagination-nav .pagination {
+    width: 100%;
+    display: block;
+    position: relative;
+    text-align: center;
+}
+
+    .pagination-nav .pagination {
+        margin: 0px;
+        padding: 0px;
+    }
+
+        .pagination-nav .pagination span {
+            display: inline-block;
+            margin: 0px 2px;
+        }
+
+            .pagination-nav .pagination span a, .pagination-nav .pagination .page.current {
+                display: block;
+                background-color: #f7f7f7;
+                height: 36px;
+                min-width: 36px;
+                line-height: 36px;
+                text-align: center;
+                font-size: 14px;
+				padding: 0 8px;
+            }
+
+            .pagination-nav .pagination .page.current {
+                background: #323232;
+                color: #fff;
+	            display: inline-block;
+	            margin: 0px 2px;
+            }
+
+.flash-section {
+	position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    display: block;
+    z-index: 999;
+	padding: 0 5px;
+}
+
+.flash-section .alert {
+	max-width: 500px;
+    margin: 0 auto;
+}
+
+.flash-section .alert-notice {
+	background: #fff;
+}

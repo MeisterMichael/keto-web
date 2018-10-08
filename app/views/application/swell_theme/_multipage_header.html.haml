@@ -1,0 +1,347 @@
+
+/ Header
+%header#header.header{ class: args[:class] }
+	.container.header-inner
+		/ Logo
+		.logo
+			%a{:href => '/' }
+				%img.logo-light{:alt => "#{Pulitzer.app_name}", :src => image_path("ketoself-white.png")}/
+				%img.logo-dark{:alt => "#{Pulitzer.app_name}", :src => image_path("ketoself-black.png")}/
+		/ End Logo
+		/ Rightside Menu (Search, Cart, Bart icon)
+		.side-menu-btn
+			%ul
+				/ Search Icon
+				-# %li
+					%a.search-overlay-menu-btn.header-icon
+						%i.fa.fa-search
+				/ End Search Icon
+				/ Cart Icon
+				-# %li.cart
+					%a.header-icon{:href => "shop-checkout.html"}
+						%i.fa.fa-shopping-cart
+						.cart-notification-wrap
+							%span.cart-notification 2
+					/ Cart Dropdown
+					.cart-dropdown
+						%ul.cart-list
+							%li.light-color
+								%a.close-cart-list
+									%i.fa.fa-times-circle
+								.media
+									%a.pull-left
+										%img{:alt => "fashion", :src => image_path("app_theme/theme/general/img/product/02.jpg")}/
+									.media-body
+										%h6
+											%a Fashion Model New /01
+										%p $399.00
+							%li.light-color
+								%a.close-cart-list
+									%i.fa.fa-times-circle
+								.media
+									%a.pull-left
+										%img{:alt => "fashion", :src => image_path("app_theme/theme/general/img/product/06.jpg")}/
+									.media-body
+										%h6
+											%a Fashion Model New /02
+										%p $399.00
+						%p.cart-sub-totle
+							%span.pull-left Cart Subtotal
+							%span.pull-right.totle
+								%strong $798.00
+						.clearfix
+						.cart-checkout-btn
+							%a.btn.btn-md.btn-color-b.form-full.checkout{:href => "shop-checkout.html"} Checkout
+					/ End Cart Dropdown
+				/ End Cart Icon
+				/ Sidebar Menu Icon
+				%li
+					%a#menu-sidebar-list-icon.nav-bar-icon
+						%span
+				/ End Sidebar Menu Icon
+		/ End Rightside Menu
+		/ Mobile Navbar Icon
+		.nav-mobile.nav-bar-icon
+			%span
+		/ End Mobile Navbar Icon
+		/ Navbar Navigation
+		.nav-menu
+			%ul.nav-menu-inner
+				%li
+					%a{:href => '/' }
+						Home
+				%li
+					%a{:href => pulitzer.articles_path() }
+						Blog
+
+				-# %li
+					%a.menu-has-sub
+						Pages
+						%i.fa.fa-angle-down
+					/ Dropdown
+					%ul.sub-dropdown.dropdown
+						%li
+							%a.menu-has-sub
+								About Us
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "about-1.html"} About 1
+								%li
+									%a{:href => "about-2.html"} About 2
+								%li
+									%a{:href => "about-3.html"} About 3
+						%li
+							%a.menu-has-sub
+								Service
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "service-1.html"} Service 1
+								%li
+									%a{:href => "service-2.html"} Service 2
+								%li
+									%a{:href => "service-3.html"} Service 3
+						%li
+							%a.menu-has-sub
+								Contact Us
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								-# %li
+									%a{:href => scuttlebutt.new_contact_path() } Contact 1
+								%li
+									%a{:href => "contact-2.html"} Contact 2
+								%li
+									%a{:href => "contact-3.html"} Contact 3
+						%li
+							%a.menu-has-sub
+								Faq
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "faq-1.html"} Faq 1
+								%li
+									%a{:href => "faq-2.html"} Faq 2
+						%li
+							%a.menu-has-sub
+								Login / Register
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "login.html"} Login
+								%li
+									%a{:href => "register.html"} Register
+								%li
+									%a{:href => "login-register.html"} Login / Register
+						%li
+							%a{:href => "pricing.html"} Pricing
+						%li
+							%a.menu-has-sub
+								404 Error
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "404-error-1.html"} 404 page1
+								%li
+									%a{:href => "404-error-2.html"} 404 page2
+						%li
+							%a{:href => "sidebar-left.html"} Sidebar Left
+						%li
+							%a{:href => "sidebar-right.html"} Sidebar Right
+						%li
+							%a{:href => "blank-page.html"} Blank Page
+					/ End Dropdown
+				-# %li
+					%a.menu-has-sub
+						Portfolio
+						%i.fa.fa-angle-down
+					/ Dropdown
+					%ul.sub-dropdown.dropdown
+						%li
+							%a.menu-has-sub
+								Grid
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "portfolio-grid-2col.html"} 2 Columns
+								%li
+									%a{:href => "portfolio-grid-2col-no_spacing.html"} 2 Columns no-Spacing
+								%li
+									%a{:href => "portfolio-grid-3col.html"} 3 Columns
+								%li
+									%a{:href => "portfolio-grid-3col-no_spacing.html"} 3 Columns no-Spacing
+								%li
+									%a{:href => "portfolio-grid-4col.html"} 4 Columns
+								%li
+									%a{:href => "portfolio-grid-4col-no_spacing.html"} 4 Columns no-Spacing
+						%li
+							%a.menu-has-sub
+								Masonry
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "portfolio-masonry-2col.html"} 2 Columns
+								%li
+									%a{:href => "portfolio-masonry-2col-no_spacing.html"} 2 Columns no-Spacing
+								%li
+									%a{:href => "portfolio-masonry-3col.html"} 3 Columns
+								%li
+									%a{:href => "portfolio-masonry-3col-no_spacing.html"} 3 Columns no-Spacing
+								%li
+									%a{:href => "portfolio-masonry-4col.html"} 4 Columns
+								%li
+									%a{:href => "portfolio-masonry-4col-no_spacing.html"} 4 Columns no-Spacing
+						%li
+							%a.menu-has-sub
+								Wide
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "portfolio-wide-grid.html"} Grid
+								%li
+									%a{:href => "portfolio-wide-grid-no_spacing.html"} Grid no-Spacing
+								%li
+									%a{:href => "portfolio-wide-masonry.html"} Masonry
+								%li
+									%a{:href => "portfolio-wide-masonry-no_spacing.html"} Masonry no-Spacing
+						%li
+							%a.menu-has-sub
+								Classical
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "portfolio-classical-spacing.html"} Spacing
+								%li
+									%a{:href => "portfolio-classical-no_spacing.html"} no-Spacing
+						%li
+							%a.menu-has-sub
+								Lightbox
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "portfolio-lightbox-grid.html"} Grid
+								%li
+									%a{:href => "portfolio-lightbox-masonry.html"} Masonry
+						%li
+							%a.menu-has-sub
+								Single
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "portfolio-single1.html"} Single 1
+								%li
+									%a{:href => "portfolio-single2.html"} Single 2
+								%li
+									%a{:href => "portfolio-single3.html"} Single 3
+								%li
+									%a{:href => "portfolio-single4.html"} Single 4
+								%li
+									%a{:href => "portfolio-single5-slider.html"} Single 5 - Slider
+								%li
+									%a{:href => "portfolio-single6-video.html"} Single 6 - Video
+								%li
+									%a{:href => "portfolio-single7-youtube.html"} Single 7 - youtube
+								%li
+									%a{:href => "portfolio-single8-vimeo.html"} Single 8 - vimeo
+					/ End Dropdown
+				-# %li
+					%a.menu-has-sub
+						Blog
+						%i.fa.fa-angle-down
+					/ Dropdown
+					%ul.sub-dropdown.dropdown
+						%li
+							%a.menu-has-sub
+								Grid
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "blog-grid-2col.html"} 2 Columns
+								%li
+									%a{:href => "blog-grid-2col-sidebar.html"} 2 Columns - sidebar
+								%li
+									%a{:href => "blog-grid-3col.html"} 3 Columns
+						%li
+							%a.menu-has-sub
+								Masonry
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "blog-masonry-2col.html"} 2 Columns
+								%li
+									%a{:href => "blog-masonry-2col-sidebar.html"} 2 Columns - sidebar
+								%li
+									%a{:href => "blog-masonry-3col.html"} 3 Columns
+						%li
+							%a.menu-has-sub
+								One Columns
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "blog-1col.html"} no-sidebar
+								%li
+									%a{:href => "blog-1col-sidebar.html"} with sidebar
+						%li
+							%a.menu-has-sub
+								Blog Detail
+								%i.fa.fa-angle-right
+							%ul.sub-dropdown
+								%li
+									%a{:href => "blog-single-image-post.html"} Image Post
+								%li
+									%a{:href => "blog-single-slider-post.html"} Slider Post
+								%li
+									%a{:href => "blog-single-video-post.html"} Video Post
+								%li
+									%a{:href => "blog-single-audio-post.html"} Audio Post
+								%li
+									%a{:href => "blog-single-youtube-post.html"} Youtube Post
+								%li
+									%a{:href => "blog-single-vimeo-post.html"} Vimeo Post
+								%li
+									%a{:href => "blog-single-quote-post.html"} Quote Post
+					/ End Dropdown
+				-# %li
+					%a.menu-has-sub
+						Elements
+						%i.fa.fa-angle-down
+					/ Dropdown
+					%ul.sub-dropdown.dropdown
+						%li
+							%a{:href => "element-components.html"} Components
+						%li
+							%a{:href => "element-tabs-and-accordian.html"} Tabs	Accordian
+						%li
+							%a{:href => "element-slider.html"} Slider
+						%li
+							%a{:href => "element-team.html"} Team
+						%li
+							%a{:href => "element-pricing.html"} Pricing
+						%li
+							%a{:href => "element-video-and-audio.html"} Video / Audio
+						%li
+							%a{:href => "element-typography.html"} Typography
+					/ End Dropdown
+				-# %li
+					%a.menu-has-sub
+						Shop
+						%i.fa.fa-angle-down
+					/ Dropdown
+					%ul.sub-dropdown.dropdown
+						%li
+							%a{:href => "shop-2col.html"} 2 Columns
+						%li
+							%a{:href => "shop-3col.html"} 3 Columns
+						%li
+							%a{:href => "shop-4col.html"} 4 Columns
+						%li
+							%a{:href => "shop-left-sidebar.html"} Left Sidebar
+						%li
+							%a{:href => "shop-right-sidebar.html"} Right Sidebar
+						%li
+							%a{:href => "shop-detail.html"} Shop Detail
+						%li
+							%a{:href => "shop-checkout.html"} Checkout
+					/ End Dropdown
+		/ End Navbar Navigation
+/ End Header

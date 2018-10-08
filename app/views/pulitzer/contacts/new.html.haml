@@ -1,0 +1,49 @@
+- cache( 'contacts#new' ) do
+	/ CONTENT -------------------------------------------------------------------------------
+	/ Intro Section
+	%section.inner-intro.bg-image.overlay-light.parallax.parallax-background1{"data-background-img" => asset_path("app_theme/theme/onepage/img/full/21.jpg")}
+		.container
+			.row.title
+				%h2.h2 Contact Us
+				.page-breadcrumb
+					%a{ href: '/' }> Home
+					\/
+					%span Contact
+	.clearfix
+	/ End Intro Section
+	/ Contact Section
+	%section.ptb.ptb-sm-80
+		.container
+			.row
+				.col-md-6.offset-md-3.text-center
+					%h3 Keep In Touch
+					%p.lead Have a question, suggestion, or just interested in learning more, well then drop us a line and we can get to conversing.
+			.spacer-75
+			.row
+				.col-md-6.offset-md-3
+					/ Contact FORM
+					= form_for SwellMedia::Contact.new, as: :contact_us, html: { id: 'contact-form', class: 'contact-form' } do |f|
+						/ IF MAIL SENT SUCCESSFULLY
+						%h6.successContent
+							%i.fa.fa-check.left{:style => "color: #5cb45d;"}>
+							Your message has been sent successfully.
+						/ END IF MAIL SENT SUCCESSFULLY
+						/ MAIL SENDING UNSUCCESSFULL
+						%h6.errorContent
+							%i.fa.fa-exclamation-circle.left{:style => "color: #e1534f;"}>
+							There was a problem validating the form please check!
+
+						/ END MAIL SENDING UNSUCCESSFULL
+
+						.form-field-wrapper
+							%input#form-name.input-sm.form-full{:name => "form-name", :placeholder => "Your Name", :required => "", :type => "text"}/
+						.form-field-wrapper
+							= f.email_field :email, id: 'form-email', :placeholder => "Email", required: true, class: 'input-sm form-full'
+						.form-field-wrapper
+							= f.text_field :subject, id: 'form-subject', :placeholder => "Subject", class: 'input-sm form-full'
+						.form-field-wrapper
+							= f.text_area :message, id: 'form-message', :placeholder => "Your Message", :required => true, rows: 7, class: 'form-full'
+						%button#form-submit.btn.btn-md.btn-black.form-full{:name => "submit", :type => "submit"} Send Message
+					/ END Contact FORM
+	/ Contact Section
+	/ End CONTENT ----------------------------------------------------------------------------

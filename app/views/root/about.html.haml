@@ -1,0 +1,234 @@
+/ CONTENT -------------------------------------------------------------------------------
+/ Intro Section
+%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => asset_path("app_theme/theme/onepage/img/full/14.jpg")}
+	.container
+		.row.title
+			%h2.h2 About Us
+			.page-breadcrumb
+				%a{ href: '/' }> Home
+				\/
+				%span About
+/ End Intro Section
+/ About Section
+%section.ptb.ptb-sm-80
+	.container
+		.row
+			.col-md-6
+				%h3 We Creative digital Studio
+				%p.lead Nullam dictum felis eu pede mollis pretium leo eget bibendum sodales augue velit cursus. tellus eget condimentum rhoncus sem quam semper libero.
+			.col-md-6
+				%p In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.
+				%p Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus.
+/ Team
+%section.pb.pb-sm-80
+	.container
+		/ Team Carousel
+		.row
+			.owl-carousel.team-carousel.nf-carousel-theme
+				.item
+					.team-item.nf-col-padding
+						.team-item-img
+							%img{:alt => "", :src => asset_path("app_theme/theme/general/img/team/people-1.jpg")}/
+							.team-item-detail
+								.team-item-detail-inner.light-color
+									%h5 Mitchell KAPPOS
+									%p Similique sunt culpa qui officia deserunt mollitia animi dolorum fuga.
+									%ul.social
+										%li
+											%a{:href => "https://www.facebook.com/", :target => "_blank"}
+												%i.fa.fa-facebook
+										%li
+											%a{:href => "https://www.twitter.com/", :target => "_blank"}
+												%i.fa.fa-twitter
+										%li
+											%a{:href => "https://www.dribbble.com/", :target => "_blank"}
+												%i.fa.fa-dribbble
+										%li
+											%a{:href => "https://www.pinterest.com/", :target => "_blank"}
+												%i.fa.fa-pinterest
+										%li
+											%a{:href => "https://www.behance.net/", :target => "_blank"}
+												%i.fa.fa-behance
+						.team-item-info
+							%h5 Mitchell KAPPOS
+							%p Designer
+				.item
+					.team-item.nf-col-padding
+						.team-item-img
+							%img{:alt => "", :src => asset_path("app_theme/theme/general/img/team/people-2.jpg")}/
+							.team-item-detail
+								.team-item-detail-inner.light-color
+									%h5 Leonardo da Vinci
+									%p Similique sunt culpa qui officia deserunt mollitia animi dolorum fuga.
+									%ul.social
+										%li
+											%a{:href => "https://www.facebook.com/", :target => "_blank"}
+												%i.fa.fa-facebook
+										%li
+											%a{:href => "https://www.twitter.com/", :target => "_blank"}
+												%i.fa.fa-twitter
+										%li
+											%a{:href => "https://www.dribbble.com/", :target => "_blank"}
+												%i.fa.fa-dribbble
+										%li
+											%a{:href => "https://www.pinterest.com/", :target => "_blank"}
+												%i.fa.fa-pinterest
+										%li
+											%a{:href => "https://www.behance.net/", :target => "_blank"}
+												%i.fa.fa-behance
+						.team-item-info
+							%h5 Leonardo da Vinci
+							%p Artist
+				.item
+					.team-item.nf-col-padding
+						.team-item-img
+							%img{:alt => "", :src => asset_path("app_theme/theme/general/img/team/people-3.jpg")}/
+							.team-item-detail
+								.team-item-detail-inner.light-color
+									%h5 John Doe
+									%p Similique sunt culpa qui officia deserunt mollitia animi dolorum fuga.
+									%ul.social
+										%li
+											%a{:href => "https://www.facebook.com/", :target => "_blank"}
+												%i.fa.fa-facebook
+										%li
+											%a{:href => "https://www.twitter.com/", :target => "_blank"}
+												%i.fa.fa-twitter
+										%li
+											%a{:href => "https://www.dribbble.com/", :target => "_blank"}
+												%i.fa.fa-dribbble
+										%li
+											%a{:href => "https://www.pinterest.com/", :target => "_blank"}
+												%i.fa.fa-pinterest
+										%li
+											%a{:href => "https://www.behance.net/", :target => "_blank"}
+												%i.fa.fa-behance
+						.team-item-info
+							%h5 John Doe
+							%p Project Manager
+				.item
+					.team-item.nf-col-padding
+						.team-item-img
+							%img{:alt => "", :src => asset_path("app_theme/theme/general/img/team/people-4.jpg")}/
+							.team-item-detail
+								.team-item-detail-inner.light-color
+									%h5 Michael Lee
+									%p Similique sunt culpa qui officia deserunt mollitia animi dolorum fuga.
+									%ul.social
+										%li
+											%a{:href => "https://www.facebook.com/", :target => "_blank"}
+												%i.fa.fa-facebook
+										%li
+											%a{:href => "https://www.twitter.com/", :target => "_blank"}
+												%i.fa.fa-twitter
+										%li
+											%a{:href => "https://www.dribbble.com/", :target => "_blank"}
+												%i.fa.fa-dribbble
+										%li
+											%a{:href => "https://www.pinterest.com/", :target => "_blank"}
+												%i.fa.fa-pinterest
+										%li
+											%a{:href => "https://www.behance.net/", :target => "_blank"}
+												%i.fa.fa-behance
+						.team-item-info
+							%h5 Michael Lee
+							%p Photographer
+		/ End Team Carousel -
+/ End Team
+/ Testimonials
+%section#testimonial.overlay-dark80.dark-bg.ptb.ptb-sm-80{"data-stellar-background-ratio" => "0.4", :style => "background-image: url('#{asset_path("app_theme/theme/general/img/full/25.jpg")}');"}
+	.container
+		.owl-carousel.testimonial-carousel.nf-carousel-theme.white
+			.item
+				.testimonial.text-center.dark-color
+					.container-icon
+						%i.fa.fa-quote-right
+					%p.lead " I got a dummy for Christmas and started teaching myself. I got books and records and sat in front of the practising. I did my first show in the third grade and just kept going. "
+					%h6.quote-author
+						Jeff Dunham
+						%span{:style => "font-weight: 400;"} ( Appel Studio )
+			.item
+				.testimonial.text-center.dark-color
+					.container-icon
+						%i.fa.fa-quote-right
+					%p.lead " It's true, you can never eat a pet you name. And anyway, I did my first show in the third grade it would be like a ventriloquist eating his dummy. "
+					%h6.quote-author
+						Alexander Theroux
+						%span{:style => "font-weight: 400;"} ( USA )
+			.item
+				.testimonial.text-center.dark-color
+					.container-icon
+						%i.fa.fa-quote-right
+					%p.lead " We're not leaving here without Buster, man. Leave no crash-test dummy behind! "
+					%h6.quote-author
+						Adam Savage
+						%span{:style => "font-weight: 400;"} ( Artist )
+/ End Testimonials
+/ Service
+%section.ptb.ptb-sm-80
+	.wow.fadeIn.container.text-center
+		%h3 Our Services
+		.spacer-60
+		.row
+			.col-md-4
+				.page-icon-top
+					%i.ion.ion-ios-compose-outline
+				%h5 Web Design
+				%p Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem.
+			.col-md-4
+				.page-icon-top
+					%i.ion.ion-ios-gear-outline
+				%h5 Development
+				%p Donec sodales sagittis magna. hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus, augue velit cursus nunc.
+			.col-md-4
+				.page-icon-top
+					%i.ion.ion-social-apple-outline
+				%h5 Branding
+				%p Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales.
+/ End Service
+%hr/
+/ Client Logos Section
+%section#client-logos.wow.fadeIn.ptb.ptb-sm-80
+	.container
+		.owl-carousel.client-carousel.nf-carousel-theme
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/01.png")}/
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/02.png")}/
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/03.png")}/
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/04.png")}/
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/05.png")}/
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/06.png")}/
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/08.png")}/
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/01.png")}/
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/02.png")}/
+			.item
+				.client-logo
+					%img{:alt => "", :src => asset_path("app_theme/theme/general/img/logos/03.png")}/
+/ End Client Logos Section
+/ Statement Section
+%section#statement.dark-bg.ptb-60
+	.container.text-center
+		.row
+			.col-md-8.offset-md-2
+				%h4.mb-15 Pellentesque eu pretium quis adipiscing sem?
+				%a.btn.btn-md.btn-white Buy this Theme
+/ End Statement Section
+/ About Section
+/ End CONTENT ----------------------------------------------------------------------------

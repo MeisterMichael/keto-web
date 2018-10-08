@@ -1,0 +1,34 @@
+#header.header
+	.header-inner
+		/ Logo
+		.logo
+			%a{:href => "#"}
+				%img{:src => image_path("app_theme/theme/onepage/img/logo-light.png")}/
+		/ End Logo
+		/ Navigation Icon
+		.nav-menu-icon
+			%a
+				%i.fa.fa-bars
+		/ End Navigation Icon
+		/ Navigation Menu
+		.nav-menu.singlepage-nav
+			%ul.nav-menu-inner
+				%li
+					%a{:href => "#intro"} Home
+				%li
+					%a{:href => "#about"} About
+				%li
+					%a{:href => "#latest-work"} Work
+				%li
+					%a{:href => "#service"} Service
+				%li
+					%a{:href => "#pricing"} Pricing
+				%li
+					%a{:href => "#client"} Client
+				%li
+					%a{:href => "#elements"} Elements
+				%li
+					%a{:href => "#contact-us"} Contact
+				%li
+					%a.nav-external.all-demos-link{:target => "_blank"} Demos
+		/ End Navigation Menu

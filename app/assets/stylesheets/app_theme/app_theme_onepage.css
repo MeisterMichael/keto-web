@@ -1,0 +1,30 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ * app_theme/theme/general/css/font-awesome.css
+ *= require app_theme/theme/general/css/jquery-ui.css
+
+ *= require app_theme/theme/onepage/css/style.css
+ * app_theme/theme/onepage/css/fontAwesome_icon_font.css
+ *= require app_theme/theme/onepage/css/linea_icon_font.css
+ *= require app_theme/theme/onepage/css/plugins/owl.carousel.css
+ *= require app_theme/theme/onepage/css/plugins/jquery.fs.tipper.css
+ *= require app_theme/theme/onepage/css/plugins/magnific-popup.css
+
+ *= require app_theme/theme/bootstrap.min.css
+ *= require app_theme/theme/onepage/css/plugins/animate.css
+ *= require app_theme/theme/onepage/rs-plugin/css/settings.css
+
+
+ *= require app_theme/custom/app
+ *= require_self
+ */

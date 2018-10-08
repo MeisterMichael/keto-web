@@ -1,1 +1,168 @@
-%h1 Welcome to Pulitzer
+%header#header.header
+	.container
+		/ Logo
+		.logo
+			%a{:href => '/'}
+				%img.logo-light{:alt => Pulitzer.app_name, :src => image_path("ketoself-white.png")}/
+				%img.logo-dark{:alt => Pulitzer.app_name, :src => image_path("ketoself-black.png")}/
+		/ End Logo
+		/ Rightside Menu (Search, Cart, Bart icon)
+		.side-menu-btn
+			%ul
+				/ Sidebar Menu Icon
+				%li
+					%a#menu-sidebar-list-icon.nav-bar-icon
+						%span
+				/ End Sidebar Menu Icon
+		/ End Rightside Menu
+		/ Navbar Navigation
+		.nav-menu.singlepage-nav{:style => "max-height: 308px;"}
+			%ul.nav-menu-inner
+				%li
+					%a{:href => "#intro"} Home
+				%li
+					%a{:href => "#about"} About
+				%li
+					%a{:href => "#blog"} Blog
+				%li
+					%a{:href => "#contact-us"} Contact
+		/ End Navbar Navigation
+
+= render 'application/flash', args: {}
+/ Intro
+%section#intro.intro
+	/ Static Intro
+	.bg-image.overlay-dark.dark-bg.bg-fixed{"data-background-img" => image_path("app_theme/theme/onepage/img/full/08.jpg")}
+		.js-fullscreen-height.container
+			.intro-content
+				.intro-content-inner
+					%h5 The Digitel Agency
+					%h2.h2 #{Pulitzer.app_name} Creative Agency
+					.row
+						%p.lead.col-md-6.offset-md-3 e natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo invento
+					%br/
+					%div
+						%a.btn.btn-md.btn-white-line.xs-hidden Read More
+						%span.btn-space-10.xs-hidden
+						%a.btn.btn-md.btn-white Learn More
+	/ End Static Intro
+/ End Intro
+.clearfix
+/ About Section
+%section#about.wow.fadeIn.ptb.ptb-sm-80.animated
+	.container.mb-60
+		.row.text-center
+			.col-md-6.wow.slideInUp{"data-wow-delay" => "0.2s", "data-wow-duration" => "1s"}
+				%img{:alt => "mockup", :src => image_path("app_theme/theme/onepage/img/mockup03.png"), :style => "max-width: 457px; width: 100%;"}/
+			.col-md-6.wow.fadeIn{"data-wow-delay" => "0.4s", "data-wow-duration" => "2s"}
+				.spacer-15
+				%h6.page-title-alt.color.mb-10 Creative Agency
+				%h2.page-title.mb-25
+					#{Pulitzer.app_name}
+					%span.text-light One
+				%p.mb-35 Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo reprehenderit qui in dignissim qui blandit ea voluptate velit esse quam suscipit lobortis nisldolore eu feugiat	praesent luptatum nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril.
+				%img{:alt => "signature", :src => image_path("app_theme/theme/onepage/img/signature.png")}/
+/ End About Section
+/ About Section 2
+%section#about2.wow.fadeIn.ptb.ptb-sm-80.animated.text-center.gray-bg
+	.container
+		.row
+			.col-md-4.col-sm-6.content-box.mb-sm-30.wow.fadeIn{"data-wow-delay" => "0.2s", "data-wow-duration" => "2s"}
+				.icon-top.icon-black
+					%i.icon.icon-basic-anchor
+				%h5.features-title We’re Creative
+				%p Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo.
+			.col-md-4.col-sm-6.content-box.mb-sm-30.wow.fadeIn{"data-wow-delay" => "0.4s", "data-wow-duration" => "2s"}
+				.icon-top.icon-black
+					%i.icon.icon-basic-alarm
+				%h5.features-title TWe have magic
+				%p Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo.
+			.col-md-4.col-sm-6.content-box.mb-sm-30.wow.fadeIn{"data-wow-delay" => "0.6s", "data-wow-duration" => "2s"}
+				.icon-top.icon-black
+					%i.icon.icon-basic-globe
+				%h5.features-title Why we do it
+				%p Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo.
+/ End About Section 2
+
+%hr
+
+%section#social.gray-bg.ptb.ptb-sm-80
+	.container.text-center
+		.row
+			.col-md-8.offset-md-2
+				%h3 Get Connect With Us
+		.spacer-60
+		.row
+			.col-md-8.offset-md-2
+				.row
+					.col-md-3.col-sm-4.col-6
+						.page-icon-top
+							%i.ion.ion-social-twitter
+						%h6
+							%a.link{:href => "https://www.twitter.com/", :target => "_blank"} Twitter
+					.col-md-3.col-sm-4.col-6
+						.page-icon-top
+							%i.ion.ion-social-facebook
+						%h6
+							%a.link{:href => "https://www.facebook.com/", :target => "_blank"} Facebook
+					.col-md-3.col-sm-4.col-6
+						.page-icon-top
+							%i.ion.ion-social-googleplus
+						%h6
+							%a.link{:href => "https://plus.google.com/", :target => "_blank"} Google plus
+					.col-md-3.col-sm-4.col-6
+						.page-icon-top
+							%i.fa.fa-linkedin
+						%h6
+							%a.link{:href => "https://www.linkedin.com/", :target => "_blank"} Linkedin
+
+
+
+%section#blog.wow.fadeIn.ptb.ptb-sm-80.animated
+	.container
+		%h3.float-left.float-none-xs Latest Blog
+		%a.btn-link-a.float-right.float-none-xs{ href: pulitzer.articles_path() } View All
+		.clearfix
+		.spacer-60
+		.row
+
+			- @articles.each_with_index do |article, index|
+				.col-lg-4.col-md-6.col-sm-6.mb-sm-30
+					- unless index == 0
+						%hr
+					= render 'pulitzer/articles/blog_post', media: article, args: { mode: :thumb }
+
+
+
+/ Contact Form
+%section#contact-us.wow.fadeIn.ptb.ptb-sm-80.animated.dark-bg.bg-image.overlay-dark60{"data-background-img" => image_path("app_theme/theme/onepage/img/full/20.jpg"), "data-stellar-background-ratio" => "0.5"}
+	.container
+		.row.text-center
+			.col-12
+				%h6.page-title-alt.color.mb-15 Wanna say hello?
+				%h2.page-title
+					Get In
+					%span.text-light Touch
+		-#.row
+			.col-md-8.offset-md-2
+				= form_for Pulitzer::Contact.new, as: :contact_us, html: { id: 'contact-form', class: 'row contact-form' } do |f|
+					.col-md-12.text-center
+						%h5.successContent
+							%i.fa.fa-check.left{:style => "color: #5cb45d;"}>
+							Your message has been sent successfully.
+						%h5.errorContent{:style => "color: #e1534f;"}
+							%i.fa.fa-exclamation-circle.left>
+							There was a problem validating the form please check!
+					.col-md-6
+						.form-field-wrapper
+							%input#form-name.input-md.form-full{:name => "form-name", :placeholder => "Your Name", :required => "", :type => "text"}/
+						.form-field-wrapper
+							= f.email_field :email, id: 'form-email', :placeholder => "Email", required: true, class: 'input-md form-full'
+						.form-field-wrapper
+							= f.text_field :subject, id: 'form-subject', :placeholder => "Subject", class: 'input-md form-full'
+					.col-md-6.mb-0
+						.form-field-wrapper
+							= f.text_area :message, id: 'form-message', :placeholder => "Your Message", :required => true, rows: 7, class: 'input-md form-full'
+					.col-md-12.text-center
+						%button#form-submit.btn-contact-submit.btn.btn-md.btn-color{:name => "submit", :type => "submit"} Submit
+/ End Contact Form

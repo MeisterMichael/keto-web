@@ -17,7 +17,7 @@
 		%meta{ content: "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible" }
 		%meta{ content: "width=device-width, initial-scale=1, maximum-scale=1", name: "viewport" }
 
-		
+
 		= render 'application/social_meta', args: {}
 
 		= stylesheet_link_tag 'application'
@@ -28,21 +28,26 @@
 		<![endif]-->
 
 
-		= favicon_link_tag 'favicon.png'
+		-# = favicon_link_tag 'favicon.png'
 
 		= csrf_meta_tags
 
 	%body
 		= render 'gtm_body'
-		%header#header
-			= render 'application/navbar'
 
-		%section#main
-			= render 'application/flash'
+
+		= hidden_field_tag :map_marker, image_path("app_theme/theme/onepage/img/map-marker.png")
+		= render 'application/swell_theme/preloader'
+		= render 'application/swell_theme/multipage_searchoverlaymenu'
+		= render 'application/swell_theme/multipage_sidemenu'
+		.wrapper
+			= render 'application/swell_theme/multipage_header', args: {}
+			= render 'application/flash', args: {}
 			= yield
-
-		%footer#footer
-			= render 'application/footer'
+			= render 'application/swell_theme/multipage_footer'
 
 
+
+
+		%script{:src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
 		= javascript_include_tag 'application'

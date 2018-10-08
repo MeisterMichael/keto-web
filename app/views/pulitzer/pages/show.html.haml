@@ -1,0 +1,19 @@
+- cache( @media ) do
+	/ CONTENT -------------------------------------------------------------------------------
+	- if @media.show_title?
+		/ Intro Section
+		%section.inner-intro.parallax.parallax-background1
+			.container
+				.row.title
+					%h2.h2=@media.title
+					-# .page-breadcrumb
+						%a{ href: '/' }> Home
+						\/
+						%span=@media.title
+		.clearfix
+		/ End Intro Section
+	/ Blank Section
+	%section.ptb.ptb-sm-80
+		= raw @media.content
+	/ End Blank Section
+	/ End CONTENT ----------------------------------------------------------------------------

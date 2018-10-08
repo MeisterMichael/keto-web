@@ -1,0 +1,15 @@
+/ Footer Section
+%footer#footer.footer.section-padding.gray-bg.ptb.ptb-sm-80
+	.container.text-center
+		/ Copyright
+		%p.copyright.mb-25
+			© #{Time.current.year}
+			= succeed "." do
+				%a{ href: '/' }
+					%b #{Pulitzer.app_name}
+			%br/
+			Lovingly crafted by
+			%a{:href => "http://www.groundswellenterprises.com/", :target => "_blank"}
+				%b Groundswell Enterprises
+		/ Copyright
+/ End Footer Section
