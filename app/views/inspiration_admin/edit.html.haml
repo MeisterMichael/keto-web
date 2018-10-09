@@ -1,0 +1,79 @@
+inspiration
+.container-fluid
+	.row
+		.col-xs-10
+			%ul.breadcrumb
+				%li
+					= link_to 'Admin', main_app.admin_index_path
+				%li
+					= link_to 'Inspiration Admin', inspiration_admin_index_path
+				%li
+					%strong
+						Edit
+						= @inspiration.title
+		.col-xs-2
+			%a.btn.btn-primary{ href: preview_inspiration_admin_path( @inspiration.id ), target: '_new' }
+				%i.fa.fa-eye
+				Preview
+
+	= form_for @inspiration, url: inspiration_admin_path( @inspiration ) do |f|
+
+		.row
+			.col-xs-8
+				.form-group
+					= f.text_field :title, class: 'form-control'
+
+				.form-group
+					.input-group
+						= f.label :slug_pref, 'URL for this inspiration:'
+						%span.input-group-addon
+							= Pulitzer.app_host
+						= f.text_field :slug_pref, class: 'form-control', placeholder: @inspiration.slug
+
+
+				.row
+					.col-xs-4
+
+						.form-group
+							= f.label :avatar_attachment, "Avatar Image"
+							= f.file_field :avatar_attachment
+							- if @inspiration.avatar
+								= image_tag @inspiration.avatar, class: 'img-responsive'
+								%a.btn.btn-default{ 'data-clipboard-text' => @inspiration.avatar }
+									%i.fa.fa-clipboard
+
+					-# .col-xs-4
+
+						.form-group
+							= f.label :cover_attachment, "Cover Image"
+							= f.file_field :cover_attachment
+							- if @inspiration.cover_image
+								= image_tag @inspiration.cover_image, class: 'img-responsive'
+								%a.btn.btn-default{ 'data-clipboard-text' => @inspiration.cover_image }
+									%i.fa.fa-clipboard
+				.form-group
+					= f.label :description, 'Description: (Read by Bot)'
+					= f.text_area :description, class: 'form-control wysiwyg', rows: 4
+				.form-group
+					= f.label :content, 'Content: (Shown on Page)'
+					= f.text_area :content, class: 'form-control wysiwyg', rows: 12
+
+
+			.col-xs-4
+				.well
+					.form-group
+						= f.label :publish_at
+						= f.text_field :publish_at, value: @inspiration.publish_at.to_s( :full_time ), class: 'form-control datepicker'
+					.form-group
+						= f.label :status
+						= f.collection_select :status, Inspiration.statuses, :first, :first, {}, class: 'form-control'
+
+					.form-group
+						= f.check_box :show_title, {}, 'true', 'false'
+						Show Title?
+					.form-group
+						= f.check_box :is_commentable, {}, 'true', 'false'
+						Allow Comments?
+					.form-group
+						= f.submit 'Update', class: 'btn btn-primary'
+						.pull-right= link_to 'Cancel', :back, class: 'btn btn-default btn-sm'

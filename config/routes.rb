@@ -3,6 +3,15 @@ Rails.application.routes.draw do
 
 	resources :admin
 
+	resources :inspiration_admin do
+		get :preview, on: :member
+	end
+
+	resources :recipes
+	resources :recipe_admin do
+		get :preview, on: :member
+	end
+
 	devise_scope :user do
 		get '/login' => 'sessions#new', as: 'login'
 		get '/logout' => 'sessions#destroy', as: 'logout'
