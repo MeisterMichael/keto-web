@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
 			@recipes = @recipes.where( category_id: @category.id )
 		end
 		@recipes = @recipes.page( params[:page] )
-		set_page_meta( title: 'Recipes )°( AMRAP Life', description: 'Recipes to fuel your AMRAP Life' )
+		set_page_meta( title: 'Recipes' )
 	end
 
 	def show
