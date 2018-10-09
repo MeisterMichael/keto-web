@@ -23,7 +23,7 @@
 				%a Agency
 			%li
 				%a Portfolio
-	- if ( recent_articles = SwellMedia::Article.published.where.not( id: @media.try(:id) ).order(publish_at: :desc).limit(3) ).present?
+	- if ( recent_articles = Pulitzer::Article.published.where.not( id: @media.try(:id) ).order(publish_at: :desc).limit(3) ).present?
 		.sidebar-widget
 			%h5 Recent Post
 			%hr/
@@ -37,7 +37,7 @@
 								%a{ href: media.url }=media.title
 							.post-meta
 								%span=media.publish_at.strftime('%B %e, %Y')
-	- if ( tag_cloud = SwellMedia::Article.published.media_tag_cloud( limit: 7 ) ).present?
+	- if ( tag_cloud = Pulitzer::Article.published.media_tag_cloud( limit: 7 ) ).present?
 
 		.sidebar-widget
 			%h5 popular Tags

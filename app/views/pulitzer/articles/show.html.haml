@@ -142,9 +142,9 @@
 									.col-md-12
 										%button.btn.btn-lg.btn-black Post
 				/ End Post Bar
-				= render 'swell_media/articles/side_bar'
+				= render 'pulitzer/articles/side_bar'
 	/ End Blog Post Section
-	= render 'swell_media/articles/next_prev_bar'
+	= render 'pulitzer/articles/next_prev_bar'
 	/ End CONTENT ----------------------------------------------------------------------------
 
 
@@ -200,7 +200,7 @@
 					%nav.navigation.post-navigation{:role => "navigation"}
 						%h2.screen-reader-text Post navigation
 						.nav-links
-							- if (previous_media = SwellMedia::Article.published.where('publish_at < ?', @media.publish_at).order(id: :desc).first).present?
+							- if (previous_media = Pulitzer::Article.published.where('publish_at < ?', @media.publish_at).order(id: :desc).first).present?
 								.nav-previous
 									%a.image-link{:href => previous_media.url}
 										%img{:src => previous_media.avatar }/
@@ -213,7 +213,7 @@
 									%span Previous Post
 									%a.prev-link{:href => @media.url, :rel => "prev"}=@media.title
 
-							- if (next_media = SwellMedia::Article.published.where('publish_at > ?', @media.publish_at).order(id: :asc).first).present?
+							- if (next_media = Pulitzer::Article.published.where('publish_at > ?', @media.publish_at).order(id: :asc).first).present?
 								.nav-next
 									%a.image-link{:href => next_media.url}
 										%img{:src => next_media.avatar }/
@@ -243,7 +243,7 @@
 						.section-title
 							%h3 You May Also Like
 						.row
-							- SwellMedia::Article.published.order(score: :desc).where.not( id: @media.id ).limit(3).each do |suggested_media|
+							- Pulitzer::Article.published.order(score: :desc).where.not( id: @media.id ).limit(3).each do |suggested_media|
 								.col-sm-4
 									.post-container
 										.post-thumbnail

@@ -3,7 +3,7 @@
 %section.mb-60
 	.container
 		.item-nav
-			- if (previous_media = SwellMedia::Article.published.where('publish_at < ?', @media.publish_at).order(id: :desc).first).present?
+			- if (previous_media = Pulitzer::Article.published.where('publish_at < ?', @media.publish_at).order(id: :desc).first).present?
 				%a.item-prev{:href => previous_media.url}
 					.prev-btn
 						%i.fa.fa-angle-left
@@ -11,7 +11,7 @@
 						%h6 Prev Post
 			%a.item-all-view{ href: pulitzer.articles_path() }
 				%h6 Blog Page
-			- if (next_media = SwellMedia::Article.published.where('publish_at > ?', @media.publish_at).order(id: :asc).first).present?
+			- if (next_media = Pulitzer::Article.published.where('publish_at > ?', @media.publish_at).order(id: :asc).first).present?
 				%a.item-next{:href => next_media.url}
 					.next-btn
 						%i.fa.fa-angle-right

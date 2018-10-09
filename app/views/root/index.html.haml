@@ -25,6 +25,8 @@
 				%li
 					%a{:href => "#blog"} Blog
 				%li
+					%a{:href => "#recipes"} Recipes
+				%li
 					%a{:href => "#contact-us"} Contact
 		/ End Navbar Navigation
 
@@ -32,19 +34,22 @@
 / Intro
 %section#intro.intro
 	/ Static Intro
-	.bg-image.overlay-dark.dark-bg.bg-fixed{"data-background-img" => image_path("app_theme/theme/onepage/img/full/08.jpg")}
+	.bg-image.overlay-dark.dark-bg.bg-fixed{"data-background-img" => 'https://hips.hearstapps.com/del.h-cdn.co/assets/17/17/1493142485-delish-avocado-bacon-bombs-03.jpg'}
 		.js-fullscreen-height.container
 			.intro-content
 				.intro-content-inner
-					%h5 The Digitel Agency
-					%h2.h2 #{Pulitzer.app_name} Creative Agency
+					%h5 A KETO COMMUNITY
+					%h2.h2 #{Pulitzer.app_name}
 					.row
-						%p.lead.col-md-6.offset-md-3 e natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo invento
+						%p.lead.col-md-6.offset-md-3
+							Breaking down barriers and sharing insights
+							%br
+							about the ketogenic diet.
 					%br/
 					%div
-						%a.btn.btn-md.btn-white-line.xs-hidden Read More
-						%span.btn-space-10.xs-hidden
-						%a.btn.btn-md.btn-white Learn More
+						-# %a.btn.btn-md.btn-white-line.xs-hidden{} Read More
+						-# %span.btn-space-10.xs-hidden
+						%a.btn.btn-md.btn-white{ href: '#about' } Learn More
 	/ End Static Intro
 / End Intro
 .clearfix
@@ -53,15 +58,21 @@
 	.container.mb-60
 		.row.text-center
 			.col-md-6.wow.slideInUp{"data-wow-delay" => "0.2s", "data-wow-duration" => "1s"}
-				%img{:alt => "mockup", :src => image_path("app_theme/theme/onepage/img/mockup03.png"), :style => "max-width: 457px; width: 100%;"}/
+				%img{:alt => "mockup", :src => 'https://www.cleaneatingmag.com/.image/t_share/MTUzMDAwOTc2NjU4MjEyNDcy/keto-lead-76-web.jpg', :style => "max-width: 457px; width: 100%;"}/
 			.col-md-6.wow.fadeIn{"data-wow-delay" => "0.4s", "data-wow-duration" => "2s"}
 				.spacer-15
-				%h6.page-title-alt.color.mb-10 Creative Agency
+				%h6.page-title-alt.color.mb-10 #{Pulitzer.app_name}
 				%h2.page-title.mb-25
-					#{Pulitzer.app_name}
-					%span.text-light One
-				%p.mb-35 Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo reprehenderit qui in dignissim qui blandit ea voluptate velit esse quam suscipit lobortis nisldolore eu feugiat	praesent luptatum nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril.
-				%img{:alt => "signature", :src => image_path("app_theme/theme/onepage/img/signature.png")}/
+					What Is a Ketogenic Diet?
+				%p.mb-35
+					The ketogenic diet is a very low-carb, high-fat diet that shares many similarities with the Atkins and low-carb diets.
+				%p.mb-35
+					It involves drastically reducing carbohydrate intake and replacing it with fat. This reduction in carbs puts your body into a metabolic state called ketosis.
+				%p.mb-35
+					When this happens, your body becomes incredibly efficient at burning fat for energy. It also turns fat into ketones in the liver, which can supply energy for the brain (6, 7).
+				%p.mb-35
+					Ketogenic diets can cause massive reductions in blood sugar and insulin levels. This, along with the increased ketones, has numerous health benefits (6, 8, 9, 10, 11).
+
 / End About Section
 / About Section 2
 %section#about2.wow.fadeIn.ptb.ptb-sm-80.animated.text-center.gray-bg
@@ -84,7 +95,23 @@
 				%p Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo.
 / End About Section 2
 
-%hr
+
+%section#recipes.wow.fadeIn.ptb.ptb-sm-80.animated
+	.container
+		%h3.float-left.float-none-xs Latest Recipes
+		%a.btn-link-a.float-right.float-none-xs{ href: main_app.recipes_path() } View All
+		.clearfix
+		.spacer-60
+		.row
+
+			- @recipes.each_with_index do |recipe, index|
+				.col-lg-4.col-md-6.col-sm-6.mb-sm-30
+					- unless index == 0
+						%hr
+					= render 'recipes/recipe_post', recipe: recipe, args: { mode: :thumb }
+
+
+
 
 %section#social.gray-bg.ptb.ptb-sm-80
 	.container.text-center
@@ -112,7 +139,7 @@
 							%a.link{:href => "https://plus.google.com/", :target => "_blank"} Google plus
 					.col-md-3.col-sm-4.col-6
 						.page-icon-top
-							%i.fa.fa-linkedin
+							%i.fab.fa-linkedin
 						%h6
 							%a.link{:href => "https://www.linkedin.com/", :target => "_blank"} Linkedin
 

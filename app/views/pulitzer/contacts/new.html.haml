@@ -22,7 +22,7 @@
 			.row
 				.col-md-6.offset-md-3
 					/ Contact FORM
-					= form_for SwellMedia::Contact.new, as: :contact_us, html: { id: 'contact-form', class: 'contact-form' } do |f|
+					= form_for Pulitzer::Contact.new, as: :contact_us, html: { id: 'contact-form', class: 'contact-form' } do |f|
 						/ IF MAIL SENT SUCCESSFULLY
 						%h6.successContent
 							%i.fa.fa-check.left{:style => "color: #5cb45d;"}>
