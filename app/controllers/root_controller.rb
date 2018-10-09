@@ -11,6 +11,9 @@ class RootController < ApplicationController
 		@articles = Pulitzer::Article.published.order(publish_at: :desc)
 		@articles = @articles.page(params[:page]).per(3)
 
+		@recipes = Recipe.published.order(publish_at: :desc)
+		@recipes = @recipes.page(params[:page]).per(3)
+
 		render layout: 'onepage'
 	end
 
