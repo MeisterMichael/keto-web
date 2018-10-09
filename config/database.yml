@@ -6,7 +6,7 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV["DEV_DATABASE"] || 'swell_media_app_development' %>
+  database: <%= ENV["DEV_DATABASE"] || 'pulitzer_app_development' %>
   username: <%= ENV["DEV_DATABASE_USERNAME"] || 'postgres' %>
   password: <%= ENV["DEV_DATABASE_PASSWORD"] %>
   host: <%= ENV["DEV_DATABASE_HOST"] || '127.0.0.1' %>

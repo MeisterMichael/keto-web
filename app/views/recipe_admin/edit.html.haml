@@ -1,0 +1,89 @@
+
+.container-fluid
+	.row
+		.col-xs-10
+			%ul.breadcrumb
+				%li
+					= link_to 'Admin', main_app.admin_index_path
+				%li
+					= link_to 'Recipe Admin', recipe_admin_index_path
+				%li
+					%strong
+						Edit
+						= @recipe.title
+		.col-xs-2
+			%a.pull-right.btn.btn-primary{ href: preview_recipe_admin_path( @recipe.id ) }
+				%i.fa.fa-eye
+				Preview
+
+	= form_for @recipe, url: recipe_admin_path( @recipe ) do |f|
+		.row
+			.col-xs-8
+				.form-group
+					= f.text_field :title, class: 'form-control'
+
+					.row
+						.col-xs-4
+
+							.form-group
+								= f.label :avatar_attachment, "Avatar Image"
+								= f.file_field :avatar_attachment
+								- if @recipe.avatar
+									= image_tag @recipe.avatar, class: 'img-responsive'
+									%a.btn.btn-default{ 'data-clipboard-text' => @recipe.avatar }
+										%i.fa.fa-clipboard
+
+						.col-xs-4
+
+							.form-group
+								= f.label :cover_attachment, "Cover Image"
+								= f.file_field :cover_attachment
+								- if @recipe.cover_image
+									= image_tag @recipe.cover_image, class: 'img-responsive'
+									%a.btn.btn-default{ 'data-clipboard-text' => @recipe.cover_image }
+										%i.fa.fa-clipboard
+
+				.form-group
+					= f.label :description, 'Short Description'
+					= f.text_area :description, class: 'form-control wysiwyg', data: { wysiwyg: { height_min: 100, toolbar_sticky: true, toolbar_preset: 'admin_default', object_class: @recipe.class.base_class.name, object_id: @recipe.id }.to_json }
+
+				.form-group
+					= f.label :content
+					= f.text_area :content, class: 'form-control wysiwyg', data: { wysiwyg: { height_min: 200, toolbar_sticky: true, toolbar_preset: 'admin_default', object_class: @recipe.class.base_class.name, object_id: @recipe.id }.to_json }
+
+			.col-xs-4
+				.well
+					.form-group
+						= f.label :prep_time
+						= f.text_field :prep_time, class: 'form-control'
+
+					.form-group
+						= f.label :cook_time
+						= f.text_field :cook_time, class: 'form-control'
+
+					.form-group
+						= f.label :serves
+						= f.text_field :serves, class: 'form-control'
+
+					.form-group
+						= f.label :category_id
+						= f.collection_select :category_id, RecipeCategory.active.order( :name ), :id, :name, { include_blank: '-- None -- ' }, class: 'form-control'
+					.form-group
+						= f.text_field :category_name, class: 'form-control', placeholder: 'Add Category'
+
+					.form-group
+						= f.label :tags_csv, 'Tags:'
+						= f.text_field :tags_csv, placeholder: 'Separate tags with commas', class: 'form-control'
+
+					.form-group
+						= f.label :status
+						= f.collection_select :status, Recipe.statuses, :first, :first, {}, class: 'form-control'
+
+					.form-group
+						= f.submit 'Update', class: 'btn btn-primary'
+						.pull-right= link_to 'Cancel', :back, class: 'btn btn-default btn-sm'
+
+
+					%hr
+					= link_to 'Show', @recipe
+					= link_to 'Back', recipe_admin_index_path

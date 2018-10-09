@@ -36,6 +36,26 @@
 												%a{ href: pulitzer.edit_article_admin_path( article ) }
 													= article.title
 
+							%li.dropdown.dropdown-submenu
+								%a.dropdown-toggle{ href: '#', data: { toggle: :dropdown} }
+									Inspirations
+								%ul.dropdown-menu
+									%li
+										%a{ href: main_app.inspiration_admin_index_path }
+											%i.fa.fa-gear
+											Admin
+									- if authorized?( Inspiration, controller: InspirationAdminController, action: :create )
+										%li
+											%a{ href: '#new_inspiration', data: { toggle: :modal, target: '#new_inspiration' } }
+												%i.fa.fa-plus
+												New
+									%li.separator
+									- Inspiration.draft.order( publish_at: :desc ).limit( 10 ).each do |inspiration|
+										%li
+											%a{ href: main_app.edit_inspiration_admin_path( inspiration ) }
+												= inspiration.title
+
+
 							- if authorized?( Pulitzer::Page, controller: Pulitzer::PageAdminController, action: :index )
 								%li.dropdown.dropdown-submenu
 									%a.dropdown-toggle{ href: '#', data: { toggle: :dropdown} }
@@ -55,6 +75,26 @@
 											%li
 												%a{ href: pulitzer.edit_page_admin_path( page ) }
 													= page.title
+
+							%li.dropdown.dropdown-submenu
+								%a.dropdown-toggle{ href: '#', data: { toggle: :dropdown} }
+									Recipes
+								%ul.dropdown-menu
+									%li
+										%a{ href: main_app.recipe_admin_index_path }
+											%i.fa.fa-gear
+											Admin
+									- if authorized?( Recipe, controller: RecipeAdminController, action: :create )
+										%li
+											%a{ href: '#new_recipe', data: { toggle: :modal, target: '#new_recipe' } }
+												%i.fa.fa-plus
+												New
+									%li.separator
+									- Recipe.draft.order( publish_at: :desc ).limit( 10 ).each do |recipe|
+										%li
+											%a{ href: main_app.edit_recipe_admin_path( recipe ) }
+												= recipe.title
+
 				- if defined?( SwellId ) && authorized?( User, controller: SwellId::UserAdminController, action: :index )
 					%li.dropdown
 						%a.dropdown-toggle{ href: swell_id.user_admin_index_path() }

@@ -3,6 +3,15 @@ Rails.application.routes.draw do
 
 	resources :admin
 
+	resources :inspiration_admin do
+		get :preview, on: :member
+	end
+
+	resources :recipes
+	resources :recipe_admin do
+		get :preview, on: :member
+	end
+
 	devise_scope :user do
 		get '/login' => 'sessions#new', as: 'login'
 		get '/logout' => 'sessions#destroy', as: 'logout'
@@ -18,7 +27,7 @@ Rails.application.routes.draw do
 		get :preview, on: :member
 		delete :empty_trash, on: :collection
 	end
-	
+
 	resources :bazaar_media, only: [:show, :index], path: BazaarMedia.mounted_path
 
 	# quick catch-all route for static pages set root route to field any media

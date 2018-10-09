@@ -1,0 +1,63 @@
+
+.container-fluid
+	.row
+		.col-xs-10
+			%ul.breadcrumb
+				%li
+					= link_to 'Admin', main_app.admin_index_path
+				%li
+					%strong
+						Recipe Admin
+						= "(#{pluralize @recipes.total_count, 'Recipe'})"
+
+		.col-xs-2
+			%a.btn.btn-success{ data: { toggle: :modal, target: '#new_recipe' } }
+				%i.fa.fa-plus-square
+				New
+
+	.row
+		.col-xs-6
+
+			= raw paginate @recipes
+		.col-xs-6
+			= form_tag recipe_admin_index_path, method: :get, class: 'pull-right form-inline' do
+				=# select_tag :status, options_from_collection_for_select( Movement.statuses, :first, :first, params[:status] ), { prompt: "-- All --", class: 'form-control' }
+				= text_field_tag :q, params[:q], class: 'form-control'
+				= submit_tag 'Search', class: 'btn btn-primary'
+				= link_to 'Clear', recipe_admin_index_path, class: 'btn btn-default btn-xs'
+
+	.row
+		%table.table.table-striped
+			%thead
+				%th
+				%th
+					Name
+
+				%th
+					Status
+
+
+			%tbody
+				- @recipes.each do |recipe|
+					%tr
+						%td
+							= image_tag recipe.avatar, width: 50, class: 'img img-rounded'
+						%td
+							= link_to recipe.title, edit_recipe_admin_path( recipe )
+						%td
+							- if recipe.published?
+								.badge{ class: recipe.status }
+									Live
+							- elsif recipe.draft?
+								.badge{ class: recipe.status }
+									Draft
+							- elsif recipe.active?
+								.badge{ class: 'pending' }
+									Pending
+							- else
+								.badge{ class: recipe.status }
+									= recipe.status
+
+
+
+= render 'new_modal'

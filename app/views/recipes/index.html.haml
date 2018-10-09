@@ -1,0 +1,41 @@
+
+
+- cache( "recipes/index/#{@category.try(:id)}/#{params[:page]}", expires_in: 1.day ) do
+
+	%section.clearfix.blogPage.mainContent
+		.container
+			.row
+				.col-md-9.col-sm-8.col-xs-12
+					-#.jumbotron{ style: 'background-color: #e9fbfe;' }
+						.container
+							.row
+								.col-xs-12.text-center
+									%h1
+										Get Our Free Repice Book
+									%p
+										Cauliflower, brewer's yeast, protein powder, and more. Nutrition hacks galore
+									-# = form_for Pulitzer::Optin.new, url: scuttlebutt.optins_path, role: :form, class: 'form-inline'  do |f|
+										.row
+											.col-xs-12.col-sm-8.col-sm-offset-2
+												.form-group
+													= f.text_field :name, placeholder: 'Your Name', class: 'form-control'
+												.form-group
+													= f.text_field :email, placeholder: 'Email', class: 'form-control'
+
+												= f.submit "Get It", class: "btn btn-lg btn-info btn-filled pull-right"
+
+					- if @category.present?
+						%h3
+							= pluralize @recipes.total_count, "Recipe"
+							in
+							= @category.name
+
+					.row.productListSingle
+						- @recipes.each do |recipe|
+							= render 'row', recipe: recipe
+
+					.paginator{ style: 'margin-bottom: 2em;' }
+						= raw paginate @recipes
+
+				.sideBar.col-md-3.col-sm-4.col-xs-12
+					= render 'recipes/sidebar'
