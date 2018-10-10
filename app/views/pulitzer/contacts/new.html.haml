@@ -25,12 +25,12 @@
 					= form_for Pulitzer::Contact.new, as: :contact_us, html: { id: 'contact-form', class: 'contact-form' } do |f|
 						/ IF MAIL SENT SUCCESSFULLY
 						%h6.successContent
-							%i.fa.fa-check.left{:style => "color: #5cb45d;"}>
+							%i.fab.fa-check.left{:style => "color: #5cb45d;"}>
 							Your message has been sent successfully.
 						/ END IF MAIL SENT SUCCESSFULLY
 						/ MAIL SENDING UNSUCCESSFULL
 						%h6.errorContent
-							%i.fa.fa-exclamation-circle.left{:style => "color: #e1534f;"}>
+							%i.fab.fa-exclamation-circle.left{:style => "color: #e1534f;"}>
 							There was a problem validating the form please check!
 
 						/ END MAIL SENDING UNSUCCESSFULL

@@ -58,7 +58,7 @@
 	.container.mb-60
 		.row.text-center
 			.col-md-6.wow.slideInUp{"data-wow-delay" => "0.2s", "data-wow-duration" => "1s"}
-				%img{:alt => "mockup", :src => 'https://www.cleaneatingmag.com/.image/t_share/MTUzMDAwOTc2NjU4MjEyNDcy/keto-lead-76-web.jpg', :style => "max-width: 457px; width: 100%;"}/
+				%img{:alt => "mockup", :src => 'https://static1.squarespace.com/static/56a1b35c57eb8dec1842726c/587e5cccb8a79b07c43dd20a/587e5cccf7e0ab0bf5dddf7c/1484676369285/WHAT%2BIS%2BKETO-%21%2Bby%2BJen%2BFisch%2Bvia%2BKeto%2BIn%2BThe%2BCity-1.jpg', :style => "max-width: 457px; width: 100%;"}/
 			.col-md-6.wow.fadeIn{"data-wow-delay" => "0.4s", "data-wow-duration" => "2s"}
 				.spacer-15
 				%h6.page-title-alt.color.mb-10 #{Pulitzer.app_name}
@@ -162,7 +162,7 @@
 
 
 / Contact Form
-%section#contact-us.wow.fadeIn.ptb.ptb-sm-80.animated.dark-bg.bg-image.overlay-dark60{"data-background-img" => image_path("app_theme/theme/onepage/img/full/20.jpg"), "data-stellar-background-ratio" => "0.5"}
+%section#contact-us.wow.fadeIn.ptb.ptb-sm-80.animated.dark-bg.overlay-dark.bg-image.overlay-dark60{"data-background-img" => 'https://cdn.dribbble.com/users/161337/screenshots/989585/bacon.png', "data-stellar-background-ratio" => "0.5"}
 	.container
 		.row.text-center
 			.col-12
@@ -175,10 +175,10 @@
 				= form_for Pulitzer::Contact.new, as: :contact_us, html: { id: 'contact-form', class: 'row contact-form' } do |f|
 					.col-md-12.text-center
 						%h5.successContent
-							%i.fa.fa-check.left{:style => "color: #5cb45d;"}>
+							%i.fab.fa-check.left{:style => "color: #5cb45d;"}>
 							Your message has been sent successfully.
 						%h5.errorContent{:style => "color: #e1534f;"}
-							%i.fa.fa-exclamation-circle.left>
+							%i.fab.fa-exclamation-circle.left>
 							There was a problem validating the form please check!
 					.col-md-6
 						.form-field-wrapper

@@ -1,0 +1,51 @@
+
+-# = render 'application/swell_theme/multipage_header', args: { class: 'header-light' }
+= render 'application/swell_theme/multipage_header', args: { class: '' }
+= render 'application/flash', args: {}
+/ CONTENT -------------------------------------------------------------------------------
+- if @media.cover_image.present?
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => @media.cover_image }
+		.container
+			.row.title
+				%h2.h2 Recipe
+				.page-breadcrumb
+					%a{ href: '/' }> Home
+					\/
+					%a{ href: main_app.recipes_path() }> Recipes
+					\/
+					%span Recipe
+	/ End Intro Section
+- else
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+		.container
+			.row.title
+				%h2.h2=@media.title
+	/ End Intro Section
+
+
+
+- cache( @media, expires_in: 1.hour ) do
+	/ Blog Post Section
+	%section.ptb.ptb-sm-80
+		.container
+			.row
+				/ Post Bar
+				.col-lg-9.col-md-9.blog-post-hr
+					.blog-post.mb-30
+						.post-entry.fr-view
+							= raw @media.content
+						.post-tag.pull-left
+							- @media.tags.each do |tag|
+								%span
+									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
+									- unless tag == @media.tags.last
+										,
+					.fb-comments{"data-href" => @media.url, "data-numposts" => "5"}
+				/ End Post Bar
+				= render 'pulitzer/articles/side_bar'
+	/ End Blog Post Section
+	/ End CONTENT ----------------------------------------------------------------------------
+
+= render 'application/swell_theme/multipage_footer'

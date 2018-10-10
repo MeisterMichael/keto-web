@@ -1,7 +1,7 @@
 /
 	CONTENT --------------------------------------------------------------------------------->
 	<!-- Intro Section
-%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => image_path("app_theme/theme/onepage/img/full/15.jpg")}
+%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => ( @articles.first.try(:cover_image) || "https://www.healthline.com/hlcmsresource/images/Best-of-Books/3275-keto_tacos_1296x728-body1.jpg" ) }
 	.container
 		.row.title
 			%h2.h2 Blog

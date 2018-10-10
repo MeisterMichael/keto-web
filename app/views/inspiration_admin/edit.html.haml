@@ -13,7 +13,7 @@ inspiration
 						= @inspiration.title
 		.col-xs-2
 			%a.btn.btn-primary{ href: preview_inspiration_admin_path( @inspiration.id ), target: '_new' }
-				%i.fa.fa-eye
+				%i.fab.fa-eye
 				Preview
 
 	= form_for @inspiration, url: inspiration_admin_path( @inspiration ) do |f|
@@ -40,7 +40,7 @@ inspiration
 							- if @inspiration.avatar
 								= image_tag @inspiration.avatar, class: 'img-responsive'
 								%a.btn.btn-default{ 'data-clipboard-text' => @inspiration.avatar }
-									%i.fa.fa-clipboard
+									%i.fab.fa-clipboard
 
 					-# .col-xs-4
 
@@ -50,7 +50,7 @@ inspiration
 							- if @inspiration.cover_image
 								= image_tag @inspiration.cover_image, class: 'img-responsive'
 								%a.btn.btn-default{ 'data-clipboard-text' => @inspiration.cover_image }
-									%i.fa.fa-clipboard
+									%i.fab.fa-clipboard
 				.form-group
 					= f.label :description, 'Description: (Read by Bot)'
 					= f.text_area :description, class: 'form-control wysiwyg', rows: 4

@@ -1,142 +1,61 @@
-
-
-- cache( "show-#{@recipe.cache_key}" ) do
-	%section.clearfix.blogPage.singleBlog.mainContent
+- cache( @recipe, expires_in: 1.hour ) do
+	/ CONTENT -------------------------------------------------------------------------------
+	/ Intro Section
+	- if @media.cover_image.present?
+		/ Intro Section
+		%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => @media.cover_image }
+			.container
+				.row.title
+					%h2.h2=@recipe.title
+					.page-breadcrumb
+						%a{ href: '/' }> Home
+						\/
+						%a{ href: main_app.recipes_path() }> Recipes
+						\/
+						%span Recipe
+		/ End Intro Section
+	- else
+		/ Intro Section
+		%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+			.container
+				.row.title
+					%h2.h2=@recipe.title
+					.page-breadcrumb
+						%a{ href: '/' }> Home
+						\/
+						%a{ href: main_app.recipes_path() }> Recipes
+						\/
+						%span Recipe
+		/ End Intro Section
+	/ Blog Post Section
+	%section.ptb.ptb-sm-80
 		.container
 			.row
-				.col-md-9.col-sm-8.col-xs-12
-					.row
-						.col-xs-12
-							%h1.content-title.text-center
-								= @recipe.title
-							.thumbnail
-								%img{ src: @recipe.avatar, alt: @recipe.title }
-
-								- if @recipe.recipe_category
-									.caption{ style: 'margin-bottom: 1em;border-bottom:1px #ddd solid;' }
-										in
-										= link_to @recipe.recipe_category, recipes_path( cat: @recipe.recipe_category.slug)
-										.addthis_inline_share_toolbox.hidden-xs.hidden-sm.pull-right
-										.clearfix
-
-								%caption
-									.row
-										.col-xs-12.content
-											= raw @recipe.content
-
-
-					.row
-						.col-xs-12
-							.jumbotron
-								%p
-									If you've enjoyed this recipe, please consider passing it along using the share buttons above. And consider joining our email list. We'll send you once-in-a-while updates chock-full of great health and lifestyle tips sprinkled with inspiration and discounts on cool stuff!
-
-								-# = form_for Pulitzer::Optin.new, url: scuttlebutt.optins_path, role: :form, class: 'form-inline'  do |f|
-									.row
-										.col-xs-12.col-sm-8.col-sm-offset-2
-											.form-group
-												= f.text_field :name, placeholder: 'Your Name', class: 'form-control'
-											.form-group
-												= f.text_field :email, placeholder: 'Email', class: 'form-control'
-
-											= f.submit "Do It", class: "btn btn-lg btn-info btn-filled pull-right"
-
-						.col-xs-12
-							= render 'application/comments', object: @recipe
-
-						.col-xs-12
-							.page-header
-								%h4
-									More Great Recipes
-
-							- @more_recipes.each do |recipe|
-								.col-sm-4.col-xs-12
-									.productBox
-										.productImage.clearfix
-											%a{ href: recipe.url }
-												%img.img.img-responsive{ src: recipe.avatar, alt: recipe.title }
-										.recipeCaption.clearfix
-											%a{ href: recipe.url }
-												%h5.text-center
-													= recipe.title
-
-
-							.text-center{ style: 'margin: 0 0 1em 0;' }
-								%a.btn.btn-default{ href: main_app.recipes_path() }
-									Even More Recipes
-									%i.fa.fa-chevron-right
-
-				.sideBar.col-md-3.col-sm-4.col-xs-12
-					= render 'recipes/sidebar'
-
-
-
-
-
-
-
-
-
-
--##content.content.section.row
-	.col-md-8.bg-base.col-lg-8.col-xl-9
-		- cache( "show-#{@recipe.cache_key}" ) do
-			.ribbon.ribbon-highlight
-				%ol.breadcrumb.ribbon-inner
-					%li
-						%a{:href => '/' } Home
-
-					%li.active{:title => @recipe.title}=@recipe.title.truncate(32)
-			.flipboard-startArticle
-			%header.page-header
-				%h2.page-title.flipboard-title
-					= @recipe.title
-			%article.entry.style-single.type-post
-				- if @recipe.cover_image.present?
-					%figure.entry-thumbnail
-						/ to disable lazy loading, remove data-src and data-src-retina
-						%img{:alt => "", "data-src" => @recipe.cover_image, "data-src-retina" => @recipe.cover_image, :height => "452", :src => @recipe.cover_image, :width => "680"}/
-						/ fallback for no javascript browsers
-						%noscript
-							%img.flipboard-image{:alt => "", :src => @recipe.cover_image}/
-					.addthis_inline_share_toolbox.hidden-xs.hidden-sm
-				- elsif @recipe.avatar.present?
-					.col-sm-4
-						%img.img.img-responsive.flipboard-image{:alt => @recipe.title, src: @recipe.avatar, style: 'padding-right: 2em;' }
-
-				.entry-content
-					= raw @recipe.content
-			.flipboard-endArticle
-			.after-entry
-				.addthis_inline_share_toolbox.hidden-xs.hidden-sm
-
-				%hr/
-			-# .well
-				%p
-					If you've enjoyed this recipe, please consider passing it along using the share buttons above. And consider joining our email list. We'll send you once-in-a-while updates chock-full of great health and lifestyle tips sprinkled with inspiration and discounts on cool stuff!
-
-				= render 'scuttlebutt/optins/form'
-				.clearfix
-
-			= render 'application/comments', object: @recipe
-
-
-		- cache( "more-great-recipes", expires_in: 1.day ) do
-			.ribbon.ribbon-highlight{ style: 'margin-top: 5em;' }
-				%ol.breadcrumb.ribbon-inner
-					%li.active
-						More Great Recipes
-			.entries
-				- @more_recipes.each do |recipe|
-					= render 'row', recipe: recipe
-			.text-center{ style: 'margin: 0 0 1em 0;' }
-				%a.btn.btn-default{ href: main_app.recipes_path() } Even More Recipes
-
-
-
-	/ /.col-md-8.col-lg-8.col-xl-9
-	.sidebar.col-md-4.col-lg-4.col-xl-3
-		= render 'application/sidebar'
-	/ /.sidebar col-md-4 col-lg-4 col-xl-3
-/ /#content
-=# render 'application/registration_bar'
+				/ Post Bar
+				.col-lg-9.col-md-9.blog-post-hr
+					.blog-post.mb-30
+						.post-meta
+							-# if @recipe.user.present?
+								%span
+									by
+									= succeed "," do
+										%a=@recipe.user.full_name
+							%span=@recipe.publish_at.strftime('%B %e, %Y')
+						-# .post-header
+							%h2=@recipe.title
+						-# .post-media
+							%img{:alt => "", :src => @recipe.avatar}/
+						.post-entry.fr-view
+							= raw @recipe.content
+						.post-tag.pull-left
+							- @recipe.tags.each do |tag|
+								%span
+									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
+									- unless tag == @recipe.tags.last
+										,
+					.fb-comments{"data-href" => @recipe.url, "data-numposts" => "5"}
+				/ End Post Bar
+				= render 'pulitzer/articles/side_bar'
+	/ End Blog Post Section
+	= render 'pulitzer/articles/next_prev_bar'
+	/ End CONTENT ----------------------------------------------------------------------------

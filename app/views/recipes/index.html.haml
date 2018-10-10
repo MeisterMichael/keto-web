@@ -1,41 +1,50 @@
+/
+	CONTENT --------------------------------------------------------------------------------->
+	<!-- Intro Section
+%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => ( @recipes.first.try(:cover_image) || "https://keto-daily.com/wp-content/uploads/2018/10/Keto-Jicama-Fries-Basket-2.jpg" ) }
+	.container
+		.row.title
+			%h2.h2 Recipes
+			.page-breadcrumb
+				%a{ href: '/' } Home
+				\/
+				- if @tagged.present?
 
+					%a{ href: main_app.recipes_path() } Recipes
+					\/
+					%span=@tagged
+				- else
+					%span Recipes
 
-- cache( "recipes/index/#{@category.try(:id)}/#{params[:page]}", expires_in: 1.day ) do
+/ End Intro Section
+/ Blog Post Section
+%section.ptb.ptb-sm-80
+	.container
+		/ Post Item
+		.row.masonry
+			- @recipes.each do |recipe|
+				.col-md-6.col-sm-6.nf-item.spacing-grid
+					= render 'recipes/recipe_post', recipe: recipe, args: {}
 
-	%section.clearfix.blogPage.mainContent
-		.container
-			.row
-				.col-md-9.col-sm-8.col-xs-12
-					-#.jumbotron{ style: 'background-color: #e9fbfe;' }
-						.container
-							.row
-								.col-xs-12.text-center
-									%h1
-										Get Our Free Repice Book
-									%p
-										Cauliflower, brewer's yeast, protein powder, and more. Nutrition hacks galore
-									-# = form_for Pulitzer::Optin.new, url: scuttlebutt.optins_path, role: :form, class: 'form-inline'  do |f|
-										.row
-											.col-xs-12.col-sm-8.col-sm-offset-2
-												.form-group
-													= f.text_field :name, placeholder: 'Your Name', class: 'form-control'
-												.form-group
-													= f.text_field :email, placeholder: 'Email', class: 'form-control'
+		/ End Post Item
+		/ Pagination Nav
 
-												= f.submit "Get It", class: "btn btn-lg btn-info btn-filled pull-right"
-
-					- if @category.present?
-						%h3
-							= pluralize @recipes.total_count, "Recipe"
-							in
-							= @category.name
-
-					.row.productListSingle
-						- @recipes.each do |recipe|
-							= render 'row', recipe: recipe
-
-					.paginator{ style: 'margin-bottom: 2em;' }
-						= raw paginate @recipes
-
-				.sideBar.col-md-3.col-sm-4.col-xs-12
-					= render 'recipes/sidebar'
+		.pagination-nav.mt-60.mt-xs-30
+			= raw paginate @recipes
+		-# .pagination-nav.mt-60.mt-xs-30
+			%ul
+				%li
+					%a{:href => "#"}
+						%i.fa.fa-angle-left
+				%li.active
+					%a{:href => "#"} 1
+				%li
+					%a{:href => "#"} 2
+				%li
+					%a{:href => "#"} 3
+				%li
+					%a{:href => "#"}
+						%i.fa.fa-angle-right
+		/ End Pagination Nav
+/ End Blog Post Section
+/ End CONTENT ----------------------------------------------------------------------------

@@ -1,16 +1,33 @@
 - cache( @media, expires_in: 1.hour ) do
 	/ CONTENT -------------------------------------------------------------------------------
 	/ Intro Section
-	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => ( @media.cover_image.present? ? @media.cover_image : nil ) || "img/full/21.jpg"}
-		.container
-			.row.title
-				%h2.h2 Blog
-				.page-breadcrumb
-					%a{ href: '/' }> Home
-					\/
-					%a{ href: pulitzer.articles_path() }> Blog
-					\/
-					%span Post
+	- if @media.cover_image.present?
+		/ Intro Section
+		%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => @media.cover_image }
+			.container
+				.row.title
+					%h2.h2=@media.title
+					.page-breadcrumb
+						%a{ href: '/' }> Home
+						\/
+						%a{ href: pulitzer.articles_path() }> Blog
+						\/
+						%span Post
+		/ End Intro Section
+	- else
+		/ Intro Section
+		%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+			.container
+				.row.title
+					%h2.h2=@media.title
+					.page-breadcrumb
+						%a{ href: '/' }> Home
+						\/
+						%a{ href: pulitzer.articles_path() }> Blog
+						\/
+						%span Post
+		/ End Intro Section
+
 	/ End Intro Section
 	/ Blog Post Section
 	%section.ptb.ptb-sm-80
@@ -26,9 +43,9 @@
 									= succeed "," do
 										%a=@media.user.full_name
 							%span=@media.publish_at.strftime('%B %e, %Y')
-						.post-header
+						-# .post-header
 							%h2=@media.title
-						.post-media
+						-# .post-media
 							%img{:alt => "", :src => @media.avatar}/
 						.post-entry.fr-view
 							= raw @media.content
@@ -49,19 +66,19 @@
 								-# %ul.social
 									%li
 										%a{:href => "https://www.facebook.com/", :target => "_blank"}
-											%i.fa.fa-facebook
+											%i.fab.fa-facebook
 									%li
 										%a{:href => "https://www.twitter.com/", :target => "_blank"}
-											%i.fa.fa-twitter
+											%i.fab.fa-twitter
 									%li
 										%a{:href => "https://www.dribbble.com/", :target => "_blank"}
-											%i.fa.fa-dribbble
+											%i.fab.fa-dribbble
 									%li
 										%a{:href => "https://www.pinterest.com/", :target => "_blank"}
-											%i.fa.fa-pinterest
+											%i.fab.fa-pinterest
 									%li
 										%a{:href => "https://www.behance.net/", :target => "_blank"}
-											%i.fa.fa-behance
+											%i.fab.fa-behance
 						%hr/
 						.clearfix
 					.fb-comments{"data-href" => @media.url, "data-numposts" => "5"}
@@ -81,7 +98,7 @@
 											|
 											%span
 												%a.comment-reply-btn
-													%i.fa.fa-reply>
+													%i.fab.fa-reply>
 													Reply
 										%p Blandit vel, luctus pulvinar hendrerit id Maecenas tempus tellus eget lorem.
 									.comment-reply
@@ -95,7 +112,7 @@
 													|
 													%span
 														%a.comment-reply-btn
-															%i.fa.fa-reply>
+															%i.fab.fa-reply>
 															Reply
 												%p Blandit vel, luctus pulvinar hendrerit id Maecenas tempus tellus eget lorem.
 									.comment-reply
@@ -109,7 +126,7 @@
 													|
 													%span
 														%a.comment-reply-btn
-															%i.fa.fa-reply>
+															%i.fab.fa-reply>
 															Reply
 												%p Blandit vel, luctus pulvinar hendrerit id Maecenas tempus tellus eget lorem.
 							%li
@@ -123,7 +140,7 @@
 											|
 											%span
 												%a.comment-reply-btn
-													%i.fa.fa-reply>
+													%i.fab.fa-reply>
 													Reply
 										%p Blandit vel, luctus pulvinar hendrerit id Maecenas tempus tellus eget lorem.
 					-# .mtb-60
@@ -172,7 +189,7 @@
 								/ .entry-cat
 								-# %span.entry-like
 									%a{:href => ""}
-										%i.fa.fa-heart-o
+										%i.fab.fa-heart-o
 										42
 							/ .entry-meta
 						/ .entry-header

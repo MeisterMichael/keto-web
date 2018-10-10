@@ -7,7 +7,7 @@
 			- RecipeCategory.published.each do |cat|
 				%li
 					%a{ href: recipes_path( cat: cat.slug ) }
-						%i.fa.fa-caret-right{ 'aria-hidden' => "true" }
+						%i.fab.fa-caret-right{ 'aria-hidden' => "true" }
 						= cat.to_s
 						%span
 							= "(#{Recipe.published.where( category_id: cat.id ).count})"

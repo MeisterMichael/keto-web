@@ -3,10 +3,10 @@ class Inspiration < Pulitzer::Media
 
 
 	def layout
-		self[:layout] || 'application'
+		self[:layout] || 'onepage'
 	end
 
 	def template
-		self[:template] || 'pulitzer/pages/show'
+		self[:template] || 'inspirations/show'
 	end
 end
