@@ -13,7 +13,7 @@
 		.col-xs-2
 			- if authorized?( BazaarMedia, controller: BazaarMediaAdminController, action: :create )
 				%a.btn.btn-success{ data: { toggle: :modal, target: '#new_media' } }
-					%i.fab.fa-plus-square
+					%i.fa.fa-plus-square
 					New
 
 	.row
@@ -33,15 +33,15 @@
 					%th
 						Title
 						%a{ href: bazaar_media_admin_index_path( sort_by: 'title', sort_dir: 'asc' ) }
-							%i.fab.fa-arrow-up
+							%i.fa.fa-arrow-up
 						%a{ href: bazaar_media_admin_index_path( sort_by: 'title', sort_dir: 'desc' ) }
-							%i.fab.fa-arrow-down
+							%i.fa.fa-arrow-down
 					%th
 						Publish At
 						%a{ href: bazaar_media_admin_index_path( sort_by: 'publish_at', sort_dir: 'asc' ) }
-							%i.fab.fa-arrow-up
+							%i.fa.fa-arrow-up
 						%a{ href: bazaar_media_admin_index_path( sort_by: 'publish_at', sort_dir: 'desc' ) }
-							%i.fab.fa-arrow-down
+							%i.fa.fa-arrow-down
 					%th Category
 					%th Status
 					%th
@@ -52,7 +52,7 @@
 								.title{ style: 'font-size:120%;' }= link_to media.title, edit_bazaar_media_admin_path( media.id )
 								%a.btn{ 'data-clipboard-text' => media.url, style: 'padding:0;border:none;' }
 									= media.path
-									%i.fab.fa-clipboard
+									%i.fa.fa-clipboard
 
 							%td
 								= media.publish_at.to_s( :slashed_time )
@@ -64,21 +64,21 @@
 							%td
 								.btn-group
 									%button.btn.btn-mini.btn-default.dropdown-toggle{ data: { toggle: :dropdown } }
-										%i.fab.fa-cog
+										%i.fa.fa-cog
 										%b.caret
 									%ul.dropdown-menu
 										%li
 											%a{ href: edit_bazaar_media_admin_path( media.id ) }
-												%i.fab.fa-pencil
+												%i.fa.fa-pencil
 												Edit
 										%li
 											%a{ href: preview_bazaar_media_admin_path( media.id ) }
-												%i.fab.fa-eye
+												%i.fa.fa-eye
 												Preview
 										%li.divider
 										%li
 											%a{ href: bazaar_media_admin_path( media ), data: { method: 'delete', confirm: 'Are you sure?' } }
-												%i.fab.fa-trash-o
+												%i.fa.fa-trash-o
 												Delete!
 
 = render 'new_modal'

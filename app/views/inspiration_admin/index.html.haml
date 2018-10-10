@@ -12,7 +12,7 @@
 						= "(#{pluralize @inspirations.total_count, 'Inspiration'})"
 		.col-xs-2
 			%a.btn.btn-success{ data: { toggle: :modal, target: '#new_inspiration' } }
-				%i.fab.fa-plus-square
+				%i.fa.fa-plus-square
 				New
 
 	.row
@@ -34,15 +34,15 @@
 					%th
 						URL
 						%a{ href: inspiration_admin_index_path( sort_by: 'slug', sort_dir: 'asc' ) }
-							%i.fab.fa-arrow-up
+							%i.fa.fa-arrow-up
 						%a{ href: inspiration_admin_index_path( sort_by: 'slug', sort_dir: 'desc' ) }
-							%i.fab.fa-arrow-down
+							%i.fa.fa-arrow-down
 					%th
 						Publish At
 						%a{ href: inspiration_admin_index_path( sort_by: 'publish_at', sort_dir: 'asc' ) }
-							%i.fab.fa-arrow-up
+							%i.fa.fa-arrow-up
 						%a{ href: inspiration_admin_index_path( sort_by: 'publish_at', sort_dir: 'desc' ) }
-							%i.fab.fa-arrow-down
+							%i.fa.fa-arrow-down
 					%th Status
 					%th
 				%tbody
@@ -63,21 +63,21 @@
 							%td
 								.btn-group
 									%button.btn.btn-mini.btn-default.dropdown-toggle{ data: { toggle: :dropdown } }
-										%i.fab.fa-cog
+										%i.fa.fa-cog
 										%b.caret
 									%ul.dropdown-menu
 										%li
 											%a{ href: edit_inspiration_admin_path( inspiration.id ) }
-												%i.fab.fa-pencil
+												%i.fa.fa-pencil
 												Edit
 										%li
 											%a{ href: preview_inspiration_admin_path( inspiration.id ) }
-												%i.fab.fa-eye
+												%i.fa.fa-eye
 												Preview
 										%li.divider
 										%li
 											%a{ href: inspiration_admin_path( inspiration ), data: { method: 'delete', confirm: 'Are you sure?' } }
-												%i.fab.fa-trash-o
+												%i.fa.fa-trash-o
 												Delete!
 
 

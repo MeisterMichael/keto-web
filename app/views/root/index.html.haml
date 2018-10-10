@@ -175,10 +175,10 @@
 				= form_for Pulitzer::Contact.new, as: :contact_us, html: { id: 'contact-form', class: 'row contact-form' } do |f|
 					.col-md-12.text-center
 						%h5.successContent
-							%i.fab.fa-check.left{:style => "color: #5cb45d;"}>
+							%i.fa.fa-check.left{:style => "color: #5cb45d;"}>
 							Your message has been sent successfully.
 						%h5.errorContent{:style => "color: #e1534f;"}
-							%i.fab.fa-exclamation-circle.left>
+							%i.fa.fa-exclamation-circle.left>
 							There was a problem validating the form please check!
 					.col-md-6
 						.form-field-wrapper

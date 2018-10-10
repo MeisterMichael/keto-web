@@ -23,12 +23,12 @@
 									%ul.dropdown-menu
 										%li
 											%a{ href: pulitzer.article_admin_index_path }
-												%i.fab.fa-gear
+												%i.fa.fa-gear
 												Admin
 										- if authorized?( Pulitzer::Article, controller: Pulitzer::ArticleAdminController, action: :create )
 											%li
 												%a{ href: '#new_article', data: { toggle: :modal, target: '#new_article' } }
-													%i.fab.fa-plus
+													%i.fa.fa-plus
 													New
 										%li.separator
 										- Pulitzer::Article.draft.order( publish_at: :desc ).limit( 10 ).each do |article|
@@ -42,12 +42,12 @@
 								%ul.dropdown-menu
 									%li
 										%a{ href: main_app.inspiration_admin_index_path }
-											%i.fab.fa-gear
+											%i.fa.fa-gear
 											Admin
 									- if authorized?( Inspiration, controller: InspirationAdminController, action: :create )
 										%li
 											%a{ href: '#new_inspiration', data: { toggle: :modal, target: '#new_inspiration' } }
-												%i.fab.fa-plus
+												%i.fa.fa-plus
 												New
 									%li.separator
 									- Inspiration.draft.order( publish_at: :desc ).limit( 10 ).each do |inspiration|
@@ -63,12 +63,12 @@
 									%ul.dropdown-menu
 										%li
 											%a{ href: pulitzer.page_admin_index_path }
-												%i.fab.fa-gear
+												%i.fa.fa-gear
 												Admin
 										- if authorized?( Pulitzer::Page, controller: Pulitzer::PageAdminController, action: :create )
 											%li
 												%a{ href: '#new_page', data: { toggle: :modal, target: '#new_page' } }
-													%i.fab.fa-plus
+													%i.fa.fa-plus
 													New
 										%li.separator
 										- Pulitzer::Page.order( publish_at: :desc ).limit( 10 ).each do |page|
@@ -82,12 +82,12 @@
 								%ul.dropdown-menu
 									%li
 										%a{ href: main_app.recipe_admin_index_path }
-											%i.fab.fa-gear
+											%i.fa.fa-gear
 											Admin
 									- if authorized?( Recipe, controller: RecipeAdminController, action: :create )
 										%li
 											%a{ href: '#new_recipe', data: { toggle: :modal, target: '#new_recipe' } }
-												%i.fab.fa-plus
+												%i.fa.fa-plus
 												New
 									%li.separator
 									- Recipe.draft.order( publish_at: :desc ).limit( 10 ).each do |recipe|

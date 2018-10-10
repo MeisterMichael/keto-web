@@ -13,7 +13,7 @@
 						= @recipe.title
 		.col-xs-2
 			%a.pull-right.btn.btn-primary{ href: preview_recipe_admin_path( @recipe.id ) }
-				%i.fab.fa-eye
+				%i.fa.fa-eye
 				Preview
 
 	= form_for @recipe, url: recipe_admin_path( @recipe ) do |f|
@@ -31,7 +31,7 @@
 								- if @recipe.avatar
 									= image_tag @recipe.avatar, class: 'img-responsive'
 									%a.btn.btn-default{ 'data-clipboard-text' => @recipe.avatar }
-										%i.fab.fa-clipboard
+										%i.fa.fa-clipboard
 
 						.col-xs-4
 
@@ -41,7 +41,7 @@
 								- if @recipe.cover_image
 									= image_tag @recipe.cover_image, class: 'img-responsive'
 									%a.btn.btn-default{ 'data-clipboard-text' => @recipe.cover_image }
-										%i.fab.fa-clipboard
+										%i.fa.fa-clipboard
 
 				.form-group
 					= f.label :description, 'Short Description'

@@ -17,18 +17,14 @@
 									.form-group
 										.input-group
 											%span.input-group-addon
-												%i.fab.fa-user
+												%i.fa.fa-user
 											= f.text_field :login, autofocus: true, placeholder: "email", class: 'form-control'
 									.form-group
 										.input-group
 											%span.input-group-addon
-												%i.fab.fa-key
+												%i.fa.fa-key
 											= f.password_field :password, placeholder: "password", class: 'form-control'
-								
+
 									.row
 										.col-sm-6.col-sm-offset-3
 											= f.submit "Login", class: 'btn btn-primary col-xs-12'
-
-									
-
-
