@@ -5,8 +5,8 @@ local:
 
 amazon:
   service: PulitzerS3
-  access_key_id: <%= ENV['AMAZON_ACCESS_KEY_ID'] %>
-  secret_access_key: <%= ENV['AMAZON_SECRET_ACCESS_KEY'] %>
+  access_key_id: <%= ENV['AMZN_ASOC_KEY'] %>
+  secret_access_key: <%= ENV['AMZN_ASOC_SECRET'] %>
   force_path_style: true
-  region: <%= ENV['AMAZON_S3_REGION'] %>
-  bucket: <%= ENV['AMAZON_S3_BUCKET'] %>
+  region: us-west-1
+  bucket: <%= ENV['FOG_DIRECTORY'] %>

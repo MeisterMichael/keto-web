@@ -2,7 +2,7 @@ Pulitzer.configure do |config|
 
 	config.app_name = ENV['APP_NAME'] || 'SIMPLEKETO.'
 
-	config.app_host = ENV['APP_DOMAIN'] || 'dev.simpleketo.us:3000'
+	config.app_host = ENV['APP_DOMAIN'] || 'localhost:3000'
 	config.app_description = "SIMPLEKETO."
 
 	# config.app_logo = ''

@@ -28,7 +28,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -54,6 +54,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+	# config.default_url_options = { host: Pulitzer.app_host }
+	# config.action_controller.default_url_options = { host: Pulitzer.app_host }
+	# config.action_mailer.default_url_options = { host: Pulitzer.app_host }
+	# Rails.application.routes.default_url_options[:host] = Pulitzer.app_host
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.

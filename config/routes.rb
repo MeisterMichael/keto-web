@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+	default_url_options :host => Pulitzer.app_host
+
 	root to: 'root#index' # homepage
 
 	resources :admin

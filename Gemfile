@@ -42,6 +42,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 
 
+gem "aws-sdk-s3", require: false
 gem 'dalli'
 gem 'elasticsearch'
 gem 'image_processing', '~> 1.2'
