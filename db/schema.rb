@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_08_184311) do
+ActiveRecord::Schema.define(version: 2018_09_30_224615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -617,18 +617,6 @@ ActiveRecord::Schema.define(version: 2018_10_08_184311) do
     t.index ["experiment_id"], name: "index_edison_variants_on_experiment_id"
   end
 
-  create_table "foods", force: :cascade do |t|
-    t.string "title"
-    t.string "slug"
-    t.string "description"
-    t.text "content"
-    t.string "avatar"
-    t.text "nutrition"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_foods_on_slug", unique: true
-  end
-
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -703,18 +691,6 @@ ActiveRecord::Schema.define(version: 2018_10_08_184311) do
     t.datetime "updated_at", null: false
     t.index ["identifier", "provider", "label"], name: "index_identifiers_on_identifier_and_provider_and_label", unique: true
     t.index ["parent_obj_type", "parent_obj_id"], name: "index_identifiers_on_parent_obj_type_and_parent_obj_id"
-  end
-
-  create_table "ingredients", force: :cascade do |t|
-    t.bigint "recipe_id"
-    t.bigint "food_id"
-    t.string "amount"
-    t.string "unit"
-    t.string "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["food_id"], name: "index_ingredients_on_food_id"
-    t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
   end
 
   create_table "oauth_credentials", force: :cascade do |t|
@@ -823,28 +799,6 @@ ActiveRecord::Schema.define(version: 2018_10_08_184311) do
     t.index ["media_id", "status", "id"], name: "index_pulitzer_media_versions_on_media_id_and_status_and_id"
     t.index ["media_id"], name: "index_pulitzer_media_versions_on_media_id"
     t.index ["user_id"], name: "index_pulitzer_media_versions_on_user_id"
-  end
-
-  create_table "recipes", force: :cascade do |t|
-    t.bigint "category_id"
-    t.string "title"
-    t.string "description"
-    t.text "content"
-    t.text "avatar"
-    t.text "cover_image"
-    t.string "slug"
-    t.string "prep_time"
-    t.string "cook_time"
-    t.string "serves"
-    t.string "nutrition"
-    t.text "tags", default: [], array: true
-    t.integer "status", default: 0
-    t.datetime "publish_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_recipes_on_category_id"
-    t.index ["slug"], name: "index_recipes_on_slug", unique: true
-    t.index ["tags"], name: "index_recipes_on_tags", using: :gin
   end
 
   create_table "scuttlebutt_messages", force: :cascade do |t|
