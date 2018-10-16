@@ -13,7 +13,7 @@
 									=# image_tag 'logo_wht.png'
 							#login-box-inner
 
-								= form_for resource, as: resource_name, url: user_session_path( resource_name ), role: :form do |f|
+								= form_for resource, as: resource_name, url: user_session_path( resource_name ), role: :form, id: :login do |f|
 									.form-group
 										.input-group
 											%span.input-group-addon
