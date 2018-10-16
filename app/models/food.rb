@@ -1,5 +1,6 @@
 
 class Food < ActiveRecord::Base
+	include Pulitzer::Concerns::URLConcern
 
 	attr_accessor	:slug_pref, :category_name
 
