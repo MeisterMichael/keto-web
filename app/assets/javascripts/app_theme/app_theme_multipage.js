@@ -14,7 +14,8 @@
 //= require app_theme/theme/general/js/jquery-1.11.2.min.js
 //= require app_theme/theme/general/js/jquery-ui.min.js
 //= require app_theme/theme/general/js/plugin/jquery.easing.js
-//= require app_theme/theme/bootstrap.min.js
+//* require app_theme/theme/bootstrap.min.js
+//= require plugins/bootstrap.4.1.3.js
 //= require app_theme/theme/general/js/plugin/jquery.flexslider.js
 //= require app_theme/theme/general/js/plugin/jquery.fitvids.js
 //= require app_theme/theme/general/js/plugin/jquery.viewportchecker.js

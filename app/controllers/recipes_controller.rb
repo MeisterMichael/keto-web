@@ -12,6 +12,8 @@ class RecipesController < ApplicationController
 		end
 		@recipes = @recipes.page( params[:page] )
 		set_page_meta( title: 'Recipes' )
+
+		render layout: 'application_covered'
 	end
 
 	def show
@@ -20,6 +22,8 @@ class RecipesController < ApplicationController
 		@more_recipes = Recipe.published.order('random()').limit( 3 )
 
 		set_page_meta( @recipe.page_meta )
+
+		render layout: 'application_covered'
 	end
 
 
