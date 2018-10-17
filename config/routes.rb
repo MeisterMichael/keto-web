@@ -21,9 +21,14 @@ Rails.application.routes.draw do
 	end
 	devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions' }
 
-	mount SwellId::Engine, at: '/'
 
+	mount SwellId::Engine, at: '/'
 	mount Pulitzer::Engine, at: '/'
+	mount Scuttlebutt::Engine, :at => '/'
+	mount Socratic::Engine, :at => '/'
+	mount Bunyan::Engine, :at => '/'
+	mount Edison::Engine, :at => '/'
+	# mount Bazaar::Engine, :at => '/'
 
 	resources :bazaar_media_admin do
 		get :preview, on: :member
