@@ -1,0 +1,9 @@
+<% if @success %>
+$('#newsletter_signup_form').after('<p>Congrats, You are now Subscribed to the <%= Pulitzer.app_name %> Newsletter.</p>')
+$('#newsletter_signup_form').remove()
+<% else %>
+alert('<%= @message %>')
+<% end %>
+
+window.dataLayer = window.dataLayer || []
+window.dataLayer.push({'event': 'EmailSignup'});

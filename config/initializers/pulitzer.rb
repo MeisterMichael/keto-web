@@ -12,6 +12,9 @@ Pulitzer.configure do |config|
 		twitter_site: '@simpleketo',
 	}
 
+	config.default_layouts = {
+		'Pulitzer::Media' => 'application_covered',
+	}
 
 	config.site_map_url = "https://cdn1.simpleketo.us/sitemaps/sitemap.xml.gz"
 

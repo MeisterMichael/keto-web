@@ -43,9 +43,8 @@
 		= render 'application/swell_theme/multipage_searchoverlaymenu'
 		= render 'application/swell_theme/multipage_sidemenu'
 		.wrapper
-			= render 'application/swell_theme/multipage_header', args: { class: 'header-light' }
+			= render 'application/swell_theme/multipage_header', args: {}
 			= render 'application/flash', args: {}
-			%section{ style: 'height: 100px;' }
 			= yield
 			= render 'application/swell_theme/multipage_footer'
 

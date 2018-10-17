@@ -1,8 +1,8 @@
 
 class RecipesController < ApplicationController
+	layout 'application_covered'
 
 	before_action :set_recipe, only: :show
-
 
 	def index
 		@recipes = Recipe.published.order( :title )

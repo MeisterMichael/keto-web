@@ -2,6 +2,7 @@
 # Copied to app from Pulitzer install
 
 class RootController < ApplicationController
+	layout 'application_covered'
 
 	include Pulitzer::Concerns::RootConcern
 

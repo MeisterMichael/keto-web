@@ -1,0 +1,7 @@
+= form_tag scuttlebutt.optins_path, method: 'POST', role: :form, class: 'form', id: 'newsletter_signup_form', remote: true  do |f|
+	.form-group
+		= text_field_tag "message[full_name]", '', placeholder: 'Name', class: 'form-control', style: 'width: 280px;'
+	.form-group
+		= text_field_tag "message[email]", '', placeholder: 'Email address', class: 'form-control', class: 'form-control', style: 'width: 280px;'
+	.form-group
+	= submit_tag 'SIGN UP', class: 'btn btn-default signup', style: 'width: 100px;background-color:#429393;border-color:#429393;color:#fff;'
