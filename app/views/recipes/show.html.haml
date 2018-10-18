@@ -1,4 +1,4 @@
-- cache( @recipe, expires_in: 1.hour ) do
+- cache( "header-#{@recipe.cache_key}", expires_in: 1.hour ) do
 	/ CONTENT -------------------------------------------------------------------------------
 	/ Intro Section
 	- if @media.cover_image.present?
@@ -28,11 +28,12 @@
 						%span Recipe
 		/ End Intro Section
 	/ Blog Post Section
-	%section.ptb.ptb-sm-80
-		.container
-			.row
-				/ Post Bar
-				.col-lg-9.col-md-9.blog-post-hr
+%section.ptb.ptb-sm-80
+	.container
+		.row
+			/ Post Bar
+			.col-lg-9.col-md-9.blog-post-hr
+				- cache( "post-#{@recipe.cache_key}", expires_in: 1.hour ) do
 					.blog-post.mb-30
 						.post-meta
 							-# if @recipe.user.present?
@@ -53,9 +54,9 @@
 									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
 									- unless tag == @recipe.tags.last
 										,
-					.fb-comments{"data-href" => @recipe.url, "data-numposts" => "5"}
-				/ End Post Bar
-				= render 'pulitzer/articles/side_bar'
-	/ End Blog Post Section
-	= render 'pulitzer/articles/next_prev_bar'
-	/ End CONTENT ----------------------------------------------------------------------------
+				= render 'scuttlebutt/comments/widget', parent_obj: @media, args: { page: params[:page] }
+			/ End Post Bar
+			= render 'pulitzer/articles/side_bar'
+/ End Blog Post Section
+= render 'pulitzer/articles/next_prev_bar'
+/ End CONTENT ----------------------------------------------------------------------------

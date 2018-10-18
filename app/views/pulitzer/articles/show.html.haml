@@ -81,7 +81,7 @@
 											%i.fab.fa-behance
 						%hr/
 						.clearfix
-					.fb-comments{"data-href" => @media.url, "data-numposts" => "5"}
+					= render 'scuttlebutt/comments/widget', parent_obj: @media, args: { page: params[:page] }
 					-# .post-comment.mtb-30
 						%h4
 							Comments
