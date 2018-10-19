@@ -1,4 +1,4 @@
-- cache( @media, expires_in: 1.hour ) do
+- cache( "#{@media.cache_key}-#{current_user.present?}", expires_in: 1.hour ) do
 	/ CONTENT -------------------------------------------------------------------------------
 	/ Intro Section
 	- if @media.cover_image.present?

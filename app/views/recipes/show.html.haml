@@ -1,4 +1,4 @@
-- cache( @recipe, expires_in: 1.hour ) do
+- cache( "#{@recipe.cache_key}-#{current_user.present?}", expires_in: 1.hour ) do
 	/ CONTENT -------------------------------------------------------------------------------
 	/ Intro Section
 	- if @media.cover_image.present?
@@ -56,6 +56,7 @@
 									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
 									- unless tag == @recipe.tags.last
 										,
+					= render 'scuttlebutt/votes/widget', parent_obj: @media, args: {}
 					= render 'scuttlebutt/comments/widget', parent_obj: @media, args: { page: params[:page] }
 				/ End Post Bar
 				= render 'pulitzer/articles/side_bar'
