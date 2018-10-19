@@ -1,0 +1,33 @@
+- selector_class = "scuttlebutt_votes_widget_#{parent_obj.class.base_class.name.underscore.gsub(/\//,'__')}_#{parent_obj.id}"
+- selector = ".scuttlebutt_votes_widget.#{selector_class}"
+%span.scuttlebutt_votes_widget{ class: selector_class, data: { params: { parent_obj_type: parent_obj.class.base_class.name, parent_obj_id: parent_obj.id, selector: selector, args: args }.to_json, url: scuttlebutt.widget_votes_path( parent_obj_type: parent_obj.class.base_class.name, parent_obj_id: parent_obj.id, selector: selector, args: args ) } }
+	%span.badge.badge-dark
+		= Scuttlebutt::Vote.where( parent_obj: parent_obj, user: current_user ).sum(:val)
+	score
+	|
+	- if current_user.present?
+
+		- if args[:async]
+			- if ( vote = (args[:vote] || Scuttlebutt::Vote.where( parent_obj: parent_obj, user: current_user ).first) ).try(:persisted?)
+				- if vote.down?
+					%a{ href: scuttlebutt.vote_path( vote, val: 1, selector: selector ), data: { method: :put, remote: true } }
+						up vote
+					\/
+				%strong.disabled.active
+					= vote.val
+					vote
+				- if vote.up?
+					\/
+					%a{ href: scuttlebutt.vote_path( vote, val: -1, selector: selector ), data: { method: :put, remote: true } }
+						down vote
+			- else
+				%a{ href: scuttlebutt.votes_path( parent_obj_type: parent_obj.class.base_class.name, parent_obj_id: parent_obj.id, val: 1, selector: selector ), data: { method: :post, remote: true } }
+					up vote
+				\/
+				%a{ href: scuttlebutt.votes_path( parent_obj_type: parent_obj.class.base_class.name, parent_obj_id: parent_obj.id, val: -1, selector: selector ), data: { method: :post, remote: true } }
+					down vote
+		- else
+			%span up vote / down vote
+	- else
+		%a{ href: '/login' } log in
+		to vote

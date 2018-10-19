@@ -5,7 +5,7 @@
 /[if IE 7] <html class="no-js lt-ie9 lt-ie8">
 /[if IE 8] <html class="no-js lt-ie9">
 //[if gt IE 8] <html class="no-js">
-%html{ lang: :en }
+%html{ lang: :en, class: ( current_user.present? ? 'has_current_user' : '' ) }
 	%head
 		= render 'application/gtm_head'
 
@@ -48,5 +48,7 @@
 
 
 
-		%script{:src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
+		-# %script{:src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
 		= javascript_include_tag 'application'
+		:javascript
+			$.FroalaEditor.DEFAULTS.key = '#{Pulitzer.froala_editor_key}';

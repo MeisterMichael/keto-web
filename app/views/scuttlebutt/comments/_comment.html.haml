@@ -1,19 +1,33 @@
-.media.mb-3[comment]
+- selector_class = "comment_#{comment.class.base_class.name.underscore.gsub(/\//,'__')}_#{comment.id}"
+- selector = ".comment.#{selector_class}"
+.media.comment.mb-3[comment]{ class: selector_class }
 	%img.mr-3{ src: comment.user.avatar, style: 'width: 64px;' }
 	.media-body
 		- if comment.user.respond_to? :url
 			%h6
 				%a{ href: comment.user.url }
 					= comment.user
+				%small
+					= time_ago_in_words( comment.created_at )
+					ago
 		- else
 			%h6.mb-0.pb-0
 				= comment.user
+				%small
+					= time_ago_in_words( comment.created_at )
+					ago
 		.media-text
 			- if comment.content
-				= raw comment.sanitized_content
+				.fr-view= raw comment.sanitized_content
 		- unless args[:disable_votes]
-			.media-actions
-				-# = render 'scuttlebutt/votes/widget', parent_obj: comment, args: {}
-				-# |
-				= time_ago_in_words( comment.created_at )
-				ago
+			.media-actions.mt-2
+				= render 'scuttlebutt/votes/widget', parent_obj: comment, args: { async: args[:async] }
+				|
+				%span.dropdown.dropdown-caretless
+					%a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }, role: :button, 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+						%i.fa.fa-ellipsis-h
+					.dropdown-menu
+						- if args[:async] && current_user == comment.user
+							%a.dropdown-item{ href: scuttlebutt.edit_comment_path( comment ) } edit
+							%a.dropdown-item{ href: scuttlebutt.comment_path( comment ), data: { confirm: 'Are you sure you want to delete this?', method: :delete } } delete
+						%a.dropdown-item{ href: scuttlebutt.report_post_path( comment, selector: selector ), data: { confirm: 'Are you sure you want to report this?', method: :put, remote: true } } report

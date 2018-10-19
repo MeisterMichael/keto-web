@@ -12,5 +12,7 @@
 //
 //= require activestorage
 //= require app_theme/app_theme_multipage
+//= require scuttlebutt/application
 //= require jquery_ujs
+//= require custom/application
 // turbolinks

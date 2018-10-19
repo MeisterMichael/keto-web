@@ -11,5 +11,6 @@
  * It is generally better to create a new file per style scope.
  *
  *= require app_theme/app_theme_multipage
+ *= require scuttlebutt/application
  *= require_self
  */

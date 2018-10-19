@@ -41,7 +41,10 @@
 								%span
 									by
 									= succeed "," do
-										%a=@media.user.full_name
+										- if @media.user.respond_to? :url
+											%a{ href: @media.user.url }=@media.user.full_name
+										- else
+											=@media.user.full_name
 							%span=@media.publish_at.strftime('%B %e, %Y')
 						-# .post-header
 							%h2=@media.title
@@ -56,7 +59,7 @@
 									- unless tag == @media.tags.last
 										,
 					%hr/
-					- if @media.user.present?
+					-# if @media.user.present?
 						.post-author
 							- if @media.user.avatar.present?
 								.post-author-img.pull-left
