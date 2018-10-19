@@ -1,0 +1,31 @@
+
+.mb-4.text-center.fs-3
+	= render 'scuttlebutt/votes/widget', parent_obj: object, args: {}
+.addthis_inline_share_toolbox.share-5.mb-5
+- if args[:user].present?
+	-# %hr/
+	.post-author
+		- if args[:user].avatar.present?
+			.post-author-img.pull-left
+				%img{:alt => "author", :src => args[:user].avatar}/
+		.post-author-details.pull-left
+			%h6= args[:user].full_name
+			-# %ul.social
+				%li
+					%a{:href => "https://www.facebook.com/", :target => "_blank"}
+						%i.fab.fa-facebook
+				%li
+					%a{:href => "https://www.twitter.com/", :target => "_blank"}
+						%i.fab.fa-twitter
+				%li
+					%a{:href => "https://www.dribbble.com/", :target => "_blank"}
+						%i.fab.fa-dribbble
+				%li
+					%a{:href => "https://www.pinterest.com/", :target => "_blank"}
+						%i.fab.fa-pinterest
+				%li
+					%a{:href => "https://www.behance.net/", :target => "_blank"}
+						%i.fab.fa-behance
+	%hr/
+	.clearfix
+= render 'scuttlebutt/comments/widget', parent_obj: object, args: { page: params[:page] }

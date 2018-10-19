@@ -12,5 +12,6 @@
  *
  *= require app_theme/app_theme_multipage
  *= require scuttlebutt/application
+ *= require custom/application
  *= require_self
  */

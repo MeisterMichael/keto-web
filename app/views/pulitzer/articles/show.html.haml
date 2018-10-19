@@ -35,6 +35,7 @@
 			.row
 				/ Post Bar
 				.col-lg-9.col-md-9.blog-post-hr
+
 					.blog-post.mb-30
 						.post-meta
 							- if @media.user.present?
@@ -58,33 +59,7 @@
 									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
 									- unless tag == @media.tags.last
 										,
-					%hr/
-					-# if @media.user.present?
-						.post-author
-							- if @media.user.avatar.present?
-								.post-author-img.pull-left
-									%img{:alt => "author", :src => @media.user.avatar}/
-							.post-author-details.pull-left
-								%h6= @media.user.full_name
-								-# %ul.social
-									%li
-										%a{:href => "https://www.facebook.com/", :target => "_blank"}
-											%i.fab.fa-facebook
-									%li
-										%a{:href => "https://www.twitter.com/", :target => "_blank"}
-											%i.fab.fa-twitter
-									%li
-										%a{:href => "https://www.dribbble.com/", :target => "_blank"}
-											%i.fab.fa-dribbble
-									%li
-										%a{:href => "https://www.pinterest.com/", :target => "_blank"}
-											%i.fab.fa-pinterest
-									%li
-										%a{:href => "https://www.behance.net/", :target => "_blank"}
-											%i.fab.fa-behance
-						%hr/
-						.clearfix
-					= render 'scuttlebutt/comments/widget', parent_obj: @media, args: { page: params[:page] }
+					= render 'application/social', object: @media, args: { page: params[:page] }
 					-# .post-comment.mtb-30
 						%h4
 							Comments

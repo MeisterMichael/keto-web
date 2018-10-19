@@ -56,8 +56,7 @@
 									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
 									- unless tag == @recipe.tags.last
 										,
-					= render 'scuttlebutt/votes/widget', parent_obj: @media, args: {}
-					= render 'scuttlebutt/comments/widget', parent_obj: @media, args: { page: params[:page] }
+					= render 'application/social', object: @recipe, args: { page: params[:page] }
 				/ End Post Bar
 				= render 'pulitzer/articles/side_bar'
 / End Blog Post Section
