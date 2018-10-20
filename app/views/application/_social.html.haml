@@ -1,5 +1,7 @@
 
 .mb-4.text-center.fs-3
+	= render 'scuttlebutt/subscriptions/widget', parent_obj: object, args: { css_class: 'btn btn-default btn-sm' }
+.mb-4.text-center.fs-3
 	= render 'scuttlebutt/votes/widget', parent_obj: object, args: {}
 .addthis_inline_share_toolbox.share-5.mb-5
 - if args[:user].present?
