@@ -69,11 +69,11 @@ GIT
 
 GIT
   remote: https://github.com/gkparishphilp/scuttlebutt.git
-  revision: 04fc7e3af9ce39a1a8bd3566f61429be61545080
+  revision: b200b2b478be0ee1f870d64c21c83299d6088ce2
   branch: master
-  tag: v1.1.10
+  tag: v1.1.11
   specs:
-    scuttlebutt (1.1.10)
+    scuttlebutt (1.1.11)
       rails (>= 5.2.0)
 
 GIT

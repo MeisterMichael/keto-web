@@ -21,13 +21,4 @@
 				.fr-view= raw comment.sanitized_content
 		- unless args[:disable_votes]
 			.media-actions.mt-2
-				= render 'scuttlebutt/votes/widget', parent_obj: comment, args: { async: args[:async] }
-				|
-				%span.dropdown.dropdown-caretless
-					%a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }, role: :button, 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-						%i.fa.fa-ellipsis-h
-					.dropdown-menu
-						- if args[:async] && current_user == comment.user
-							%a.dropdown-item{ href: scuttlebutt.edit_comment_path( comment ) } edit
-							%a.dropdown-item{ href: scuttlebutt.comment_path( comment ), data: { confirm: 'Are you sure you want to delete this?', method: :delete } } delete
-						%a.dropdown-item{ href: scuttlebutt.report_post_path( comment, selector: selector ), data: { confirm: 'Are you sure you want to report this?', method: :put, remote: true } } report
+				= render 'scuttlebutt/posts/social_bar', post: topic, args: args.merge( selector: selector ),
