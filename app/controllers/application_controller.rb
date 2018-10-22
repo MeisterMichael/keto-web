@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 			if %w(add_post comment).include? opts[:name]
 				target_obj = opts[:on] || opts[:target_obj]
 				post = Scuttlebutt::Post.where( user: current_user ).last
-				Scuttlebutt::Subscription.where( parent_obj: target_obj ).each do |subscription|
+				Scuttlebutt::Subscription.where( parent_obj: target_obj ).where.not( user: current_user ).each do |subscription|
 					NotificationsMailer.post( subscription, post ).deliver_now
 				end
 			end
