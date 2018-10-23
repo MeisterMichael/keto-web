@@ -99,6 +99,18 @@
 					%li.dropdown
 						%a.dropdown-toggle{ href: swell_id.user_admin_index_path() }
 							Users
+							%span.badge #{User.active.count}
+
+				- if defined?( Scuttlebutt ) && authorized?( User, controller: Scuttlebutt::PostAdminController, action: :index )
+					%li.dropdown
+						%a.dropdown-toggle{ href: scuttlebutt.post_admin_index_path() }
+							Posts
+							%span.badge #{Scuttlebutt::Post.where.not( user: User.admin ).active.count}
+				- if defined?( Scuttlebutt )
+					%li.dropdown
+						%a.disabled.dropdown-toggle{ disabled: true }
+							Votes
+							%span.badge #{Scuttlebutt::Vote.where.not( user: User.admin ).count}
 
 			%ul.nav.navbar-nav.navbar-right.user-nav
 				%li.dropdown.profile-menu

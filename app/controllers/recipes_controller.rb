@@ -5,13 +5,29 @@ class RecipesController < ApplicationController
 	before_action :set_recipe, only: :show
 
 	def index
-		@recipes = Recipe.published.order( :title )
-		if params[:cat].present?
-			@category = RecipeCategory.friendly.find( params[:cat] )
-			@recipes = @recipes.where( category_id: @category.id )
-		end
+
+
+		@tags = []# Recipe.published.tags_counts
+
+		@query = params[:q] if params[:q].present?
+		@tagged = params[:tagged]
+		@author = User.friendly.find( params[:by] ) if params[:by].present?
+		@category = RecipeCategory.friendly.find( params[:category] || params[:cat] ) if ( params[:category] || params[:cat] ).present?
+
+		@title = @category.try(:name)
+		@title ||= "Reciptes"
+
+		@recipes = Recipe.published.order( publish_at: :desc )
+		@recipes = @recipes.where( category: @category ) if @category
+		@recipes = @recipes.with_any_tags( @tagged ) if @tagged
+		@recipes = @recipes.where( user: @author ) if @author
+
+		# set count before pagination
+		@count = @recipes.count
+
 		@recipes = @recipes.page( params[:page] )
-		set_page_meta( title: 'Recipes' )
+
+		set_page_meta( title: @title )
 
 		render layout: 'application_covered'
 	end
