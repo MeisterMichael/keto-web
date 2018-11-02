@@ -13,6 +13,7 @@
 //= require activestorage
 //= require app_theme/app_theme_multipage
 //= require scuttlebutt/application
+//= require bazaar/checkout.js
 //= require jquery_ujs
 //= require custom/application
 // turbolinks

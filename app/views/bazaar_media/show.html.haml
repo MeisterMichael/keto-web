@@ -1,16 +1,278 @@
 %script{ type: 'application/ld+json' }
 	= raw @page_meta[:schema].to_json
 
-.container
-	.row
-		.col-sm-6.col-md-5
-			%img.img-responsive.center-block{ src: @media.avatar }
+/
+	CONTENT --------------------------------------------------------------------------------->
+	<!-- Intro Section
+-# %section.inner-intro.dark-bg.bg-image.overlay-light.parallax.parallax-background1{"data-background-img" => "https://keto-daily.com/wp-content/uploads/2018/10/Keto-Jicama-Fries-Basket-2.jpg" }
+	.container
+		.row.title
+			%h2.h2 SHOP
+			.page-breadcrumb
+				%a{ href: '/' } Home
+				\/
+				%a{ href: main_app.bazaar_media_path() } Shop
+				\/
+				%span=@media.title
 
-		.col-sm-7
-			%h1
-				= @media.title
-			%p
-				= @media.subtitle
-			%div.mb-3
+%section#shop-item.pt.pt-sm-80.pb-4
+	.container
+		.row
+			/ Shop Item
+			.col-md-6.mb-sm-60
+				.shop-detail-item
+					/ Item Images
+					.sp-wrap
+						- unless @media.avatar.blank?
+							%a{:href => @media.avatar, target: '_gallery'}
+								%img{:alt => "", :src => @media.avatar}/
+						- @media.gallery_attachments.each do |image|
+							%a{:href => image.service_url, target: '_gallery'}
+								%img{:alt => "", :src => image.service_url }/
+					/ End Item Images
+					/ Item zoom
+					.sp-full-screen
+						%a.cbox-gallary1{:href => "#"}
+							%i.fa.fa-search-plus>
+							Zoom
+					/ End Item zoom
+			/ End Shop Item
+			/ Shop info
+			.col-md-6
+				.shop-detail-info
+					%h4=@media.title
+					.shop-item-price.mtb-15.ptb-15
+						- if @media.suggested_price.present?
+							%del=@media.suggested_price_formatted
+						%span=@media.price_formatted
+					%hr/
+					- unless @media.short_description.blank?
+						%p.ptb-15=raw @media.short_description
+					%ul.project-detail-block.ptb-15
+						-# %li
+							%p
+								%strong.dark-color Brand :
+								%span Zara
+						-# %li
+							%p
+								%strong.dark-color SKU :
+								%span #235145
+						-# %li
+							%p
+								%strong.dark-color Weight (kg) :
+								%span 0.750
+					= form_tag bazaar.cart_items_path do
+						= hidden_field_tag :item_type, @media.product.class.base_class.name
+						= hidden_field_tag :item_id, @media.product.id
+						= hidden_field_tag :buy_now, :true
+						= hidden_field_tag :reset_cart, :true
+
+						.cart-box
+							%label.inline{:for => "quantity"} Qty :
+							= number_field_tag :quantity, 1, class: 'input-lg', min: 1, step: 1, max: 2, required: true
+							-# %input.input-lg{:max => "50", :min => "1", :name => "qty", :required => "required", :type => "number", :value => "1"}/
+
+						%button.btn.btn-lg.btn-black.form-full
+							%i.fa.fa-shopping-cart.left>
+							Add To Cart
+					-# %ul.list-none-ib.ptb-15.text-cap
+						%li.mr-30
+							%a
+								= render 'scuttlebutt/subscriptions/widget', parent_obj: @media, args: { css_class: 'btn btn-default btn-sm' }
+
+						-# %li
+							%a
+								%i.fa.fa-share-alt.left>
+								Share
+
+					.addthis_inline_share_toolbox.share-5.mt-3
+					/ Tab
+					.tabs.mt-15
+						%ul
+							%li
+								%a{:href => "#tabs-1"} Description
+							- if @media.data_sheet.present?
+								%li
+									%a{:href => "#tabs-2"} Data sheet
+							%li
+								%a{:href => "#tabs-3"} Review
+						.ui-tab-content
+							/ Description
+							#tabs-1
+								= raw @media.description
+							/ End Description
+							/ Data sheet
+							#tabs-2
+								= raw @media.data_sheet
+							/ End Data sheet
+							/ Review
+							#tabs-3
+								= render 'scuttlebutt/comments/widget', parent_obj: @media, args: { page: params[:page] }
+							/ End Review
+					/ End Tab
+			/ End Shop info
+/ End Shop Item Section
+%hr/
+%section.pb.pb-sm-80.pt-4
+	.container
+		.row
+			.col-12.col-md-8.offset-md-2
 				= raw @media.content
-			.addthis_inline_share_toolbox.share-5
+
+-# %hr/
+/ Related Product Slider
+-# %section.ptb.ptb-sm-80
+	.container
+		.row.text-center
+			%h4.col-12 Related Product
+		.spacer-30
+		.row
+			.owl-carousel.item4-carousel.nf-carousel-theme.o-flow-hidden
+				.item
+					.nf-col-padding
+						.item-box
+							/ Shop item images
+							.shop-item
+								.item-img
+									%img{:src => "img/product/07.jpg"}/
+								.item-mask
+									.item-mask-detail
+										.item-mask-detail-ele
+											%a.btn.btn-line-xs.btn-white-line
+												%i.fa.fa-shopping-cart>
+												Add To Cart
+							/ End Shop item images
+							/ Shop item info
+							.shop-item-info
+								%a{:href => "shop-detail.html"}
+									%h6.shop-item-name Veritatis et quasi architecto
+								.shop-item-price
+									%span $399.00
+							/ Shop item info
+				.item
+					.nf-col-padding
+						.item-box
+							/ Shop item images
+							.shop-item
+								.item-img
+									%img{:src => "img/product/01.jpg"}/
+								.item-mask
+									.item-mask-detail
+										.item-mask-detail-ele
+											%a.btn.btn-line-xs.btn-white-line
+												%i.fa.fa-shopping-cart>
+												Add To Cart
+							/ End Shop item images
+							/ Shop item info
+							.shop-item-info
+								%a{:href => "shop-detail.html"}
+									%h6.shop-item-name Sed fringilla mauris
+								.shop-item-price
+									%span $399.00
+							/ Shop item info
+				.item
+					.nf-col-padding
+						.item-box
+							/ Shop item images
+							.shop-item
+								.item-img
+									%img{:src => "img/product/02.jpg"}/
+								.item-mask
+									.item-mask-detail
+										.item-mask-detail-ele
+											%a.btn.btn-line-xs.btn-white-line
+												%i.fa.fa-shopping-cart>
+												Add To Cart
+							/ End Shop item images
+							/ Shop item info
+							.shop-item-info
+								%a{:href => "shop-detail.html"}
+									%h6.shop-item-name Beatae vitae dicta explicabo
+								.shop-item-price
+									%span $399.00
+							/ Shop item info
+				.item
+					.nf-col-padding
+						.item-box
+							/ Shop item images
+							.shop-item
+								.item-img
+									%img{:src => "img/product/03.jpg"}/
+								.item-mask
+									.item-mask-detail
+										.item-mask-detail-ele
+											%a.btn.btn-line-xs.btn-white-line
+												%i.fa.fa-shopping-cart>
+												Add To Cart
+							/ End Shop item images
+							/ Shop item info
+							.shop-item-info
+								%a{:href => "shop-detail.html"}
+									%h6.shop-item-name Voluptas nulla pariatur
+								.shop-item-price
+									%span $399.00
+							/ Shop item info
+				.item
+					.nf-col-padding
+						.item-box
+							/ Shop item images
+							.shop-item
+								.item-img
+									%img{:src => "img/product/04.jpg"}/
+								.item-mask
+									.item-mask-detail
+										.item-mask-detail-ele
+											%a.btn.btn-line-xs.btn-white-line
+												%i.fa.fa-shopping-cart>
+												Add To Cart
+							/ End Shop item images
+							/ Shop item info
+							.shop-item-info
+								%a{:href => "shop-detail.html"}
+									%h6.shop-item-name Quod maxime placeat facere
+								.shop-item-price
+									%span $399.00
+							/ Shop item info
+				.item
+					.nf-col-padding
+						.item-box
+							/ Shop item images
+							.shop-item
+								.item-img
+									%img{:src => "img/product/05.jpg"}/
+								.item-mask
+									.item-mask-detail
+										.item-mask-detail-ele
+											%a.btn.btn-line-xs.btn-white-line
+												%i.fa.fa-shopping-cart>
+												Add To Cart
+							/ End Shop item images
+							/ Shop item info
+							.shop-item-info
+								%a{:href => "shop-detail.html"}
+									%h6.shop-item-name Non numquam eius modi
+								.shop-item-price
+									%span $399.00
+							/ Shop item info
+				.item
+					.nf-col-padding
+						.item-box
+							/ Shop item images
+							.shop-item
+								.item-img
+									%img{:src => "img/product/06.jpg"}/
+								.item-mask
+									.item-mask-detail
+										.item-mask-detail-ele
+											%a.btn.btn-line-xs.btn-white-line
+												%i.fa.fa-shopping-cart>
+												Add To Cart
+							/ End Shop item images
+							/ Shop item info
+							.shop-item-info
+								%a{:href => "shop-detail.html"}
+									%h6.shop-item-name Sed fringilla mauris
+								.shop-item-price
+									%span $399.00
+							/ Shop item info
+/ End Related Product Slider

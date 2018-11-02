@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 	mount Socratic::Engine, :at => '/'
 	mount Bunyan::Engine, :at => '/'
 	mount Edison::Engine, :at => '/'
-	# mount Bazaar::Engine, :at => '/'
+	mount Bazaar::Engine, :at => '/'
 
 	resources :bazaar_media_admin do
 		get :preview, on: :member

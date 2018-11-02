@@ -95,6 +95,33 @@
 											%a{ href: main_app.edit_recipe_admin_path( recipe ) }
 												= recipe.title
 
+				%li.dropdown
+					%a.dropdown-toggle{ href: '#', data: { toggle: :dropdown} }
+						Store
+						%b.caret
+					%ul.dropdown-menu
+						%li
+							%a{ href: bazaar.cart_admin_index_path }
+								Carts
+						%li
+							%a{ href: bazaar.discount_admin_index_path }
+								Discounts
+						%li
+							%a{ href: bazaar.subscription_plan_admin_index_path }
+								Plans
+						%li
+							%a{ href: bazaar.product_admin_index_path }
+								Products
+						%li
+							%a{ href: main_app.bazaar_media_admin_index_path() }
+								Purchase Pages
+
+				%li.dropdown{ class: ( controller_name == 'order_admin' ? 'active' : '' ) }
+					%a{ href: bazaar.order_admin_index_path }
+						Orders
+						- if ( order_count = Bazaar::CheckoutOrder.active.unfulfilled.count ) > 0
+							.badge{ style: 'margin-left: 0.5em;' }=order_count
+
 				- if defined?( SwellId ) && authorized?( User, controller: SwellId::UserAdminController, action: :index )
 					%li.dropdown
 						%a.dropdown-toggle{ href: swell_id.user_admin_index_path() }

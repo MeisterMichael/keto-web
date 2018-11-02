@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_200800) do
+ActiveRecord::Schema.define(version: 2018_10_31_200800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -182,6 +182,9 @@ ActiveRecord::Schema.define(version: 2018_10_17_200800) do
     t.text "meta_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "short_description"
+    t.text "data_sheet"
+    t.integer "product_id"
     t.index ["category_id"], name: "index_bazaar_media_on_category_id"
     t.index ["managed_by_id"], name: "index_bazaar_media_on_managed_by_id"
     t.index ["parent_id"], name: "index_bazaar_media_on_parent_id"

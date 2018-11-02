@@ -50,6 +50,10 @@
 							%img{:alt => "", :src => @recipe.avatar}/
 						.post-entry.fr-view
 							= raw @recipe.content
+							- if @recipe.nutrition_facts_attachment.attached?
+								.ptb-3
+									= image_tag @recipe.nutrition_facts_attachment.source_url, class: 'img img-responsive center-block'
+
 						.post-tag.pull-left
 							- @recipe.tags.each do |tag|
 								%span

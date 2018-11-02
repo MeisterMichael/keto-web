@@ -12,6 +12,8 @@ class BazaarMediaController < ApplicationController
 			fb_type: 'article'
 			}
 		)
+		
+		render layout: 'application_covered'
 	end
 
 	def show

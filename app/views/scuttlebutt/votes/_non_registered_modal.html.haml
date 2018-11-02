@@ -1,0 +1,33 @@
+- unless current_user.present?
+	#non_registered_upvote_modal.modal.fade
+		.modal-dialog
+			.modal-content
+				.modal-header
+					.close{ type: :button, 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
+						&times;
+					%h4.modal-title
+						Register to Up Vote #{parent_obj}
+						= @topic
+				= form_tag scuttlebutt.votes_path( parent_obj_type: parent_obj.class.base_class.name, parent_obj_id: parent_obj.id, val: 1 ) do
+					.modal-body
+						= render 'application/register_then'
+					.modal-footer
+						.btn.btn-default.pull-left{ type: :button, 'data-dismiss' => 'modal' }
+							Close
+						= submit_tag 'Go', class: 'btn btn-primary'
+	#non_registered_downvote_modal.modal.fade
+		.modal-dialog
+			.modal-content
+				.modal-header
+					.close{ type: :button, 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
+						&times;
+					%h4.modal-title
+						Register to Up Vote #{parent_obj}
+						= @topic
+				= form_tag scuttlebutt.votes_path( parent_obj_type: parent_obj.class.base_class.name, parent_obj_id: parent_obj.id, val: 1 ) do
+					.modal-body
+						= render 'application/register_then'
+					.modal-footer
+						.btn.btn-default.pull-left{ type: :button, 'data-dismiss' => 'modal' }
+							Close
+						= submit_tag 'Go', class: 'btn btn-primary'

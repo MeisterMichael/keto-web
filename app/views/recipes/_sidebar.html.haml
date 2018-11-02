@@ -1,3 +1,6 @@
+- if @recipe.present? && @recipe.nutrition_facts_attachment.attached?
+	.panel.panel-default
+		= image_tag @recipe.nutrition_facts_attachment.source_url, class: 'img img-responsive center-block'
 
 .panel.panel-default
 	.panel-heading

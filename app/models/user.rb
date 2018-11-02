@@ -30,6 +30,15 @@ class User < ApplicationRecord
 		end
 	end
 
+	def self.term_search( term )
+		users = self
+		if term.present?
+			query = "%#{term.gsub('%','\\\\%')}%"
+			users = users.where( "username ILIKE :q OR (first_name || ' ' || last_name) ILIKE :q OR email ILIKE :q OR phone ILIKE :q", q: query )
+		end
+		users
+	end
+
 	protected
 
 		def set_avatar
