@@ -23,6 +23,7 @@
 //= require app_theme/theme/general/js/plugin/jquery.stellar.min.js
 //= require app_theme/theme/general/js/plugin/wow.min.js
 //= require app_theme/theme/general/js/plugin/jquery.colorbox-min.js
+//= require app_theme/theme/general/js/plugin/smoothproducts.js
 //= require app_theme/theme/general/js/plugin/owl.carousel.min.js
 //= require app_theme/theme/general/js/plugin/isotope.pkgd.min.js
 //= require app_theme/theme/general/js/plugin/masonry.pkgd.min.js
@@ -35,3 +36,5 @@
 //= require app_theme/theme/general/js/plugin/jquery.singlePageNav.js
 //= require app_theme/custom/multipage.js
 //= require app_theme/custom/theme.js
+
+$('.sp-wrap').smoothproducts();
