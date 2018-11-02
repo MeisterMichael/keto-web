@@ -25,6 +25,12 @@ class Food < ActiveRecord::Base
 	acts_as_taggable_array_on :tags
 
 
+	def self.media_tag_cloud( args = {} )
+		args[:limit] ||= 7
+		media_relation = self.limit(nil)
+		return Food.unscoped.limit( args[:limit] ).tags_cloud{ merge( media_relation ) }.to_a
+	end
+
 	def self.published( args = {} )
 		where( "publish_at <= :now", now: Time.zone.now ).active
 	end

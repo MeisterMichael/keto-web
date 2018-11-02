@@ -1,0 +1,87 @@
+/ Sidebar
+.col-lg-3.col-md-3.mt-sm-30
+	- if @recipe.present? && @recipe.nutrition_facts_attachment.attached?
+		.sidebar-widget
+			= image_tag @recipe.nutrition_facts_attachment.service_url, class: 'img-fluid mx-auto nutrition-facts'
+
+
+	-# .sidebar-widget
+		%h5 Search
+		.widget-search
+			%input#wid-search.form-full.input-lg{:name => "search", :placeholder => "Search Here", :type => "text", :value => ""}/
+			%input#wid-s-sub{:name => "email", :type => "submit", :value => ""}/
+	-# .sidebar-widget
+		%h5 Categories
+		%hr/
+		%ul
+			%li
+				%a Photography
+			%li
+				%a Web Design
+			%li
+				%a Lifestyle
+			%li
+				%a Responsive
+			%li
+				%a MultiPurpose Theme
+			%li
+				%a Agency
+			%li
+				%a Portfolio
+	- if ( recent_recipes = Recipe.published.where.not( id: @recipe.try(:id) ).order(publish_at: :desc).limit(3) ).present?
+		.sidebar-widget
+			%h5 Recent Post
+			%hr/
+			%ul.widget-post
+				- recent_recipes.each do |media|
+					%li
+						%a.widget-post-media{ href: media.url }
+							%img{:src =>  media.avatar }/
+						.widget-post-info
+							%h6
+								%a{ href: media.url }=media.title
+							.post-meta
+								%span=media.publish_at.strftime('%B %e, %Y')
+	- if ( tag_cloud = Recipe.published.media_tag_cloud( limit: 7 ) ).present?
+
+		.sidebar-widget
+			%h5 popular Tags
+			%hr/
+			%ul.widget-tag
+				- tag_cloud.each do |tag,count|
+					%li
+						%a{ href: main_app.recipes_path( tagged: tag ) }= tag
+-#
+	.panel.panel-default
+		.panel-heading
+			Categories
+		.panel-body
+			%ul.list-unstyle.sidebar-list
+				- RecipeCategory.published.each do |cat|
+					%li
+						%a{ href: recipes_path( cat: cat.slug ) }
+							%i.fa.fa-caret-right{ 'aria-hidden' => "true" }
+							= cat.to_s
+							%span
+								= "(#{Recipe.published.where( category_id: cat.id ).count})"
+
+	.panel.panel-default.recentBlogPosts
+		.panel-heading
+			Featured Recipes
+		.panel-body
+			- Recipe.published.order( "random()" ).limit( 5 ).each do |recipe|
+				.media
+					%a.media-left{ href: recipe.url }
+						%img.img.img-responsive.media-object{ src: recipe.avatar }
+					.media-body
+						%h4.media-heading.text-center
+							%a{ href: recipe.url }
+								= recipe.title
+
+	.panel.panel-default
+		.panel-heading
+			Just a Thought
+		.panel-body
+			- Inspiration.published.order( 'random()' ).limit( 1 ).each do |inspiration|
+				%a{ :href => inspiration.path }
+					%img.img.img-responsive{ src: inspiration.avatar }

@@ -55,3 +55,10 @@
 .dropdown-caretless .dropdown-toggle::after {
 	display: none;
 }
+
+.nutrition-facts {
+	max-width: 300px;
+	border-bottom: 1px solid #ccc;
+	border-radius: 5px;
+	position: relative;
+}

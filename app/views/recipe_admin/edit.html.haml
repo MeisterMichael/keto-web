@@ -49,8 +49,8 @@
 								= f.label :nutrition_facts_attachment, "Nutrition Facts"
 								= f.file_field :nutrition_facts_attachment
 								- if @recipe.nutrition_facts_attachment.attached?
-									= image_tag @recipe.nutrition_facts_attachment.source_url, class: 'img-responsive'
-									%a.btn.btn-default{ 'data-clipboard-text' => @recipe.nutrition_facts_attachment.source_url }
+									= image_tag @recipe.nutrition_facts_attachment.service_url, class: 'img-responsive'
+									%a.btn.btn-default{ 'data-clipboard-text' => @recipe.nutrition_facts_attachment.service_url }
 										%i.fa.fa-clipboard
 
 

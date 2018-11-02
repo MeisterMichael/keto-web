@@ -50,9 +50,9 @@
 							%img{:alt => "", :src => @recipe.avatar}/
 						.post-entry.fr-view
 							= raw @recipe.content
-							- if @recipe.nutrition_facts_attachment.attached?
+							-# if @recipe.nutrition_facts_attachment.attached?
 								.ptb-3
-									= image_tag @recipe.nutrition_facts_attachment.source_url, class: 'img img-responsive center-block'
+									= image_tag @recipe.nutrition_facts_attachment.service_url, class: 'mx-auto d-block nutrition-facts'
 
 						.post-tag.pull-left
 							- @recipe.tags.each do |tag|
@@ -62,7 +62,7 @@
 										,
 					= render 'application/social', object: @recipe, args: { page: params[:page] }
 				/ End Post Bar
-				= render 'pulitzer/articles/side_bar'
+				= render 'recipes/side_bar'
 / End Blog Post Section
 = render 'pulitzer/articles/next_prev_bar'
 / End CONTENT ----------------------------------------------------------------------------
