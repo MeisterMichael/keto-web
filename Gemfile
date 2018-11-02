@@ -53,6 +53,7 @@ gem 'numbers_in_words'
 gem 'omniauth'
 gem 'route_downcaser'
 gem 'sidekiq'
+gem 'stripe'
 
 
 # gem 'easypost'
@@ -76,8 +77,8 @@ swell_engines_path = ENV['SWELL_ENGINE_PATH'] || '../engines'
 # gem 'socratic', path: "#{swell_engines_path}/socratic"
 
 # Prod *****
-gem 'swell_id', git: 'https://github.com/gkparishphilp/swell_id.git', :tag => "v1.0.1", :branch => 'master'
-gem 'pulitzer', git: 'https://github.com/gkparishphilp/pulitzer.git', :tag => "v1.4.0", :branch => 'master'
+gem 'swell_id', git: 'https://github.com/gkparishphilp/swell_id.git', :tag => "v1.2.0", :branch => 'master'
+gem 'pulitzer', git: 'https://github.com/gkparishphilp/pulitzer.git', :tag => "v1.5.0", :branch => 'master'
 gem 'scuttlebutt', git: 'https://github.com/gkparishphilp/scuttlebutt.git', :tag => "v1.1.13", :branch => 'master'
 gem 'bazaar', git: 'https://github.com/MeisterMichael/bazaar.git', :tag => "v0.2.0", :branch => 'master'
 gem 'bunyan', git: 'https://github.com/Groundswell/bunyan.git', :tag => "v2.0.0", :branch => 'master'
