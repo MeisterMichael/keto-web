@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_02_200800) do
+ActiveRecord::Schema.define(version: 2018_11_02_200801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -653,6 +653,8 @@ ActiveRecord::Schema.define(version: 2018_11_02_200800) do
     t.datetime "updated_at", null: false
     t.float "serving_size_weight"
     t.text "serving_size"
+    t.string "usda_ndbno"
+    t.hstore "properties", default: {}
     t.index ["category_id"], name: "index_foods_on_category_id"
     t.index ["slug"], name: "index_foods_on_slug", unique: true
     t.index ["tags"], name: "index_foods_on_tags", using: :gin

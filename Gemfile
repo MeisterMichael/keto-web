@@ -53,6 +53,7 @@ gem 'numbers_in_words'
 gem 'omniauth'
 gem 'route_downcaser'
 gem 'ruby-measurement'
+gem 'rest-client'
 gem 'sidekiq'
 gem 'stripe'
 
