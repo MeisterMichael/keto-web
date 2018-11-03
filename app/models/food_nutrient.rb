@@ -68,7 +68,7 @@ class FoodNutrient < ActiveRecord::Base
 
 				weight = row.second.quantity
 				percent_value = row.last.first
-				daily_recommended_value = (weight / percent_value.to_f * 100.0).round( 6 )
+				daily_recommended_value = (weight * percent_value.to_f * 100.0).round( 6 )
 
 				nutrient = Nutrient.find_or_create_by_measurement( row.first, row.second, daily_recommended_value: daily_recommended_value )
 				relation.new( nutrient: nutrient, weight: weight )
