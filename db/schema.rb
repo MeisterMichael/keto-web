@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_31_200800) do
+ActiveRecord::Schema.define(version: 2018_11_02_200800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -620,6 +620,20 @@ ActiveRecord::Schema.define(version: 2018_10_31_200800) do
     t.index ["experiment_id"], name: "index_edison_variants_on_experiment_id"
   end
 
+  create_table "food_nutrients", force: :cascade do |t|
+    t.bigint "food_id"
+    t.bigint "nutrient_id"
+    t.float "amount"
+    t.string "unit"
+    t.float "weight"
+    t.float "estimated_calories"
+    t.string "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_food_nutrients_on_food_id"
+    t.index ["nutrient_id"], name: "index_food_nutrients_on_nutrient_id"
+  end
+
   create_table "foods", force: :cascade do |t|
     t.bigint "category_id"
     t.string "title"
@@ -637,6 +651,8 @@ ActiveRecord::Schema.define(version: 2018_10_31_200800) do
     t.datetime "publish_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "serving_size_weight"
+    t.text "serving_size"
     t.index ["category_id"], name: "index_foods_on_category_id"
     t.index ["slug"], name: "index_foods_on_slug", unique: true
     t.index ["tags"], name: "index_foods_on_tags", using: :gin
@@ -728,6 +744,22 @@ ActiveRecord::Schema.define(version: 2018_10_31_200800) do
     t.datetime "updated_at", null: false
     t.index ["food_id"], name: "index_ingredients_on_food_id"
     t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
+  end
+
+  create_table "nutrients", force: :cascade do |t|
+    t.bigint "parent_id"
+    t.string "title"
+    t.string "slug"
+    t.integer "position"
+    t.string "avatar"
+    t.float "daily_recommended_value"
+    t.float "daily_recommended_keto_value"
+    t.float "calories_per_gram"
+    t.text "description"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_nutrients_on_parent_id"
   end
 
   create_table "oauth_credentials", force: :cascade do |t|

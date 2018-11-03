@@ -62,6 +62,11 @@
 					= f.label :content
 					= f.text_area :content, class: 'form-control wysiwyg', data: { wysiwyg: { height_min: 200, toolbar_sticky: true, toolbar_preset: 'admin_default', object_class: @recipe.class.base_class.name, object_id: @recipe.id }.to_json }
 
+				.text-center
+					%a{ href: '#', data: { toggle: :modal, target: '#update_nutrients_modal' } }
+						update nutrition facts
+					%div= render "food/facts", food: @recipe, args: {}
+
 			.col-xs-4
 				.well
 					.form-group
@@ -98,3 +103,5 @@
 					%hr
 					= link_to 'Show', @recipe
 					= link_to 'Back', recipe_admin_index_path
+
+= render 'recipe_admin/update_nutrients_modal'

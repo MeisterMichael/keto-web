@@ -14,5 +14,6 @@
  *= require scuttlebutt/application
  *= require bazaar/checkout
  *= require custom/application
+ *= require custom/nutrition_facts
  *= require_self
  */

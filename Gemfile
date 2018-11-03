@@ -52,6 +52,7 @@ gem 'newrelic_rpm'
 gem 'numbers_in_words'
 gem 'omniauth'
 gem 'route_downcaser'
+gem 'ruby-measurement'
 gem 'sidekiq'
 gem 'stripe'
 

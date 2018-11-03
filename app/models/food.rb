@@ -9,6 +9,9 @@ class Food < ActiveRecord::Base
 
 	enum status: { 'draft' => 0, 'active' => 1, 'archive' => 2, 'trash' => 3 }
 
+	has_many :food_nutrients, -> { joins(:nutrient).order('nutrients.position ASC, nutrients.id ASC') }
+	has_many :nutrients, through: :food_nutrients
+
 	has_one_attached :avatar_attachment
 	has_one_attached :cover_attachment
 	has_one_attached :nutrition_facts_attachment
@@ -29,6 +32,18 @@ class Food < ActiveRecord::Base
 		args[:limit] ||= 7
 		media_relation = self.limit(nil)
 		return Food.unscoped.limit( args[:limit] ).tags_cloud{ merge( media_relation ) }.to_a
+	end
+
+	def parse_nutrient_facts
+		nil
+	end
+
+	def parse_nutrient_facts=( nutrient_facts )
+		self.food_nutrients.destroy_all
+		list = self.food_nutrients.parse( nutrient_facts )
+		list.each do |food_nutrient|
+			self.food_nutrients << food_nutrient
+		end
 	end
 
 	def self.published( args = {} )

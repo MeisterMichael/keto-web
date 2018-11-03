@@ -1,0 +1,74 @@
+.nutrition-facts {
+	border: 1px solid #ccc;
+	border-radius: 7px;
+	padding: 7px;
+	max-width: 350px;
+	display: inline-block;
+	text-align: left;
+	font-weight: normal;
+	font-family: helvetica;
+}
+
+.nutrition-facts .nf-title {
+	font-size: 2em;
+	font-weight: bold;
+}
+.nutrition-facts .nf-servings,
+.nutrition-facts .nf-nutrient-type-protein.nf-nutrient {
+	padding-bottom: 2px;
+	border-bottom: 5px solid #ccc;
+	margin-bottom: 2px;
+}
+
+.nutrition-facts .nf-nutrient-type-calories.nf-nutrient {
+	font-size: 2em;
+}
+
+
+.nutrition-facts .nf-nutrient,
+.nutrition-facts .nf-columns {
+	padding-bottom: 2px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 2px;
+}
+.nutrition-facts .nf-columns {
+	text-align: right;
+}
+.nutrition-facts .nf-nutrient-child {
+	padding-left: 1em;
+}
+.nutrition-facts .nf-nutrient-title,
+.nutrition-facts .nf-nutrient-header {
+	font-weight: bold;
+}
+.nutrition-facts .nf-nutrient-child .nf-nutrient-title {
+	font-weight: normal;
+}
+.nutrition-facts .nf-nutrient:after,
+.nutrition-facts .nf-columns:after {
+	clear: both;
+}
+.nutrition-facts .nf-nutrient-weight,
+.nutrition-facts .nf-nutrient-title {
+	display: inline;
+}
+.nutrition-facts .nf-nutrient-dv,
+.nutrition-facts .nf-nutrient-dkv {
+	width: 5em;
+	text-align: right;
+	font-weight: bold;
+}
+.nutrition-facts .nf-nutrient-dv,
+.nutrition-facts .nf-nutrient-dkv,
+.nutrition-facts .nf-nutrient-amount {
+	float: right;
+}
+.nutrition-facts .nf-columns .nf-nutrient-dv,
+.nutrition-facts .nf-columns .nf-nutrient-dkv {
+	float: none;
+	display: inline-block;
+}
+.nutrition-facts .nf-citation {
+	font-style: italic;
+	font-weight: lighter;
+}

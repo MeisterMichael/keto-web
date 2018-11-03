@@ -1,0 +1,17 @@
+#update_nutrients_modal.modal.fade
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%button.close{ type: :button, 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
+					&times;
+				%h4.modal-title
+					Update Nutrition Information
+			= form_for @recipe, url: main_app.recipe_admin_path(@recipe) do |f|
+				.modal-body
+					= f.label :parse_nutrient_facts, 'Paste Nutrition Facts'
+					= f.text_area :parse_nutrient_facts, class: 'form-control'
+
+				.modal-footer
+					%button.btn.btn-default{ type: :button, 'data-dismiss' => 'modal' }
+						Close
+					= f.submit 'Update', class: 'btn btn-primary'
