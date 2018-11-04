@@ -8,7 +8,7 @@ class FoodNutrient < ActiveRecord::Base
 
 	def daily_recommended_percent
 		if nutrient.daily_recommended_value.present? && nutrient.daily_recommended_value > 0
-			self.weight / self.nutrient.daily_recommended_value
+			self.amount_per_serving / self.nutrient.daily_recommended_value
 		else
 			nil
 		end
@@ -16,7 +16,7 @@ class FoodNutrient < ActiveRecord::Base
 
 	def daily_recommended_keto_percent
 		if nutrient.daily_recommended_keto_value.present? && nutrient.daily_recommended_keto_value > 0
-			self.weight / self.nutrient.daily_recommended_keto_value
+			self.amount_per_serving / self.nutrient.daily_recommended_keto_value
 		else
 			nil
 		end
@@ -87,13 +87,15 @@ class FoodNutrient < ActiveRecord::Base
 	end
 
 	def self.net_carb_weight( food_nutrients )
-		total_carbohydrates = food_nutrients.select{ |food_nutrient| food_nutrient.nutrient.title.downcase.start_with? 'total carbohydrate' }.first
-		fiber = food_nutrients.select{ |food_nutrient| food_nutrient.nutrient.title.downcase.include? 'fiber' }.first
-		(total_carbohydrates.try(:weight) || 0) - (fiber.try(:weight) || 0)
+		total_carbohydrates = food_nutrients.select{ |food_nutrient| food_nutrient.nutrient.fact_name.downcase == 'total carbohydrate' }.first
+		fiber = food_nutrients.select{ |food_nutrient| food_nutrient.nutrient.fact_name.downcase == 'Dietary Fiber'.downcase }.first
+
+		puts "fiber #{fiber}; total_carbohydrates #{total_carbohydrates}"
+		(total_carbohydrates.try(:amount_per_serving) || 0) - (fiber.try(:amount_per_serving) || 0)
 	end
 
 	def to_s
-		str = "#{self.nutrient.title} #{self.amount}#{self.unit}"
+		str = "#{self.nutrient.fact_name} #{self.amount_per_serving}#{self.nutrient.unit}"
 		str = "#{str} / #{(self.daily_recommended_percent * 100.0).round(2)}% dv" if self.daily_recommended_percent
 		str = "#{str} / #{(self.daily_recommended_keto_percent * 100.0).round(2)}% dkv" if self.daily_recommended_keto_percent
 
@@ -103,12 +105,7 @@ class FoodNutrient < ActiveRecord::Base
 	protected
 	def set_defaults
 
-		self.estimated_calories = self.nutrient.calories_per_gram * self.weight if self.nutrient.calories_per_gram.present? && self.weight.present?
-
-		if self.weight.present? && self.amount.blank?
-			self.amount = self.weight
-			self.unit = 'g'
-		end
+		self.estimated_calories = self.nutrient.calories_per_unit * self.amount_per_serving if self.nutrient.calories_per_unit.present? && self.amount_per_serving.present?
 
 	end
 

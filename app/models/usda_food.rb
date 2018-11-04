@@ -1,4 +1,5 @@
 
+# https://ndb.nal.usda.gov/ndb/doc/apilist/API-LIST.md
 class UsdaFood < Food
 
 	def self.usda_search( term, args = {} )
@@ -11,16 +12,20 @@ class UsdaFood < Food
 			api_key: 'DEMO_KEY',
 		}.merge(args[:params] || {}).merge({ q: term })
 		json = RestClient.get("https://api.nal.usda.gov/ndb/search/?#{params.to_query}")
-		response = JSON.parse( json, :symbolize_names => true )
+		response = JSON.parse( json )
 
-		response[:list][:item].collect do |item|
-			UsdaFood.create_with( title: item[:name], properties: item.merge( 'status' => 'search' ) ).find_or_initialize_by( usda_ndbno: item[:ndbno] )
+		response['list']['item'].collect do |item|
+			UsdaFood.create_with(
+				title: item['name'],
+				usda_cache: item,
+				properties: { 'status' => 'search' },
+			).find_or_initialize_by( usda_ndbno: item['ndbno'] )
 		end
 
 	end
 
 	def fetch_details!( args = {} )
-		force_fetch_details! if self.properties['status'] == 'search'
+		force_fetch_details! unless self.properties['status'] == 'detailed'
 	end
 
 	def force_fetch_details!( args = {} )
@@ -33,12 +38,44 @@ class UsdaFood < Food
 		}
 
 		json = RestClient.get("https://api.nal.usda.gov/ndb/reports/?#{params.to_query}")
-		response = JSON.parse( json, :symbolize_names => true )
+		response = JSON.parse( json )
 
-		self.properties = self.properties.merge( 'status' => 'detailed', 'details' => response[:report][:food].to_json )
+		self.usda_cache = response['report']['food']
+		self.serving_size_in_measure_units = 100
+		self.measure_unit = response['report']['food']['ru']
+		self.serving_size = "#{self.serving_size}#{self.measure_unit}"
+		self.properties = self.properties.merge( 'status' => 'detailed' )
 		self.save
 
-		response[:report][:food]
+		# add measures for food.
+		self.food_measures.delete_all
+		self.usda_cache['nutrients'].first['measures'].each do |measure|
+			self.food_measures.create_with(
+				equivalent_measure_units: measure['eqv'].to_f,
+			).find_or_create_by( unit: measure['label'].downcase, quantity: measure['qty'].to_f )
+		end
+
+		# update nutrients
+		self.food_nutrients.delete_all
+		self.usda_cache['nutrients'].each do |nutrient_row|
+			nutrient = Nutrient.create_with(
+				usda_cache: nutrient_row,
+				title: nutrient_row['name'],
+				unit: nutrient_row['unit'],
+			).find_or_create_by( usda_nutrient_id: nutrient_row['nutrient_id'] )
+
+			self.food_nutrients.create(
+				nutrient: nutrient,
+				amount_per_serving: nutrient_row['value'].to_f,
+			)
+		end
+
+
+		nutrient = Nutrient.where( title: "Net Carbohydrates" ).first_or_create
+		self.food_nutrients.create( nutrient: nutrient, amount_per_serving: FoodNutrient.net_carb_weight( self.food_nutrients ) )
+
+
+		self.usda_cache
 	end
 
 end

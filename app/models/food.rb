@@ -11,6 +11,7 @@ class Food < ActiveRecord::Base
 
 	has_many :food_nutrients, -> { joins(:nutrient).order('nutrients.position ASC, nutrients.id ASC') }
 	has_many :nutrients, through: :food_nutrients
+	has_many :food_measures
 
 	has_one_attached :avatar_attachment
 	has_one_attached :cover_attachment

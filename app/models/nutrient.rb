@@ -33,11 +33,12 @@ class Nutrient < ActiveRecord::Base
 	end
 
 	def slugger
+		set_defaults
 		if self.slug_pref.present?
 			self.slug = nil # friendly_id 5.0 only updates slug if slug field is nil
 			return self.slug_pref
 		else
-			return self.title
+			return (self.fact_name || self.title)
 		end
 	end
 
@@ -47,21 +48,54 @@ class Nutrient < ActiveRecord::Base
 			self.avatar = self.avatar_attachment.service_url if self.avatar_attachment.attached?
 		end
 
+
+		protected
 		def set_defaults
 
-			if self.title.downcase.start_with? 'net carbohydrates'
-				self.calories_per_gram = 4
-				self.daily_recommended_keto_value = (0.04 * 2000) / self.calories_per_gram
+
+
+			if self.title.downcase == 'Fatty acids, total saturated'.downcase
+				self.fact_name ||= 'Saturated Fat'
 			end
 
-			if self.title.downcase.start_with? 'total fat'
-				self.calories_per_gram ||= 9
-				self.daily_recommended_keto_value ||= (0.72 * 2000) / self.calories_per_gram
+			if self.title.downcase == 'Fatty acids, total trans'.downcase
+				self.fact_name ||= 'Trans Fat'
+			end
+
+			if self.title.downcase == 'Energy'.downcase
+				self.fact_name ||= 'Calories'
+			end
+
+			if self.title.downcase == 'carbohydrate, by difference'.downcase
+				self.fact_name ||= 'Total Carbohydrate'
+			end
+
+			if self.title.downcase == 'Fiber, total dietary'.downcase
+				self.fact_name ||= 'Dietary Fiber'
+			end
+
+			if self.title.downcase == 'Sugars, total'.downcase
+				self.fact_name ||= 'Total Sugars'
+			end
+
+			if self.title.downcase.start_with? 'net carbohydrates'
+				self.fact_name ||= 'Net Carbohydrates'
+				self.calories_per_unit = 4
+				self.daily_recommended_keto_value = (0.04 * 2000) / self.calories_per_unit
+			end
+
+			if self.title.downcase.start_with?( 'total fat' ) || self.title.downcase.start_with?( 'total lipid (fat)' )
+				self.fact_name ||= 'Total Fat'
+				self.calories_per_unit ||= 9
+				self.daily_recommended_keto_value ||= (0.72 * 2000) / self.calories_per_unit
 			end
 
 			if self.title.downcase.start_with? 'protein'
-				self.calories_per_gram ||= 4
-				self.daily_recommended_keto_value ||= (0.24 * 2000) / self.calories_per_gram
+				self.fact_name ||= 'Protein'
+				self.calories_per_unit ||= 4
+				self.daily_recommended_keto_value ||= (0.24 * 2000) / self.calories_per_unit
 			end
+
+			self.fact_name ||= self.title
 		end
 end

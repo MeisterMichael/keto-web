@@ -5,18 +5,18 @@ namespace :app_migrations do
 		Nutrient.friendly.find( 'calories' ).update( position: 10 )
 		total_fat = Nutrient.friendly.find( 'total-fat' )
 		total_fat.update( position: 20 )
-		Nutrient.friendly.find( 'saturated-fat' ).update( position: 21, parent: total_fat )
+		Nutrient.where( slug: 'saturated-fat' ).update_all( position: 21, parent_id: total_fat.id )
 		Nutrient.where( slug: 'trans-fat' ).update_all( position: 22, parent_id: total_fat.id )
 		Nutrient.where( slug: 'polyunsaturated-fat' ).update_all( position: 23, parent_id: total_fat.id )
 		Nutrient.where( slug: 'monounsaturated-fat' ).update_all( position: 24, parent_id: total_fat.id )
-		Nutrient.friendly.find( 'cholesterol' ).update( position: 130 )
-		Nutrient.friendly.find( 'sodium' ).update( position: 140 )
+		Nutrient.where( slug: 'cholesterol' ).update_all( position: 130 )
+		Nutrient.where( slug: 'sodium' ).update_all( position: 140 )
 		total_carbs = Nutrient.friendly.find( 'total-carbohydrate' )
 		total_carbs.update( position: 150 )
 		Nutrient.where( slug: 'net-carbohydrates' ).update_all( position: 151, parent_id: total_carbs.id )
 		Nutrient.where( slug: 'dietary-fiber' ).update_all( position: 152, parent_id: total_carbs.id )
 		Nutrient.where( slug: 'total-sugars' ).update_all( position: 153, parent_id: total_carbs.id )
-		Nutrient.friendly.find( 'protein' ).update( position: 260 )
+		Nutrient.where( slug: 'protein' ).update_all( position: 260 )
 	end
 
 	task install_discussions: :environment do
