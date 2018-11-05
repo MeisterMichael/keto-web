@@ -659,6 +659,7 @@ ActiveRecord::Schema.define(version: 2018_11_02_200800) do
     t.datetime "publish_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type"
     t.string "measure_unit", default: "g"
     t.string "usda_ndbno"
     t.hstore "properties", default: {}

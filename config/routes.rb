@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
 	resources :admin
 
+	resources :ingredient_admin
+
 	resources :inspiration_admin do
 		get :preview, on: :member
 	end

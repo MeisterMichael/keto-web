@@ -1,6 +1,7 @@
 class FoodMacrosMigration < ActiveRecord::Migration[5.1]
 
 	def change
+		add_column :foods, :type, :string
 		add_column :foods, :measure_unit, :string, default: 'g' # g, ml
 		add_column :foods, :usda_ndbno, :string, default: nil
 		add_column :foods, :properties, :hstore, default: {}

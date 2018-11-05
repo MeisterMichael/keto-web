@@ -1,6 +1,14 @@
 # desc "Explaining what the task does"
 namespace :app_migrations do
 
+	task clean_nutrients: :environment do
+		FoodNutrient.delete_all
+		Nutrient.delete_all
+		FriendlyId::Slug.where( sluggable_type: 'Nutrient' ).delete_all
+		FoodMeasure.where( food: UsdaFood.all ).delete_all
+		UsdaFood.delete_all
+	end
+
 	task update_nutrients: :environment do
 		Nutrient.friendly.find( 'calories' ).update( position: 10 )
 		total_fat = Nutrient.friendly.find( 'total-fat' )
