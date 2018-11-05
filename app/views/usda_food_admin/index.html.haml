@@ -1,0 +1,5 @@
+= form_tag main_app.usda_food_admin_index_path(), method: :GET do
+	= text_field_tag :q, params[:q], class: 'form-control'
+- @usda_foods.each do |food|
+	%div
+		%a{ href: usda_food_admin_path(food) }=food.title

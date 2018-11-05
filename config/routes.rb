@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 		get :preview, on: :member
 	end
 
+	resources :usda_food_admin
+
 	devise_scope :user do
 		get '/login' => 'sessions#new', as: 'login'
 		get '/logout' => 'sessions#destroy', as: 'logout'

@@ -2,6 +2,14 @@
 # https://ndb.nal.usda.gov/ndb/doc/apilist/API-LIST.md
 class UsdaFood < Food
 
+	def self.base_unit( unit )
+		if Measurement::Unit[unit].present?
+			return 'g' if Measurement::Unit[unit].aliases.select{|a| a.include? 'gram' }.present?
+			return 'ml' if Measurement::Unit[unit].aliases.select{|a| a.include? 'liter' }.present?
+		end
+		nil
+	end
+
 	def self.usda_search( term, args = {} )
 		params = {
 			format: :json,
@@ -9,7 +17,7 @@ class UsdaFood < Food
 			sort: :n, # name
 			max: 25,
 			offset: 0,
-			api_key: 'DEMO_KEY',
+			api_key: (ENV['DATA_GOV_API_KEY'] || 'DEMO_KEY'),
 		}.merge(args[:params] || {}).merge({ q: term })
 		json = RestClient.get("https://api.nal.usda.gov/ndb/search/?#{params.to_query}")
 		response = JSON.parse( json )
@@ -34,7 +42,7 @@ class UsdaFood < Food
 			format: :json,
 			type: :f,
 			ndbno: self.usda_ndbno,
-			api_key: 'DEMO_KEY',
+			api_key: (ENV['DATA_GOV_API_KEY'] || 'DEMO_KEY'),
 		}
 
 		json = RestClient.get("https://api.nal.usda.gov/ndb/reports/?#{params.to_query}")
@@ -43,7 +51,7 @@ class UsdaFood < Food
 		self.usda_cache = response['report']['food']
 		self.serving_size_in_measure_units = 100
 		self.measure_unit = response['report']['food']['ru']
-		self.serving_size = "#{self.serving_size}#{self.measure_unit}"
+		self.serving_size = "#{self.serving_size_in_measure_units}#{self.measure_unit}"
 		self.properties = self.properties.merge( 'status' => 'detailed' )
 		self.save
 
@@ -61,17 +69,21 @@ class UsdaFood < Food
 			nutrient = Nutrient.create_with(
 				usda_cache: nutrient_row,
 				title: nutrient_row['name'],
-				unit: nutrient_row['unit'],
-			).find_or_create_by( usda_nutrient_id: nutrient_row['nutrient_id'] )
+				unit: UsdaFood.base_unit( nutrient_row['unit'] ) || nutrient_row['unit'],
+			).find_or_create_by( title: nutrient_row['name'] )
+			#.find_or_create_by( usda_nutrient_id: nutrient_row['nutrient_id'].to_s )
+
+			amount_per_serving = nutrient_row['value'].to_f
+			amount_per_serving = Measurement.parse("#{amount_per_serving} #{nutrient_row['unit']}").convert_to(nutrient.unit).quantity if nutrient.unit != nutrient_row['unit']
 
 			self.food_nutrients.create(
 				nutrient: nutrient,
-				amount_per_serving: nutrient_row['value'].to_f,
+				amount_per_serving: amount_per_serving,
 			)
 		end
 
 
-		nutrient = Nutrient.where( title: "Net Carbohydrates" ).first_or_create
+		nutrient = Nutrient.find_or_create_by( title: "Net Carbohydrates" )
 		self.food_nutrients.create( nutrient: nutrient, amount_per_serving: FoodNutrient.net_carb_weight( self.food_nutrients ) )
 
 

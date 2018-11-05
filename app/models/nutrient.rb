@@ -54,6 +54,14 @@ class Nutrient < ActiveRecord::Base
 
 
 
+			if self.title.downcase == 'Fatty acids, total monounsaturated'.downcase
+				self.fact_name ||= 'Monounsaturated Fat'
+			end
+
+			if self.title.downcase == 'Fatty acids, total polyunsaturated'.downcase
+				self.fact_name ||= 'Polyunsaturated Fat'
+			end
+
 			if self.title.downcase == 'Fatty acids, total saturated'.downcase
 				self.fact_name ||= 'Saturated Fat'
 			end

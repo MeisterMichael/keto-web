@@ -1,16 +1,19 @@
 .nutrition-facts
 	.nf-title Nutrition Facts
-	.nf-servings Servings: #{food.serves}
+	- if food.serves.present?
+		.nf-servings Servings: #{food.serves}
+	- elsif food.serving_size.present?
+		.nf-servings Servings Size: #{food.serving_size}
 	.nf-nutrient-header Amount per serving
 
 	- if food.food_nutrients.present?
 		- food.food_nutrients.each do |food_nutrient|
 			.nf-nutrient{ class: "nf-nutrient-type-#{food_nutrient.nutrient.slug} #{food_nutrient.nutrient.parent.present? ? ' nf-nutrient-child' : ''}" }
-				.nf-nutrient-title=food_nutrient.nutrient.title
+				.nf-nutrient-title=food_nutrient.nutrient.fact_name
 
-				- if food_nutrient.weight
+				- if food_nutrient.amount_per_serving
 					.nf-nutrient-weight
-						#{food_nutrient.weight}g
+						#{food_nutrient.amount_per_serving}#{food_nutrient.nutrient.unit}
 				- else
 					.nf-nutrient-amount
 						#{food_nutrient.amount.to_i} #{food_nutrient.unit}
