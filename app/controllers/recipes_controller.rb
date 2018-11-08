@@ -15,7 +15,7 @@ class RecipesController < ApplicationController
 		@category = RecipeCategory.friendly.find( params[:category] || params[:cat] ) if ( params[:category] || params[:cat] ).present?
 
 		@title = @category.try(:name)
-		@title ||= "Reciptes"
+		@title ||= "Recipes"
 
 		@recipes = Recipe.published.order( publish_at: :desc )
 		@recipes = @recipes.where( category: @category ) if @category
