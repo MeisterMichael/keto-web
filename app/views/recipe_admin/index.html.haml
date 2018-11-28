@@ -41,7 +41,7 @@
 				- @recipes.each do |recipe|
 					%tr
 						%td
-							= image_tag recipe.avatar, width: 50, class: 'img img-rounded'
+							= image_tag (recipe.avatar || ''), width: 50, class: 'img img-rounded'
 						%td
 							= link_to recipe.title, edit_recipe_admin_path( recipe )
 						%td

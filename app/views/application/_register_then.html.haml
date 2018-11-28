@@ -1,0 +1,14 @@
+
+.row
+	.col-12.col-md-6
+		.form-group.mb-0
+			= text_field_tag 'register_then[full_name]', '', placeholder: 'Full Name', class: 'form-control mb-1', required: true
+	.col-12.col-md-6
+		.form-group.mb-0
+			= text_field_tag 'register_then[username]', '', placeholder: 'Handle', class: 'form-control mb-1', required: true
+	.col-12.col-md-6
+		.form-group.mb-0
+			= email_field_tag 'register_then[email]', '', placeholder: 'Email', class: 'form-control mb-1', required: true
+	.col-12.col-md-6
+		.form-group.mb-0
+			= password_field_tag 'register_then[password]', '', placeholder: 'Password', class: 'form-control mb-1', required: true

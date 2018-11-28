@@ -32,6 +32,7 @@ class BazaarMediaAdminController < ApplicationAdminController
 		change_media( @media )
 
 		# make you app specific changes here
+		@media.attributes = params.require(:bazaar_media).permit( :short_description, :data_sheet, :product_id, :seq )
 
 		authorize( @media )
 

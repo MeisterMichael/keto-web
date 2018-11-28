@@ -4,5 +4,6 @@ RouteDowncaser.configuration do |config|
 	config.redirect = true
 	config.exclude_patterns = [
 		/rails\/active_storage\//i,
+		/assets\//i,
 	]
 end

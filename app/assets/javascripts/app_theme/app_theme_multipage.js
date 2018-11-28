@@ -14,13 +14,16 @@
 //= require app_theme/theme/general/js/jquery-1.11.2.min.js
 //= require app_theme/theme/general/js/jquery-ui.min.js
 //= require app_theme/theme/general/js/plugin/jquery.easing.js
-//= require app_theme/theme/bootstrap.min.js
+//= require plugins/popper
+//* require app_theme/theme/bootstrap.min.js
+//= require plugins/bootstrap.4.1.3.js
 //= require app_theme/theme/general/js/plugin/jquery.flexslider.js
 //= require app_theme/theme/general/js/plugin/jquery.fitvids.js
 //= require app_theme/theme/general/js/plugin/jquery.viewportchecker.js
 //= require app_theme/theme/general/js/plugin/jquery.stellar.min.js
 //= require app_theme/theme/general/js/plugin/wow.min.js
 //= require app_theme/theme/general/js/plugin/jquery.colorbox-min.js
+//= require app_theme/theme/general/js/plugin/smoothproducts.js
 //= require app_theme/theme/general/js/plugin/owl.carousel.min.js
 //= require app_theme/theme/general/js/plugin/isotope.pkgd.min.js
 //= require app_theme/theme/general/js/plugin/masonry.pkgd.min.js
@@ -33,3 +36,5 @@
 //= require app_theme/theme/general/js/plugin/jquery.singlePageNav.js
 //= require app_theme/custom/multipage.js
 //= require app_theme/custom/theme.js
+
+$('.sp-wrap').smoothproducts();

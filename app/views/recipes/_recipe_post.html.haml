@@ -33,10 +33,10 @@
 		.post-tag.pull-left
 			- recipe.tags.each do |tag|
 				%span
-					%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
+					%a{ href: main_app.recipes_path( tagged: tag ) }>=tag
 					- unless tag == recipe.tags.last
 						,
 		.post-more-link.pull-right
 			%a{:href => recipe.url }
 				Read More
-				%i.fa.fa-long-arrow-right.right
+				%i.fa.fa-long-arrow-alt-right.right

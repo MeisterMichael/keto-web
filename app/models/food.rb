@@ -1,5 +1,6 @@
 
 class Food < ActiveRecord::Base
+	include Pulitzer::Concerns::URLConcern
 
 	attr_accessor	:slug_pref, :category_name
 
@@ -8,8 +9,13 @@ class Food < ActiveRecord::Base
 
 	enum status: { 'draft' => 0, 'active' => 1, 'archive' => 2, 'trash' => 3 }
 
+	has_many :food_nutrients, -> { joins(:nutrient).order('nutrients.position ASC, nutrients.id ASC') }
+	has_many :nutrients, through: :food_nutrients
+	has_many :food_measures
+
 	has_one_attached :avatar_attachment
 	has_one_attached :cover_attachment
+	has_one_attached :nutrition_facts_attachment
 	has_many_attached :embedded_attachments
 	has_many_attached :other_attachments
 
@@ -22,6 +28,24 @@ class Food < ActiveRecord::Base
 
 	acts_as_taggable_array_on :tags
 
+
+	def self.media_tag_cloud( args = {} )
+		args[:limit] ||= 7
+		media_relation = self.limit(nil)
+		return Food.unscoped.limit( args[:limit] ).tags_cloud{ merge( media_relation ) }.to_a
+	end
+
+	def parse_nutrient_facts
+		nil
+	end
+
+	def parse_nutrient_facts=( nutrient_facts )
+		self.food_nutrients.destroy_all
+		list = self.food_nutrients.parse( nutrient_facts )
+		list.each do |food_nutrient|
+			self.food_nutrients << food_nutrient
+		end
+	end
 
 	def self.published( args = {} )
 		where( "publish_at <= :now", now: Time.zone.now ).active

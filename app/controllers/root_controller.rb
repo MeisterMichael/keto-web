@@ -2,6 +2,7 @@
 # Copied to app from Pulitzer install
 
 class RootController < ApplicationController
+	layout 'application_covered'
 
 	include Pulitzer::Concerns::RootConcern
 
@@ -13,6 +14,9 @@ class RootController < ApplicationController
 
 		@recipes = Recipe.published.order(publish_at: :desc)
 		@recipes = @recipes.page(params[:page]).per(3)
+
+		@bazaar_medias = BazaarMedia.published.order(publish_at: :desc)
+		@bazaar_medias = @bazaar_medias.page(params[:page]).per(3)
 
 		render layout: 'onepage'
 	end

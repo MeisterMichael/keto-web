@@ -1,4 +1,4 @@
-- cache( @recipe, expires_in: 1.hour ) do
+- cache( "#{@recipe.cache_key}-#{current_user.present?}", expires_in: 1.hour ) do
 	/ CONTENT -------------------------------------------------------------------------------
 	/ Intro Section
 	- if @media.cover_image.present?
@@ -39,7 +39,10 @@
 								%span
 									by
 									= succeed "," do
-										%a=@recipe.user.full_name
+										- if @media.user.respond_to? :url
+											%a{ href: @media.user.url }=@media.user.full_name
+										- else
+											=@media.user.full_name
 							%span=@recipe.publish_at.strftime('%B %e, %Y')
 						-# .post-header
 							%h2=@recipe.title
@@ -47,15 +50,22 @@
 							%img{:alt => "", :src => @recipe.avatar}/
 						.post-entry.fr-view
 							= raw @recipe.content
+							-# if @recipe.present? && @recipe.food_nutrients.present?
+								.ptb-3
+									= render 'food/facts', food: @recipe, args: {}
+							-# elsif @recipe.nutrition_facts_attachment.attached?
+								.ptb-3
+									= image_tag @recipe.nutrition_facts_attachment.service_url, class: 'mx-auto d-block nutrition-facts'
+
 						.post-tag.pull-left
 							- @recipe.tags.each do |tag|
 								%span
-									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
+									%a{ href: main_app.recipes_path( tagged: tag ) }>=tag
 									- unless tag == @recipe.tags.last
 										,
-					.fb-comments{"data-href" => @recipe.url, "data-numposts" => "5"}
+					= render 'application/social', object: @recipe, args: { page: params[:page] }
 				/ End Post Bar
-				= render 'pulitzer/articles/side_bar'
-	/ End Blog Post Section
-	= render 'pulitzer/articles/next_prev_bar'
-	/ End CONTENT ----------------------------------------------------------------------------
+				= render 'recipes/side_bar'
+/ End Blog Post Section
+= render 'pulitzer/articles/next_prev_bar'
+/ End CONTENT ----------------------------------------------------------------------------

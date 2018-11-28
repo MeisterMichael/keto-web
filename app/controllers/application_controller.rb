@@ -4,7 +4,10 @@ class ApplicationController < ActionController::Base
 	protect_from_forgery with: :exception
 
 	include Pulitzer::Concerns::ApplicationControllerConcern
+	include SwellId::Concerns::ApplicationControllerConcern
+	include Devise::Controllers::Helpers
 
+	before_action :register_then
 	before_action :set_page_meta
 
 
@@ -26,10 +29,18 @@ class ApplicationController < ActionController::Base
 		def client_ip_country
 			request.headers['CF-IPCountry']
 		end
-		
+
 		def log_event( opts={} )
+
+			if %w(add_post comment).include? opts[:name]
+				target_obj = opts[:on] || opts[:target_obj]
+				post = Scuttlebutt::Post.where( user: current_user ).last
+				Scuttlebutt::Subscription.where( parent_obj: target_obj ).where.not( user: current_user ).each do |subscription|
+					NotificationsMailer.post( subscription, post ).deliver_now
+				end
+			end
+
 			true
 		end
-
 
 end

@@ -1,0 +1,12 @@
+
+%p
+	= @from.username
+	posted about
+	- if @parent_obj.user == @to
+		your post
+	- if @parent_obj.respond_to? :url
+		%a{ href: @parent_obj.url }= @parent_obj
+	- else
+		= @parent_obj
+%p
+	%a{ href: @parent_obj.url } click here to view post

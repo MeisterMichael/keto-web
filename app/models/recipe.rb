@@ -3,8 +3,6 @@ class Recipe < Food
 
 	validates		:title, presence: true, unless: :allow_blank_title?
 
-	include Pulitzer::Concerns::URLConcern
-
 	belongs_to :recipe_category, foreign_key: :category_id, required: false
 
 	has_many :ingredients

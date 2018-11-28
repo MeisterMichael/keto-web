@@ -5,7 +5,7 @@
 /[if IE 7] <html class="no-js lt-ie9 lt-ie8">
 /[if IE 8] <html class="no-js lt-ie9">
 //[if gt IE 8] <html class="no-js">
-%html{ lang: :en }
+%html{ lang: :en, class: ( current_user.present? ? 'has_current_user' : '' ) }
 	%head
 		= render 'application/gtm_head'
 
@@ -30,7 +30,7 @@
 		<![endif]-->
 
 
-		-# = favicon_link_tag 'favicon.png'
+		= favicon_link_tag 'favicon.png'
 
 		= csrf_meta_tags
 
@@ -48,5 +48,8 @@
 
 
 
-		%script{:src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
+		-# %script{:src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
 		= javascript_include_tag 'application'
+		:javascript
+			$.FroalaEditor.DEFAULTS.key = '#{Pulitzer.froala_editor_key}';
+		%script{:src => "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bca1aa22636addb", :type => "text/javascript"}

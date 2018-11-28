@@ -5,15 +5,22 @@
 			/ Logo
 			.col-md-3.col-sm-3.mb-xs-30
 				%a.footer-logo{:href => "home.html"}
-					%img{:src => image_path("app_theme/theme/general/img/logo-black.png")}/
+					%img{:src => image_path("logo-black.png")}/
 			/ Logo
 			/ Newsletter
 			.col-md-4.col-sm-5.mb-xs-30
 				.newsletter
+
+					= form_tag scuttlebutt.optins_path, method: 'POST', role: :form, class: 'form', id: 'newsletter_signup_form', remote: true  do |f|
+						= email_field_tag "message[email]", '', placeholder: 'Enter Your Email', class: 'newsletter-input input-md newsletter-input mb-0'
+						-# %input.newsletter-input.input-md.newsletter-input.mb-0{:placeholder => "Enter Your Email", :type => "email"}
+						%button.newsletter-btn.btn.btn-xs.btn-white{:type => "submit", :value => ""}
+							%i.fa.fa-angle-right.mr-0
+						-# .form-group
+							= text_field_tag "message[first_name]", '', placeholder: 'Enter first name', class: 'form-control'
+						-# .form-group
+							= submit_tag 'Subscribe', class: 'btn btn-default pull-right'
 					%form
-						%input.newsletter-input.input-md.newsletter-input.mb-0{:placeholder => "Enter Your Email", :type => "email"}
-							%button.newsletter-btn.btn.btn-xs.btn-white{:type => "submit", :value => ""}
-								%i.fa.fa-angle-right.mr-0
 			/ End Newsletter
 			/ Social
 			.col-md-3.offset-md-2.col-sm-4
@@ -37,40 +44,39 @@
 		/ Footer Info
 		.row.footer-info.mb-60
 			.col-md-3.col-sm-12.mb-sm-30
-				%p.mb-xs-0 Our ante tincidunt tempus, Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros.
-				%a.btn-link-a{:href => "about-1.html"} Read More
+				%p.mb-xs-0 Breaking down barriers and sharing insights about the ketogenic diet.
+				%a.btn-link-a{:href => "/about"} Read More
 			.col-md-3.col-sm-6.mb-sm-30.mb-xs-0
 				%ul.link
 					%li
-						%a{:href => "blog-grid-3col.html"} Blog
+						%a{:href => pulitzer.articles_path()} Blog
 					%li
-						%a{:href => "portfolio-grid-3col.html"} Portfolio
+						%a{:href => main_app.recipes_path()} Recipes
 					%li
-						%a{:href => "login-register.html"} Login	Signup
+						%a{:href => scuttlebutt.discussions_path()} Discussions
 					%li
-						%a{:href => "faq-1.html"} FAQ
-					%li
-						%a{:href => "about-1.html"} About
-					%li
-						%a{:href => "service-1.html"} Service
+						- if current_user.present?
+							%a{:href => '/logout'} Logout
+						- else
+							%a{:href => '/login'} Login	Signup
 			.col-md-3.col-sm-6.mb-sm-30
 				%ul.link
-					-# %li
+					%li
 						%a{:href => scuttlebutt.new_contact_path() } Contact Us
 					%li
-						%a{:href => "shop-checkout.html"} Shopping Cart
+						%a{:href => "/faq"} FAQ
 					%li
-						%a{:href => "404-error-1.html"} 404 Error
+						%a{:href => "/about"} About
 					%li
-						%a{:href => "home.html"} Home
+						%a{:href => "/"} Home
 			.col-md-3.col-sm-12
-				%p 502, DieSachbearbeiter, Schönhauser Allee, 167c10435 Berlin,Germany.
+				%p Del Mar, California, United States.
 				%ul.link-small
 					%li
-						%a{:href => "mailto:yourname@domain.com"}
+						%a{:href => "mailto:info@simpleketo.us"}
 							%i.fab.fa-envelope-o.left>
-							yourname@domain.com
-					%li
+							info@simpleketo.us
+					-# %li
 						%a
 							%i.fa.fa-phone.left>
 							+40 (0) 012 345 6789

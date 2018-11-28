@@ -1,0 +1,3 @@
+<%= @from.username %> posted: <%= @post.sanitize_content %>
+about<% if @parent_obj.user == @to %> your post<% end %> <%= @parent_obj %>
+<% if @parent_obj.respond_to? :url %><%= @parent_obj.url %><% end %>

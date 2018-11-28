@@ -1,0 +1,40 @@
+.row
+	.col-xs-12.col-md-6
+		%h1=@food.title
+		%div= render "food/facts", food: @food, args: {}
+	.col-xs-12.col-md-3
+		= form_for Ingredient.new( food: @food ), url: main_app.ingredient_admin_index_path() do |f|
+			= f.hidden_field :food_id
+			.form-group
+				%label Measure
+			- @food.food_measures.each do |food_measure|
+				.form-group
+
+					.input-group
+						%span.input-group-addon
+							= radio_button_tag 'measure_unit', food_measure.unit, @measure_unit == food_measure.unit
+						= number_field_tag "measure[#{food_measure.unit}]", '', class: 'form-control'
+						%span.input-group-addon= food_measure.unit
+					%small
+						= food_measure.quantity
+						= food_measure.unit
+						\=
+						= food_measure.equivalent_measure_units
+						= @food.measure_unit
+
+			.form-group
+				.input-group
+					%span.input-group-addon
+						= radio_button_tag 'measure_unit', @food.measure_unit, @measure_unit == @food.measure_unit
+					= number_field_tag "measure[#{@food.measure_unit}]", '', class: 'form-control'
+					%span.input-group-addon=@food.measure_unit
+				%small
+					1
+					= @food.measure_unit
+					\=
+					1
+					= @food.measure_unit
+
+			.form-group
+				%label Recipe
+				= f.collection_select :recipe_id, Recipe.order( updated_at: :desc ), :id, :title, {}, class: 'form-control select-2-basic'

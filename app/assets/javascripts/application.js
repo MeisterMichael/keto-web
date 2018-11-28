@@ -10,7 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
 //= require activestorage
 //= require app_theme/app_theme_multipage
+//= require scuttlebutt/application
+//= require bazaar/checkout.js
+//= require jquery_ujs
+//= require custom/application
 // turbolinks

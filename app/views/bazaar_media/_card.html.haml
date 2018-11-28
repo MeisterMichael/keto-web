@@ -1,0 +1,23 @@
+
+.item-box
+	/ Shop item images
+	%a.shop-item{:href => media.url}
+		.item-img
+			%img{:src => media.avatar}/
+		.item-mask
+			.item-mask-detail
+				.item-mask-detail-ele
+					%span.btn.btn-line-xs.btn-white-line{:href => media.url}
+						-# %i.fa.fa-shopping-cart>
+						-# Add To Cart
+						View
+	/ End Shop item images
+	/ Shop item info
+	.shop-item-info
+		%a{:href => media.url}
+			%h6.shop-item-name=media.title
+		.shop-item-price
+			-# if media.suggested_price.present?
+				%del=media.suggested_price_formatted
+			%span=media.price_formatted
+	/ Shop item info

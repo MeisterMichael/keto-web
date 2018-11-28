@@ -43,6 +43,17 @@
 									%a.btn.btn-default{ 'data-clipboard-text' => @recipe.cover_image }
 										%i.fa.fa-clipboard
 
+						.col-xs-4
+
+							.form-group
+								= f.label :nutrition_facts_attachment, "Nutrition Facts"
+								= f.file_field :nutrition_facts_attachment
+								- if @recipe.nutrition_facts_attachment.attached?
+									= image_tag @recipe.nutrition_facts_attachment.service_url, class: 'img-responsive'
+									%a.btn.btn-default{ 'data-clipboard-text' => @recipe.nutrition_facts_attachment.service_url }
+										%i.fa.fa-clipboard
+
+
 				.form-group
 					= f.label :description, 'Short Description'
 					= f.text_area :description, class: 'form-control wysiwyg', data: { wysiwyg: { height_min: 100, toolbar_sticky: true, toolbar_preset: 'admin_default', object_class: @recipe.class.base_class.name, object_id: @recipe.id }.to_json }
@@ -50,6 +61,11 @@
 				.form-group
 					= f.label :content
 					= f.text_area :content, class: 'form-control wysiwyg', data: { wysiwyg: { height_min: 200, toolbar_sticky: true, toolbar_preset: 'admin_default', object_class: @recipe.class.base_class.name, object_id: @recipe.id }.to_json }
+
+				.text-center
+					%a{ href: '#', data: { toggle: :modal, target: '#update_nutrients_modal' } }
+						update nutrition facts
+					%div= render "food/facts", food: @recipe, args: {}
 
 			.col-xs-4
 				.well
@@ -87,3 +103,5 @@
 					%hr
 					= link_to 'Show', @recipe
 					= link_to 'Back', recipe_admin_index_path
+
+= render 'recipe_admin/update_nutrients_modal'

@@ -1,4 +1,4 @@
-- cache( @media, expires_in: 1.hour ) do
+- cache( "#{@media.cache_key}-#{current_user.present?}", expires_in: 1.hour ) do
 	/ CONTENT -------------------------------------------------------------------------------
 	/ Intro Section
 	- if @media.cover_image.present?
@@ -35,13 +35,17 @@
 			.row
 				/ Post Bar
 				.col-lg-9.col-md-9.blog-post-hr
+
 					.blog-post.mb-30
 						.post-meta
 							- if @media.user.present?
 								%span
 									by
 									= succeed "," do
-										%a=@media.user.full_name
+										- if @media.user.respond_to? :url
+											%a{ href: @media.user.url }=@media.user.full_name
+										- else
+											=@media.user.full_name
 							%span=@media.publish_at.strftime('%B %e, %Y')
 						-# .post-header
 							%h2=@media.title
@@ -55,33 +59,7 @@
 									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
 									- unless tag == @media.tags.last
 										,
-					%hr/
-					- if @media.user.present?
-						.post-author
-							- if @media.user.avatar.present?
-								.post-author-img.pull-left
-									%img{:alt => "author", :src => @media.user.avatar}/
-							.post-author-details.pull-left
-								%h6= @media.user.full_name
-								-# %ul.social
-									%li
-										%a{:href => "https://www.facebook.com/", :target => "_blank"}
-											%i.fab.fa-facebook
-									%li
-										%a{:href => "https://www.twitter.com/", :target => "_blank"}
-											%i.fab.fa-twitter
-									%li
-										%a{:href => "https://www.dribbble.com/", :target => "_blank"}
-											%i.fab.fa-dribbble
-									%li
-										%a{:href => "https://www.pinterest.com/", :target => "_blank"}
-											%i.fab.fa-pinterest
-									%li
-										%a{:href => "https://www.behance.net/", :target => "_blank"}
-											%i.fab.fa-behance
-						%hr/
-						.clearfix
-					.fb-comments{"data-href" => @media.url, "data-numposts" => "5"}
+					= render 'application/social', object: @media, args: { page: params[:page] }
 					-# .post-comment.mtb-30
 						%h4
 							Comments

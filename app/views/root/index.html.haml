@@ -27,6 +27,8 @@
 				%li
 					%a{:href => "#recipes"} Recipes
 				%li
+					%a{:href => "#shop" } Shop
+				%li
 					%a{:href => "#contact-us"} Contact
 		/ End Navbar Navigation
 
@@ -49,7 +51,7 @@
 					%div
 						-# %a.btn.btn-md.btn-white-line.xs-hidden{} Read More
 						-# %span.btn-space-10.xs-hidden
-						%a.btn.btn-md.btn-white{ href: '#about' } Learn More
+						%a.btn.btn-md.btn-black{ href: '#about' } Learn More
 	/ End Static Intro
 / End Intro
 .clearfix
@@ -109,6 +111,21 @@
 					- unless index == 0
 						%hr
 					= render 'recipes/recipe_post', recipe: recipe, args: { mode: :thumb }
+
+%section#shop.wow.fadeIn.ptb.ptb-sm-80.animated
+	.container
+		%h3.float-left.float-none-xs Shop
+		%a.btn-link-a.float-right.float-none-xs{ href: main_app.bazaar_media_path() } View All
+		.clearfix
+		.spacer-60
+		.row
+
+			- @bazaar_medias.each_with_index do |bazaar_media, index|
+				.col-lg-4.col-md-6.col-sm-6.mb-sm-30
+					- unless index == 0
+						%hr
+					= render 'bazaar_media/bazaar_media_post', bazaar_media: bazaar_media, args: { mode: :thumb }
+
 
 
 
@@ -170,9 +187,10 @@
 				%h2.page-title
 					Get In
 					%span.text-light Touch
-		-#.row
+		.row
 			.col-md-8.offset-md-2
-				= form_for Pulitzer::Contact.new, as: :contact_us, html: { id: 'contact-form', class: 'row contact-form' } do |f|
+
+				= form_for Scuttlebutt::Message.new, url: scuttlebutt.contacts_path, html: { id: 'contact-form', class: 'row contact-form' } do |f|
 					.col-md-12.text-center
 						%h5.successContent
 							%i.fa.fa-check.left{:style => "color: #5cb45d;"}>
@@ -182,14 +200,14 @@
 							There was a problem validating the form please check!
 					.col-md-6
 						.form-field-wrapper
-							%input#form-name.input-md.form-full{:name => "form-name", :placeholder => "Your Name", :required => "", :type => "text"}/
+							= f.text_field :name, id: 'form-name', :placeholder => "Your Name", required: true, class: 'input-md form-full'
 						.form-field-wrapper
 							= f.email_field :email, id: 'form-email', :placeholder => "Email", required: true, class: 'input-md form-full'
 						.form-field-wrapper
-							= f.text_field :subject, id: 'form-subject', :placeholder => "Subject", class: 'input-md form-full'
+							= f.text_field :title, id: 'form-subject', :placeholder => "Subject", class: 'input-md form-full'
 					.col-md-6.mb-0
 						.form-field-wrapper
-							= f.text_area :message, id: 'form-message', :placeholder => "Your Message", :required => true, rows: 7, class: 'input-md form-full'
+							= f.text_area :content, id: 'form-message', :placeholder => "Your Message", :required => true, rows: 7, class: 'input-md form-full'
 					.col-md-12.text-center
 						%button#form-submit.btn-contact-submit.btn.btn-md.btn-color{:name => "submit", :type => "submit"} Submit
 / End Contact Form

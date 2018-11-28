@@ -11,13 +11,15 @@
  * file per style scope.
  *
 
+ * require app_theme/theme/general/css/bootstrap.css
+ *= require plugins/bootstrap.4.1.3.css
  *= require app_theme/custom/general/css/style.css
- *= require app_theme/theme/general/css/bootstrap.css
- * app_theme/theme/general/css/font-awesome.css
+ ** app_theme/theme/general/css/font-awesome.css
  *= require app_theme/custom/general/css/ionicons.css
  *= require app_theme/theme/general/css/plugin/sidebar-menu.css
  *= require app_theme/theme/general/css/plugin/animate.css
  *= require app_theme/theme/general/css/jquery-ui.css
+ *= require app_theme/theme/general/css/plugin/smoothproducts.css
  *= require pulitzer/plugins/froala/css/froala_editor
  *= require pulitzer/plugins/froala/css/froala_style
  *= require pulitzer/plugins/froala/css/plugins/image

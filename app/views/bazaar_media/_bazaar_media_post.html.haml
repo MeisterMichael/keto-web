@@ -1,0 +1,24 @@
+.blog-post{ class: args[:class] }
+	- if bazaar_media.cover_image.present?
+		%a.post-bazaar_media{:href => bazaar_media.url}
+			%img.item-container{:alt => bazaar_media.title, :src => bazaar_media.cover_image }/
+	- elsif bazaar_media.avatar.present?
+		%a.post-bazaar_media{ :href => bazaar_media.url }
+			%img.item-container{:alt => "1", :src => bazaar_media.avatar }/
+
+	.post-header
+		%h5
+			%a{:href => bazaar_media.url}=bazaar_media.title
+	- unless args[:mode] == :thumb
+		.post-entry
+			= raw bazaar_media.description
+		-# .post-tag.pull-left
+			- bazaar_media.tags.each do |tag|
+				%span
+					%a{ href: main_app.bazaar_medias_path( tagged: tag ) }>=tag
+					- unless tag == bazaar_media.tags.last
+						,
+		.post-more-link.pull-right
+			%a{:href => bazaar_media.url }
+				Read More
+				%i.fa.fa-long-arrow-alt-right.right

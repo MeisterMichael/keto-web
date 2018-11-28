@@ -22,17 +22,19 @@
 		.container
 			.row.title
 				%h2.h2=@media.title
+			.addthis_inline_share_toolbox.share-5
 	/ End Intro Section
 
 
 
-- cache( @media, expires_in: 1.hour ) do
-	/ Blog Post Section
-	%section.ptb.ptb-sm-80
-		.container
-			.row
-				/ Post Bar
-				.col-lg-9.col-md-9.blog-post-hr
+/ Blog Post Section
+%section.ptb.ptb-sm-80
+	.container
+		.row
+			/ Post Bar
+			.col-lg-9.col-md-9.blog-post-hr
+
+				- cache( @media, expires_in: 1.hour ) do
 					.blog-post.mb-30
 						.post-entry.fr-view
 							= raw @media.content
@@ -42,9 +44,10 @@
 									%a{ href: pulitzer.articles_path( tagged: tag ) }>=tag
 									- unless tag == @media.tags.last
 										,
-					.fb-comments{"data-href" => @media.url, "data-numposts" => "5"}
-				/ End Post Bar
-				= render 'pulitzer/articles/side_bar'
+
+				= render 'scuttlebutt/comments/widget', parent_obj: @media, args: { page: params[:page] }
+			/ End Post Bar
+			= render 'pulitzer/articles/side_bar'
 	/ End Blog Post Section
 	/ End CONTENT ----------------------------------------------------------------------------
 

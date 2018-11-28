@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+	# default_url_options :host => Pulitzer.app_host
+
 	root to: 'root#index' # homepage
 
 	resources :admin
+
+	resources :ingredient_admin
 
 	resources :inspiration_admin do
 		get :preview, on: :member
@@ -12,6 +16,8 @@ Rails.application.routes.draw do
 		get :preview, on: :member
 	end
 
+	resources :usda_food_admin
+
 	devise_scope :user do
 		get '/login' => 'sessions#new', as: 'login'
 		get '/logout' => 'sessions#destroy', as: 'logout'
@@ -19,9 +25,14 @@ Rails.application.routes.draw do
 	end
 	devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions' }
 
-	mount SwellId::Engine, at: '/'
 
+	mount SwellId::Engine, at: '/'
 	mount Pulitzer::Engine, at: '/'
+	mount Scuttlebutt::Engine, :at => '/'
+	mount Socratic::Engine, :at => '/'
+	mount Bunyan::Engine, :at => '/'
+	mount Edison::Engine, :at => '/'
+	mount Bazaar::Engine, :at => '/'
 
 	resources :bazaar_media_admin do
 		get :preview, on: :member

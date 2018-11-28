@@ -1,8 +1,8 @@
 Pulitzer.configure do |config|
 
-	config.app_name = ENV['APP_NAME'] || 'KETOSIMPLE.'
+	config.app_name = ENV['APP_NAME'] || 'SIMPLEKETO.'
 
-	config.app_host = ENV['APP_DOMAIN'] || 'dev.simpleketo.us:3000'
+	config.app_host = ENV['APP_DOMAIN'] || 'localhost:3000'
 	config.app_description = "SIMPLEKETO."
 
 	# config.app_logo = ''
@@ -12,6 +12,9 @@ Pulitzer.configure do |config|
 		twitter_site: '@simpleketo',
 	}
 
+	config.default_layouts = {
+		'Pulitzer::Media' => 'application_covered',
+	}
 
 	config.site_map_url = "https://cdn1.simpleketo.us/sitemaps/sitemap.xml.gz"
 

@@ -1,0 +1,24 @@
+- selector_class = "comment_#{comment.class.base_class.name.underscore.gsub(/\//,'__')}_#{comment.id}"
+- selector = ".comment.#{selector_class}"
+.media.comment.mb-3[comment]{ class: selector_class }
+	%img.mr-3{ src: comment.user.avatar, style: 'width: 64px;' }
+	.media-body
+		- if comment.user.respond_to? :url
+			%h6
+				%a{ href: comment.user.url }
+					= comment.user
+				%small
+					= time_ago_in_words( comment.created_at )
+					ago
+		- else
+			%h6.mb-0.pb-0
+				= comment.user
+				%small
+					= time_ago_in_words( comment.created_at )
+					ago
+		.media-text
+			- if comment.content
+				.fr-view= raw comment.sanitized_content
+		- unless args[:disable_votes]
+			.media-actions.mt-2
+				= render 'scuttlebutt/posts/social_bar', post: topic, args: args.merge( selector: selector ),

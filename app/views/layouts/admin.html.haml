@@ -4,7 +4,7 @@
 /[if IE 7] <html class="no-js lt-ie9 lt-ie8">
 /[if IE 8] <html class="no-js lt-ie9">
 //[if gt IE 8] <html class="no-js">
-%html{ lang: :en }
+%html{ lang: :en, class: ( current_user.present? ? 'has_current_user' : '' ) }
 	%head
 		%title
 			= @page_meta[:title]
@@ -29,7 +29,7 @@
 		:javascript
 			$.FroalaEditor.DEFAULTS.key = '#{Pulitzer.froala_editor_key}';
 
-		-# = favicon_link_tag 'favicon.png'
+		= favicon_link_tag 'favicon.png'
 
 		= csrf_meta_tags
 

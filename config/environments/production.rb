@@ -39,7 +39,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -58,6 +58,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
@@ -88,6 +89,24 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
+
+
+
+	ActionMailer::Base.smtp_settings = {
+		:user_name => ENV['SENDGRID_USERNAME'],
+		:password => ENV['SENDGRID_PASSWORD'],
+		:domain => ENV['APP_DOMAIN'],
+		:address => 'smtp.sendgrid.net',
+		:port => 587,
+		:authentication => :plain,
+		:enable_starttls_auto => true
+	}
+
+	ActionMailer::Base.delivery_method = :smtp
+
+
+	# config.action_controller.default_url_options = { host: Pulitzer.app_host }
+	# config.action_mailer.default_url_options = { host: Pulitzer.app_host }
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

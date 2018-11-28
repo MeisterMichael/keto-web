@@ -1,0 +1,56 @@
+/ CONTENT -------------------------------------------------------------------------------
+/ Intro Section
+%section.inner-intro
+	.container
+		.row.title
+			%h2.h2 Sign Up
+			.page-breadcrumb
+				%a{ href: main_app.root_path() }> Home
+				\/
+				%span Sign Up
+/ End Intro Section
+/ Login Section
+%section#Pricing.ptb.ptb-sm-80
+	.container
+		.row
+			.col-md-6
+				.border-box
+					%h4 Already registered?
+					= form_for resource, as: resource_name, url: main_app.user_session_path(), role: :form do |f|
+
+
+						.form-field-wrapper
+							%label{:for => "login-email"} Email address
+							= f.text_field :login, id: 'login-email', autofocus: true, placeholder: "Email", class: 'input-sm form-full', required: true, "aria-required" => "true"
+						.form-field-wrapper
+							%label{:for => "login-pass"} Password
+							= f.password_field :password, id: 'login-pass', placeholder: "Enter your Password", class: 'input-sm form-full', required: true, "aria-required" => "true"
+
+						%button#form-submit.btn.btn-md.btn-black{:name => "submit", :type => "submit"} Sign In
+						.float-right
+							%a{ href: '/forgot' } Forgot password?
+							-# %a{ href: main_app.new_user_registration_path() } Create an account
+			.col-md-6
+				.border-box
+					%h4 Create an account
+					%p Please enter your email address to create an account.
+					= form_for resource, as: resource_name, url: main_app.user_registration_path(), role: :form do |f|
+
+						-# %a.auth-pop.btn.btn-primary.btn-facebook.col-xs-12{ href: main_app.user_facebook_omniauth_authorize_path( ga_client_id: ':ga_client_id' ) }
+							%i.fa.fa-facebook
+							Facebook
+						.form-field-wrapper
+							%label{:for => "signup-username"} User Name
+							= f.text_field :username, id: "signup-username", placeholder: 'User Name', class: 'input-sm form-full', "aria-required" => "true", required: true
+						.form-field-wrapper
+							%label{:for => "signup-email"} Email address
+							= f.text_field :login, id: 'signup-email', autofocus: true, placeholder: "email", class: 'input-sm form-full', "aria-required" => "true", required: true
+						.form-field-wrapper
+							%label{:for => "signup-password"} Password
+							= f.password_field :password, id: 'signup-password', placeholder: "password", class: 'input-sm form-full', "aria-required" => "true", required: true
+						.form-field-wrapper
+							%label{:for => "signup-password-confirmation"} Confirm Password
+							= f.password_field :password_confirmation, id: 'signup-password-confirmation', placeholder: 'Confirm Password', class: 'input-sm form-full', "aria-required" => "true", required: true
+						= f.submit "Sign Up", class: 'btn btn-md btn-black'
+/ End Login Section
+/ End CONTENT ----------------------------------------------------------------------------

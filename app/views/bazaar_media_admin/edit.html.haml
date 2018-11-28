@@ -9,10 +9,49 @@
 		.row
 			.col-xs-8
 				= render 'title_section', f: f
+
+
+				.form-group
+					%label Sequence
+					= f.number_field :seq, class: 'form-control'
+
+				.form-group
+					%label Layout Name
+					= f.text_field :layout, class: 'form-control'
+
+				.form-group
+					%label Template Name
+					= f.text_field :template, class: 'form-control'
+
+				.form-group
+					%label Product
+					= f.collection_select(:product_id, Bazaar::Product.active, :id, :title, {prompt: true}, { class: 'form-control' })
+
+
 				= render 'attachment_section', f: f
+
+
+				.pull-right
+					%a{ href: '#', data: { toggle: :modal, target: '#new_gallery_attachments_modal' } } Add
+				%h5 Gallery Attachments
+				= render 'pulitzer/attachments/gallery', object: @media, attribute: :gallery_attachments, args: {}
+
+
 				= render 'content_section', f: f
+
+
+				.form-group
+					= f.label :description, 'Short Description'
+					= f.text_area :short_description, class: 'form-control wysiwyg', data: { wysiwyg: { height_min: 200, toolbar_sticky: true, toolbar_preset: 'admin_default', object_class: @media.class.base_class.name, object_id: @media.id }.to_json }
+
+				.form-group
+					= f.label :description, 'Data Sheet'
+					= f.text_area :data_sheet, class: 'form-control wysiwyg', data: { wysiwyg: { height_min: 200, toolbar_sticky: true, toolbar_preset: 'admin_default', object_class: @media.class.base_class.name, object_id: @media.id }.to_json }
+
 
 			.col-xs-4
 				= render 'status_section', f: f
 				.form-group
 					= f.submit 'Update', class: 'btn btn-primary'
+
+= render 'pulitzer/attachments/new_has_many_attachments', attribute: 'gallery_attachments', object: @media, args: {}

@@ -1,16 +1,41 @@
-.container
-	.row
-		- if @medias.present?
+/
+	CONTENT --------------------------------------------------------------------------------->
+	<!-- Intro Section
+%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{}
+	.container
+		.row.title
+			%h2.h2 SHOP
+			.page-breadcrumb
+				%a{ href: '/' } Home
+				\/
+				- if @tagged.present?
+
+					%a{ href: main_app.bazaar_media_path() } Shop
+					\/
+					%span=@tagged
+				- else
+					%span Shop
+
+%section#shop-item.ptb.ptb-sm-80
+	.container
+		-# .row
+			.col-md-12
+				.shop-filter.mb-15
+					.float-right.float-none-xs
+						%p 1–9 of 10 results
+					.float-left.float-none-xs
+						%form
+							%label.inline Sort By
+							%select.input-md.round
+								%option Default Sorting
+								%option Popular
+								%option Latest
+								%option Average Price
+								%option High Price
+								%option Low Price
+		.row.container-grid
 			- @medias.each do |media|
-				.col-xs-12.col-md-4
-					.well
-						- if media.avatar
-							%a{ href: media.url }
-								= image_tag media.avatar
-						%h5
-							%a{ href: media.url }
-								=media.title
-						%div
-							=media.description
-		- else
-			.col-xs-12.text-center No Results
+				.nf-item.col-md-4.col-sm-6.mb-30
+					= render 'card', media: media, args: {}
+		.pagination-nav.mtb-30
+			= raw paginate @medias

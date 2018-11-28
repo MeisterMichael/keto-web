@@ -33,7 +33,7 @@
 	            margin: 0px 2px;
             }
 
-.flash-section {
+.flash-section, #flash-container {
 	position: absolute;
     top: 100px;
     left: 0;
@@ -43,11 +43,26 @@
 	padding: 0 5px;
 }
 
-.flash-section .alert {
+.flash-section .alert, #flash-container .alert {
 	max-width: 500px;
     margin: 0 auto;
 }
 
-.flash-section .alert-notice {
+.flash-section .alert-notice, #flash-container .alert-notice {
 	background: #fff;
+}
+
+.dropdown-caretless .dropdown-toggle::after {
+	display: none;
+}
+
+.nutrition-facts {
+	max-width: 300px;
+	border-bottom: 1px solid #ccc;
+	border-radius: 5px;
+	position: relative;
+}
+
+p, .blog-post .post-entry ul {
+	color: #444;
 }

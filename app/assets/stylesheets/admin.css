@@ -2,6 +2,7 @@
  *= require_self
  *= require 'pulitzer/admin'
  *= require 'bazaar/admin'
+ *= require 'custom/nutrition_facts'
  */
 
 /* Replace with theme files */
