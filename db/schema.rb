@@ -666,7 +666,9 @@ ActiveRecord::Schema.define(version: 2018_11_02_200800) do
     t.json "usda_cache", default: {}
     t.float "serving_size_in_measure_units"
     t.text "serving_size"
+    t.integer "keto_score", default: 0
     t.index ["category_id"], name: "index_foods_on_category_id"
+    t.index ["keto_score"], name: "index_foods_on_keto_score"
     t.index ["slug"], name: "index_foods_on_slug", unique: true
     t.index ["tags"], name: "index_foods_on_tags", using: :gin
   end
@@ -1085,6 +1087,19 @@ ActiveRecord::Schema.define(version: 2018_11_02_200800) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_socratic_surveys_on_slug"
+  end
+
+  create_table "substitutes", force: :cascade do |t|
+    t.string "substituted_food_type"
+    t.bigint "substituted_food_id"
+    t.string "substitution_food_type"
+    t.bigint "substitution_food_id"
+    t.text "content"
+    t.text "tags", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["substituted_food_type", "substituted_food_id"], name: "index_substitutes_on_substituted_food"
+    t.index ["substitution_food_type", "substitution_food_id"], name: "index_substitutes_on_substitution_food"
   end
 
   create_table "users", force: :cascade do |t|

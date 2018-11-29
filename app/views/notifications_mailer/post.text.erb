@@ -1,3 +1,8 @@
+<% if @post.is_a? Scuttlebutt::DiscussionTopic %>
+<%= @from.username %> posted a topic about <%= @post %>
+<% if @post.respond_to? :url %><%= @post.url %><% end %>
+<% else %>
 <%= @from.username %> posted: <%= @post.sanitize_content %>
-about<% if @parent_obj.user == @to %> your post<% end %> <%= @parent_obj %>
+about<% if @parent_obj.respond_to?(:user) && @parent_obj.user == @to %> your post<% end %> <%= @parent_obj %>
 <% if @parent_obj.respond_to? :url %><%= @parent_obj.url %><% end %>
+<% end %>
