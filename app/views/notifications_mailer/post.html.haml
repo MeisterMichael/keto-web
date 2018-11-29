@@ -1,12 +1,23 @@
 
-%p
-	= @from.username
-	posted about
-	- if @parent_obj.user == @to
-		your post
-	- if @parent_obj.respond_to? :url
-		%a{ href: @parent_obj.url }= @parent_obj
-	- else
-		= @parent_obj
-%p
-	%a{ href: @parent_obj.url } click here to view post
+- if @post.is_a? Scuttlebutt::DiscussionTopic
+	%p
+		= @from.username
+		posted a topic about
+		- if @post.respond_to? :url
+			%a{ href: @post.url }= @post
+		- else
+			= @post
+	%p
+		%a{ href: @post.url } click here to view post
+- else
+	%p
+		= @from.username
+		posted about
+		- if @parent_obj.respond_to?(:user) && @parent_obj.user == @to
+			your post
+		- if @parent_obj.respond_to? :url
+			%a{ href: @parent_obj.url }= @parent_obj
+		- else
+			= @parent_obj
+	%p
+		%a{ href: @parent_obj.url } click here to view post
