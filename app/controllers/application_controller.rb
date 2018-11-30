@@ -34,6 +34,8 @@ class ApplicationController < ActionController::Base
 
 			if %w(add_post comment).include? opts[:name]
 				target_obj = opts[:on] || opts[:target_obj]
+
+				# email a subscribers posts and comments
 				post = Scuttlebutt::Post.where( user: current_user ).last
 				Scuttlebutt::Subscription.where( parent_obj: target_obj ).where.not( user: current_user ).each do |subscription|
 					NotificationsMailer.post( subscription, post ).deliver_now
@@ -41,10 +43,20 @@ class ApplicationController < ActionController::Base
 			end
 
 			if %w(add_topic).include? opts[:name]
+				listening_admins = User.admin.where( username: (ENV['LISTENING_ADMINS_USERNAMES'] || '').split(/\s+/).collect(&:strip) ).where.not( id: current_user.id )
+				posters_subscriptions = Scuttlebutt::Subscription.where( parent_obj: current_user ).where.not( user: listening_admins ).where.not( user: current_user )
+
 				target_obj = opts[:on] || opts[:target_obj]
 				post = Scuttlebutt::Post.where( user: current_user ).last
-				Scuttlebutt::Subscription.where( parent_obj: current_user ).where.not( user: current_user ).each do |subscription|
+
+				# email a users subscribers when they post a new topic
+				posters_subscriptions.each do |subscription|
 					NotificationsMailer.post( subscription, post ).deliver_now
+				end
+
+				# email select admins whenever a user creates a topic.
+				listening_admins.each do |user|
+					NotificationsMailer.post( Scuttlebutt::Subscription.new( parent_obj: current_user, user: user ), post ).deliver_now
 				end
 			end
 
