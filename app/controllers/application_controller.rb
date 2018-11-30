@@ -43,7 +43,8 @@ class ApplicationController < ActionController::Base
 			end
 
 			if %w(add_topic).include? opts[:name]
-				listening_admins = User.admin.where( username: (ENV['LISTENING_ADMINS_USERNAMES'] || '').split(/\s+/).collect(&:strip) ) #.where.not( id: current_user.id )
+				listening_admin_usernames = (ENV['LISTENING_ADMINS_USERNAMES'] || '').split(/\s+/).collect(&:strip)
+				listening_admins = User.admin.where( username: listening_admin_usernames ) #.where.not( id: current_user.id )
 				posters_subscriptions = Scuttlebutt::Subscription.where( parent_obj: current_user ).where.not( user: listening_admins ).where.not( user: current_user )
 
 				target_obj = opts[:on] || opts[:target_obj]
