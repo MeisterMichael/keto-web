@@ -1,0 +1,21 @@
+.blog-post{ class: args[:class] }
+	%a.post-recipe{:href => topic.url}
+		%img.item-container{:alt => topic.subject, :src => topic.user.avatar, style: 'width: auto;height: 100px;margin-left: auto;margin-right: auto;' }/
+
+	-# .post-meta
+		- if recipe.user.present?
+			%span
+				by
+				= succeed "," do
+					%a= recipe.user.full_name
+		%span=recipe.publish_at.strftime('%B %e, %Y')
+	.post-header
+		%h5
+			%a{:href => topic.url}=topic.subject
+	-# unless args[:mode] == :thumb
+	.post-entry
+		= raw topic.sanitized_content.truncate(50)
+	.post-more-link.pull-right
+		%a{:href => topic.url }
+			Read More
+			%i.fa.fa-long-arrow-alt-right.right

@@ -27,6 +27,8 @@
 				%li
 					%a{:href => "#recipes"} Recipes
 				%li
+					%a{:href => "#discussions"} Discussions
+				%li
 					%a{:href => "#shop" } Shop
 				%li
 					%a{:href => "#contact-us"} Contact
@@ -69,7 +71,7 @@
 				%p.mb-35
 					The ketogenic diet is a very low-carb, high-fat diet that shares many similarities with the Atkins and low-carb diets.
 				%p.mb-35
-					Unlike these diets, though, the aim of the ketogenic diet is not to prescribe or eliminate foods, but to put your body in a specific metabolocstate called ketosis. It does this by drastically reducing carbohydrate intake and replacing it with fat. 
+					Unlike these diets, though, the aim of the ketogenic diet is not to prescribe or eliminate foods, but to put your body in a specific metabolic state called ketosis. It does this by drastically reducing carbohydrate intake and replacing it with fat.
 				%p.mb-35
 					Ketosis has many reported benefits from health, to energy, to mental and cognitiive performance. When you are in ketosis, your body becomes incredibly efficient at burning fat for energy. It also turns fat into ketones in the liver, which can supply energy for the brain.
 				%p.mb-35
@@ -98,7 +100,7 @@
 / End About Section 2
 
 
-%section#recipes.wow.fadeIn.ptb.ptb-sm-80.animated
+%section#recipes.gray-bg.wow.fadeIn.ptb.ptb-sm-80.animated
 	.container
 		%h3.float-left.float-none-xs Latest Recipes
 		%a.btn-link-a.float-right.float-none-xs{ href: main_app.recipes_path() } View All
@@ -112,7 +114,22 @@
 						%hr
 					= render 'recipes/recipe_post', recipe: recipe, args: { mode: :thumb }
 
-%section#shop.wow.fadeIn.ptb.ptb-sm-80.animated
+
+%section#discussions.wow.fadeIn.ptb.ptb-sm-80.animated
+	.container
+		%h3.float-left.float-none-xs Latest Discussions
+		%a.btn-link-a.float-right.float-none-xs{ href: scuttlebutt.discussions_path() } View All
+		.clearfix
+		.spacer-60
+		.row
+
+			- @discussion_topics.each_with_index do |discussion_topic, index|
+				.col-md-6.col-sm-6.mb-sm-30
+					= render 'scuttlebutt/discussion_topics/topic', topic: discussion_topic, args: {}
+					-# = render 'scuttlebutt/discussion_topics/discussion_topic_post', topic: discussion_topic, args: { mode: :thumb }
+					%hr.mb-5
+
+%section#shop.gray-bg.wow.fadeIn.ptb.ptb-sm-80.animated
 	.container
 		%h3.float-left.float-none-xs Shop
 		%a.btn-link-a.float-right.float-none-xs{ href: main_app.bazaar_media_path() } View All
@@ -130,11 +147,11 @@
 
 
 
-%section#social.gray-bg.ptb.ptb-sm-80
+%section#social.ptb.ptb-sm-80
 	.container.text-center
 		.row
 			.col-md-8.offset-md-2
-				%h3 Get Connect With Us
+				%h3 Get Connected With Us
 		.spacer-60
 		.row
 			.col-md-8.offset-md-2
@@ -162,7 +179,7 @@
 
 
 
-%section#blog.wow.fadeIn.ptb.ptb-sm-80.animated
+%section#blog.gray-bg.wow.fadeIn.ptb.ptb-sm-80.animated
 	.container
 		%h3.float-left.float-none-xs Latest Blog
 		%a.btn-link-a.float-right.float-none-xs{ href: pulitzer.articles_path() } View All
