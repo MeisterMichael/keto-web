@@ -31,7 +31,7 @@ SitemapGenerator::Sitemap.create do
 		add media.path, lastmod: media.updated_at
 	end
 
-	Scuttlebutt::DiscussionTopic.published.each do |post|
+	Scuttlebutt::DiscussionTopic.active.each do |post|
 		add post.path, lastmod: post.updated_at
 	end
 
