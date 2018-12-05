@@ -441,6 +441,7 @@ DEPENDENCIES
   dalli
   edison!
   elasticsearch
+  fog-aws
   image_processing (~> 1.2)
   jbuilder (~> 2.5)
   kaminari
