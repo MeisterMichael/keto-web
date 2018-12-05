@@ -460,6 +460,7 @@ DEPENDENCIES
   scuttlebutt!
   selenium-webdriver
   sidekiq
+  sitemap_generator
   socratic!
   spring
   spring-watcher-listen (~> 2.0.0)

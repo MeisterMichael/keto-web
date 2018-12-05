@@ -55,6 +55,7 @@ gem 'route_downcaser'
 gem 'ruby-measurement'
 gem 'rest-client'
 gem 'sidekiq'
+gem 'sitemap_generator'
 gem 'stripe'
 
 
