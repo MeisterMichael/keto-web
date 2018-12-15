@@ -1,9 +1,9 @@
-.blog-post{ class: args[:class] }
+.blog-post.post-recipe{ class: args[:class] }
 	- if recipe.cover_image.present?
-		%a.post-recipe{:href => recipe.url}
+		%a{:href => recipe.url}
 			%img.item-container{:alt => recipe.title, :src => recipe.cover_image }/
 	- elsif recipe.avatar.present?
-		%a.post-recipe{ :href => recipe.url }
+		%a{ :href => recipe.url }
 			%img.item-container{:alt => "1", :src => recipe.avatar }/
 	-# .owl-carousel.item1-carousel.nf-carousel-theme
 	-# 	.item

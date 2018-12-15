@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 	devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions' }
 
 
+	resources :users, path: User.mounted_path
+
 	mount SwellId::Engine, at: '/'
 	mount Pulitzer::Engine, at: '/'
 	mount Scuttlebutt::Engine, :at => '/'

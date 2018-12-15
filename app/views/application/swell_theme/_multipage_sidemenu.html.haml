@@ -19,7 +19,7 @@
 			%a{ href: main_app.new_user_registration_path() } New Member?
 			%a.pull-right{ href: "/forgot" } Forgot Password?
 	%ul
-		%li
+		%li.d-lg-none
 			%a{:href => '/' } Home
 		-# %li
 			%a{:href => main_app.new_user_registration_path() } Login Signup
@@ -27,13 +27,13 @@
 			%a{:href => '/faq'} FAQ
 		-# %li
 			%a{:href => '/about'} About
-		%li
+		%li.d-lg-none
 			%a{:href => pulitzer.articles_path()} Blog
-		%li
+		%li.d-lg-none
 			%a{:href => main_app.recipes_path()} Recipes
-		%li
+		%li.d-lg-none
 			%a{:href => main_app.bazaar_media_path() } Shop
-		%li
+		%li.d-lg-none
 			%a{:href => scuttlebutt.discussions_path()} Discussions
 		-# %li
 			%a{:href => "/cart"} Shopping Cart

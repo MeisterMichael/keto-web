@@ -1,15 +1,20 @@
 class User < ApplicationRecord
+	include Pulitzer::Concerns::URLConcern
 
 	include SwellId::Concerns::UserConcern
 
 	enum status: { 'trash' => -50, 'revoked' =>- 20, 'active' => 1  }
 	enum role: { 'member' => 1, 'contributor' => 20, 'admin' => 30 }
 
+	mounted_at '/u'
+
 	devise 		:database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :authentication_keys => [:login]
 
 	before_save		:set_avatar
 
 	has_one_attached :avatar_attachment
+
+	has_many :posts, class_name: 'Scuttlebutt::Post'
 
 	### VALIDATIONS	---------------------------------------------
 	validates_uniqueness_of		:username, case_sensitive: false, allow_blank: true, if: Proc.new{ |u| u.username_changed? && u.registered? }
@@ -20,6 +25,31 @@ class User < ApplicationRecord
 	validates_confirmation_of	:password, if: [ :encrypted_password_changed?, :registered? ]
 	validates_length_of			:password, within: Devise.password_length, allow_blank: true, if: Proc.new{ |u| u.encrypted_password_changed? && u.registered? }
 
+	def page_meta
+		title = "#{self.username} | #{Pulitzer.app_name}"
+
+		{
+			page_title: title,
+			title: self.username,
+			# description: self.sanitized_description,
+			image: self.avatar,
+			url: self.url,
+			# twitter_format: 'summary_large_image',
+			# type: 'article',
+			# og: {
+			# 	"article:published_time" => self.publish_at.iso8601,
+			# 	"article:author" => self.user.to_s
+			# },
+			# data: {
+			# 	'url' => @user.url,
+			# 	'name' => self.title,
+			# 	'description' => self.sanitized_description,
+			# 	'datePublished' => self.publish_at.iso8601,
+			# 	'author' => self.user.to_s,
+			# 	'image' => self.avatar
+			# }
+		}
+	end
 
 	def self.find_for_database_authentication(warden_conditions)
 		conditions = warden_conditions.dup

@@ -1,13 +1,13 @@
-.blog-post{ class: args[:class] }
-	%a.post-recipe{:href => topic.url}
-		%img.item-container{:alt => topic.subject, :src => topic.user.avatar, style: 'width: auto;height: 100px;margin-left: auto;margin-right: auto;' }/
+.blog-post.post-discussion-topic{ class: args[:class] }
+	%a{:href => topic.user.url }
+		%img.item-container{:alt => topic.user.username, :src => topic.user.avatar, style: 'width: auto;height: 100px;margin-left: auto;margin-right: auto;' }/
 
 	-# .post-meta
 		- if recipe.user.present?
 			%span
 				by
 				= succeed "," do
-					%a= recipe.user.full_name
+					%a{:href => topic.user.url }= recipe.user.full_name
 		%span=recipe.publish_at.strftime('%B %e, %Y')
 	.post-header
 		%h5

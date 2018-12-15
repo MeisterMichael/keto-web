@@ -1,0 +1,37 @@
+- selector_class = "scuttlebutt_discussion_topic_#{topic.class.base_class.name.underscore.gsub(/\//,'__')}_#{topic.id}"
+- selector = ".scuttlebutt_discussion_topic.#{selector_class}"
+.media.mb-3.scuttlebutt_discussion_topic[topic]{ class: selector_class }
+	%a{ href: topic.user.url }
+		%img.mr-3{ src: topic.user.avatar, style: 'width: 64px;' }
+	.media-body
+		%h5.mb-0.pb-0
+			%a{ href: topic.url }=topic.subject
+		.media-byline
+			- if topic.user.respond_to? :url
+				%a{ href: topic.user.url }
+					%strong
+						= topic.user
+			- else
+				%strong
+					= topic.user
+			= time_ago_in_words( topic.created_at )
+			ago
+		.media-text
+			- if topic.content
+				%blockquote.small.mb-0
+					= raw topic.preview
+		.media-stats
+			= pluralize topic.posts.count, 'Reply'
+			-# and
+			-# = pluralize topic.cached_impression_count, 'View'
+			|
+			- if topic.last_post.present?
+				Last:
+				= topic.last_post.preview
+				by
+				- if topic.last_post.user.respond_to? :url
+					= link_to topic.last_post.user.username, topic.last_post.user.url
+				- else
+					= topic.last_post.user.username
+		.media-actions
+			= render 'scuttlebutt/posts/social_bar', post: topic, args: args.merge( subscribable: true, selector: selector  )

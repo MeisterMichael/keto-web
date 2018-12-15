@@ -21,7 +21,7 @@ class RootController < ApplicationController
 		@discussion_topics = Scuttlebutt::DiscussionTopic.active.order(created_at: :desc)
 		@discussion_topics = @discussion_topics.page(params[:page]).per(4)
 
-		render layout: 'onepage'
+		# render layout: 'onepage'
 	end
 
 	# this handles all media in the pulitzer_media table

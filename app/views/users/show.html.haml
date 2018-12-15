@@ -1,0 +1,34 @@
+/ CONTENT -------------------------------------------------------------------------------
+%div{ style: 'position: relative;' }
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => @cover_image }
+		.container
+			.row.title
+				%div{ style: "margin: 0 auto;width: 150px;height: 150px;border-radius: 500px;background: no-repeat center;background-image: url('#{@user.avatar}');background-size: cover;" }
+				%h2.h2=@user.username
+				.page-breadcrumb
+					%a{ href: '/' }> Home
+					\/
+					%span Members
+/ End Intro Section
+
+- if @posts.total_count > 0
+
+	%section.ptb.ptb-sm-80
+		.container
+			.row
+
+				- @posts.each_with_index do |post|
+					.col-md-6.col-sm-6.mb-sm-30
+						- if post.is_a? Scuttlebutt::DiscussionTopic
+							= render 'scuttlebutt/discussion_topics/topic', topic: post, args: {}
+						- elsif post.is_a? Scuttlebutt::DiscussionPost
+							= render 'scuttlebutt/discussion_posts/post', post: post, args: {}
+						%hr.mb-5
+
+- else
+	%section.ptb.ptb-sm-80.text-center.gray-bg
+		.container
+			.row
+				.col-12
+					%div{ style: 'font-size: 3em;' } No Activity
