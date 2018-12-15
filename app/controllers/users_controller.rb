@@ -5,6 +5,8 @@ class UsersController < ApplicationController
 	before_action :get_user, only: :show
 
 	def index
+		@cover_image = Recipe.published.order('random()').first.try(:cover_image)
+		
 		@users = User.active
 
 		if (term = params[:q]).present?
