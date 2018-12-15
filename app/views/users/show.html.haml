@@ -14,17 +14,17 @@
 
 - if @posts.total_count > 0
 
-	%section.ptb.ptb-sm-80
+	%section.pb.pb-sm-80
 		.container
 			.row
-
-				- @posts.each_with_index do |post|
-					.col-md-6.col-sm-6.mb-sm-30
-						- if post.is_a? Scuttlebutt::DiscussionTopic
-							= render 'scuttlebutt/discussion_topics/topic', topic: post, args: {}
-						- elsif post.is_a? Scuttlebutt::DiscussionPost
-							= render 'scuttlebutt/discussion_posts/post', post: post, args: {}
-						%hr.mb-5
+				.col-md-6.offset-md-3.mb-sm-30{ style: 'background: #fafafa;padding-top: 30px;padding-bottom: 15px;' }
+					- @posts.each_with_index do |post|
+						.mb-sm-30
+							- if post.is_a? Scuttlebutt::DiscussionTopic
+								= render 'scuttlebutt/discussion_topics/topic', topic: post, args: {}
+							- elsif post.is_a? Scuttlebutt::DiscussionPost
+								= render 'scuttlebutt/discussion_posts/post', post: post, args: {}
+							%hr.mb-30
 
 - else
 	%section.ptb.ptb-sm-80.text-center.gray-bg
