@@ -1,0 +1,28 @@
+/ CONTENT -------------------------------------------------------------------------------
+%div{ style: 'position: relative;' }
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => @cover_image }
+		.container
+			.row.title
+				%h2.h2 Members
+				.page-breadcrumb
+					%a{ href: '/' }> Home
+					\/
+					%span Members
+/ End Intro Section
+
+- if @users.total_count > 0
+
+	%section.ptb.ptb-sm-80
+		.container-fluid
+			.row
+				.col-12.text-center
+					- @users.each do |user|
+						%a{ href: user.url, style: "display: inline-block;margin: 10px 10px 0 10px;width: 200px;height: 200px;border-radius: 500px;background: no-repeat center;background-image: url('#{user.avatar}');background-size: cover;" }
+
+- else
+	%section.ptb.ptb-sm-80.text-center.gray-bg
+		.container
+			.row
+				.col-12
+					%div{ style: 'font-size: 3em;' } No Members

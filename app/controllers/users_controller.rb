@@ -4,6 +4,19 @@ class UsersController < ApplicationController
 
 	before_action :get_user, only: :show
 
+	def index
+		@users = User.active
+
+		if (term = params[:q]).present?
+			query = "%#{term.gsub('%','\\\\%')}%".downcase
+			@users = @users.where( "username ILIKE :q OR (first_name || ' ' || last_name) ILIKE :q", q: query )
+		end
+
+		@users = @users.order( created_at: :desc ).page( params[:page] ).per( 20 )
+
+		set_page_meta( title: 'Members' )
+	end
+
 	def show
 		@cover_image = Recipe.published.order('random()').first.try(:cover_image)
 
