@@ -44,10 +44,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem "aws-sdk-s3", require: false
 gem 'dalli'
-gem 'elasticsearch'
-gem 'elasticsearch-model'# , git: 'git://github.com/elastic/elasticsearch-rails.git', branch: '5.x'
-#gem 'elasticsearch-rails'
-#gem 'bonsai-elasticsearch-rails'
+gem 'bonsai-elasticsearch-rails', '~> 6'
+gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '6.x'
+gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '6.x'
 gem 'fog-aws'
 gem 'image_processing', '~> 1.2'
 gem 'kaminari'
