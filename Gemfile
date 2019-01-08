@@ -45,6 +45,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem "aws-sdk-s3", require: false
 gem 'dalli'
 gem 'elasticsearch'
+gem 'elasticsearch-model'# , git: 'git://github.com/elastic/elasticsearch-rails.git', branch: '5.x'
+#gem 'elasticsearch-rails'
+#gem 'bonsai-elasticsearch-rails'
 gem 'fog-aws'
 gem 'image_processing', '~> 1.2'
 gem 'kaminari'
@@ -81,8 +84,8 @@ swell_engines_path = ENV['SWELL_ENGINE_PATH'] || '../engines'
 # gem 'socratic', path: "#{swell_engines_path}/socratic"
 
 # Prod *****
-gem 'swell_id', git: 'https://github.com/gkparishphilp/swell_id.git', :tag => "v1.2.0", :branch => 'master'
-gem 'pulitzer', git: 'https://github.com/gkparishphilp/pulitzer.git', :tag => "v1.5.0", :branch => 'master'
+gem 'swell_id', git: 'https://github.com/gkparishphilp/swell_id.git', :tag => "v1.4.0", :branch => 'master'
+gem 'pulitzer', git: 'https://github.com/gkparishphilp/pulitzer.git', :tag => "v1.9.0", :branch => 'master'
 gem 'scuttlebutt', git: 'https://github.com/gkparishphilp/scuttlebutt.git', :tag => "v1.2.0", :branch => 'master'
 gem 'bazaar', git: 'https://github.com/MeisterMichael/bazaar.git', :tag => "v0.2.0", :branch => 'master'
 gem 'bunyan', git: 'https://github.com/Groundswell/bunyan.git', :tag => "v2.0.0", :branch => 'master'

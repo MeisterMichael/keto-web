@@ -1,5 +1,6 @@
 
 class Recipe < Food
+	include RecipeSearchable
 
 	validates		:title, presence: true, unless: :allow_blank_title?
 

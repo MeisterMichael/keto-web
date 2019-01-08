@@ -2,6 +2,7 @@
 class GeoAddress < ApplicationRecord
 
 	include SwellId::Concerns::AddressConcern
+	include GeoAddressSearchable
 
 	enum status: { 'active' => 1, 'trash' => -50 }
 

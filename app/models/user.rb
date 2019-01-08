@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 	include Pulitzer::Concerns::URLConcern
-
 	include SwellId::Concerns::UserConcern
+	include UserSearchable
 
 	enum status: { 'trash' => -50, 'revoked' =>- 20, 'active' => 1  }
 	enum role: { 'member' => 1, 'contributor' => 20, 'admin' => 30 }
