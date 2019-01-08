@@ -17,9 +17,9 @@
 			= time_ago_in_words( topic.created_at )
 			ago
 		.media-text
-			- if topic.content
+			-# if topic.content
 				%blockquote.small.mb-0
-					= raw topic.preview
+					= raw topic.preview.truncate(30)
 		.media-stats
 			= pluralize topic.posts.count, 'Reply'
 			-# and
@@ -27,7 +27,7 @@
 			|
 			- if topic.last_post.present?
 				Last:
-				= topic.last_post.preview
+				= topic.last_post.preview.truncate(30)
 				by
 				- if topic.last_post.user.respond_to? :url
 					= link_to topic.last_post.user.username, topic.last_post.user.url
