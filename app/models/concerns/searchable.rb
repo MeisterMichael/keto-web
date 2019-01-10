@@ -54,7 +54,7 @@ module Searchable
 			return @records unless @records.nil?
 			@records = self.result.records.to_a
 			self.result.each do |row|
-				record = @records.find { |r| (r.class.__elasticsearch__.index_name.to_s == row._index.to_s || r.class.base_class.__elasticsearch__.index_name.to_s == row._index.to_s) && r.id.to_s == row.id.to_s }
+				record = @records.find { |r| ( (r.class.respond_to?(:__elasticsearch__) && r.class.__elasticsearch__.index_name.to_s == row._index.to_s) || (r.class.base_class.respond_to?(:__elasticsearch__) && r.class.base_class.__elasticsearch__.index_name.to_s == row._index.to_s) ) && r.id.to_s == row.id.to_s }
 				record.searchable_score = row._score
 				record.searchable_highlight = row.highlight if row.respond_to?(:highlight)
 				record.searchable_meta = row
