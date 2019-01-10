@@ -130,7 +130,7 @@ module Searchable
 	end
 
 	def self.searchable_classes
-		[Pulitzer::Media,Scuttlebutt::DiscussionTopic,BazaarMedia,GeoAddress,User]
+		[Pulitzer::Media,Scuttlebutt::DiscussionTopic,BazaarMedia,GeoAddress,User,Recipe]
 	end
 
 	module ClassMethods
