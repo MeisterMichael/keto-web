@@ -13,3 +13,5 @@ rake bunyan:install
 rake edison:install
 rake socratic:install
 rake db:migrate
+
+rake app_migrations:drop_create_searchable_indeces
