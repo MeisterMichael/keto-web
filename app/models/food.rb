@@ -81,6 +81,10 @@ class Food < ActiveRecord::Base
 		self.tags = tags_csv.split(/,\s*/)
 	end
 
+	def to_s
+		self.title
+	end
+
 
 	protected
 		def allow_blank_title?
