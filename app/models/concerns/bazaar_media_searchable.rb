@@ -1,4 +1,4 @@
-module RecipeSearchable
+module BazaarMediaSearchable
 	extend ActiveSupport::Concern
 
 	included do
@@ -28,5 +28,6 @@ module RecipeSearchable
 	def as_indexed_json(options={})
 		as_json().merge( 'public' => self.published? )
 	end
+
 
 end

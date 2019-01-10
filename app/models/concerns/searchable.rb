@@ -1,3 +1,13 @@
+# Install instructions:
+# 1) Add the following gems to your Gemfile:
+# => gem 'kaminari' # if you are using will_paginate or kaminari include it before elastic search
+# => gem 'bonsai-elasticsearch-rails', '~> 6'
+# => gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '6.x'
+# => gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '6.x'
+# 2) Install or create Searchable Concerns in app/models/concerns to have them be applied to engine models
+# 3) Update the seachable classes method to include all classes you have included searchable concerns in.
+# 4) Create indeces:  Searchable.searchable_classes.each { |c| puts c.name;c.drop_create_index! }
+
 module Searchable
 	extend ActiveSupport::Concern
 
@@ -14,6 +24,14 @@ module Searchable
 
 		def current_page
 			result.current_page
+		end
+
+		def each(&block)
+			records.each( &block )
+		end
+
+		def limit_value
+			result.limit_value
 		end
 
 		def method_missing(name, *args, &block)
@@ -36,7 +54,7 @@ module Searchable
 			return @records unless @records.nil?
 			@records = self.result.records.to_a
 			self.result.each do |row|
-				record = @records.find { |r| r.class.base_class.__elasticsearch__.index_name.to_s == row._index.to_s && r.id.to_s == row.id.to_s }
+				record = @records.find { |r| (r.class.__elasticsearch__.index_name.to_s == row._index.to_s || r.class.base_class.__elasticsearch__.index_name.to_s == row._index.to_s) && r.id.to_s == row.id.to_s }
 				record.searchable_score = row._score
 				record.searchable_highlight = row.highlight if row.respond_to?(:highlight)
 				record.searchable_meta = row
@@ -69,19 +87,67 @@ module Searchable
 		attr_accessor :searchable_meta
 	end
 
-	def self.search( term, options=nil )
-		options ||= [Bazaar::Product, Bazaar::SubscriptionPlan,User]
-		SearchableResult.new( Elasticsearch::Model.search( term, options ) )
+	def self.public_simple_search( term, options = {} )
+		options[:in] ||= [Pulitzer::Media,BazaarMedia,Recipe,Scuttlebutt::DiscussionTopic]
+		options[:class_boosts] ||= { BazaarMedia.name => 100 }
+		options[:where] ||= {}
+		options[:where][:public] = true
+
+		simple_search( term, options )
+	end
+
+	def self.search( query, options = {} )
+		options[:in] = searchable_classes if options[:in] == :all
+		puts JSON.pretty_generate( { query: query, options: options } ) if Rails.env.development?
+		SearchableResult.new( Elasticsearch::Model.search( query, options[:in] ) )
+	end
+
+	def self.simple_search( term, options = {} )
+		filters = []
+		(options.delete(:where) || {}).each do |key,value|
+			filters << { term: { key => value }, }
+		end
+
+		indices_boost = {}
+		(options.delete(:class_boosts) || {}).each do |class_name,boost|
+			indices_boost[class_name.constantize.index_name] = boost
+		end
+
+		query = {
+			query: {
+				bool: {
+					must: {
+						simple_query_string: { query: term },
+					},
+				},
+			},
+		}
+
+		query[:indices_boost] = indices_boost if indices_boost.present?
+		query[:query][:bool][:filter] = filters if filters.present?
+
+		search( query, options )
+	end
+
+	def self.searchable_classes
+		[Pulitzer::Media,Scuttlebutt::DiscussionTopic,BazaarMedia,GeoAddress,User]
 	end
 
 	module ClassMethods
-		def search( term, options = nil )
-			if options.nil?
-				result = self.__elasticsearch__.search term
-			else
-				result = self.__elasticsearch__.search term, options
-			end
-			SearchableResult.new( result )
+
+		def public_simple_search( term, options = {} )
+			options[:in] = [self]
+			Searchable.public_simple_search( term, options )
+		end
+
+		def search( query, options = {} )
+			options[:in] = [self]
+			Searchable.search( query, options )
+		end
+
+		def simple_search( term, options = {} )
+			options[:in] = [self]
+			Searchable.simple_search( term, options )
 		end
 
 		def drop_create_index!( args = { import: true } )
@@ -93,6 +159,10 @@ module Searchable
 		end
 	end
 
+
+	def as_json(options = nil)
+		super(options).merge( 'public' => false )
+	end
 
 	def elastic_search_create
 		self.__elasticsearch__.index_document

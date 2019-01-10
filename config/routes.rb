@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 	resources :recipe_admin do
 		get :preview, on: :member
 	end
+	
+	resources :search, only: [:index]
 
 	resources :usda_food_admin
 

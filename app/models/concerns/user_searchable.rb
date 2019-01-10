@@ -19,6 +19,7 @@ module UserSearchable
 				indexes :status
 				indexes :role
 				indexes :tags
+				indexes :public, type: 'boolean'
 			end
 		end
 	end

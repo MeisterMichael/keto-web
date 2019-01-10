@@ -2,6 +2,7 @@
 class BazaarMedia < ApplicationRecord
 	include Bazaar::Concerns::MediaConcern
 	include Bazaar::Concerns::MoneyAttributesConcern
+	include BazaarMediaSearchable
 
 	money_attributes :price, :suggested_price
 

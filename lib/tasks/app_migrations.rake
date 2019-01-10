@@ -1,6 +1,13 @@
 # desc "Explaining what the task does"
 namespace :app_migrations do
 
+	task drop_create_searchable_indeces: :environment do
+		Searchable.searchable_classes.each do |c|
+			puts "Loading #{c.name}"
+			c.drop_create_index!
+		end
+	end
+
 	task clean_nutrients: :environment do
 		FoodNutrient.delete_all
 		Nutrient.delete_all

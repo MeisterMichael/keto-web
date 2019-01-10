@@ -1,5 +1,5 @@
-module Pulitzer
-	module MediaSearchable
+module Scuttlebutt
+	module DiscussionTopicSearchable
 		extend ActiveSupport::Concern
 
 		included do
@@ -8,13 +8,10 @@ module Pulitzer
 			settings index: { number_of_shards: 1 } do
 				mappings dynamic: 'false' do
 					indexes :id, type: 'integer'
-					indexes :category_id, type: 'integer'
-					indexes :slug, analyzer: 'english', index_options: 'offsets'
 					indexes :created_at, type: 'date'
-					indexes :title, analyzer: 'english', index_options: 'offsets'
-					indexes :description, analyzer: 'english', index_options: 'offsets'
-					indexes :content, analyzer: 'english', index_options: 'offsets'
-					indexes :published?, type: 'boolean'
+					indexes :subject, analyzer: 'english', index_options: 'offsets'
+					indexes :rating, type: 'integer'
+					indexes :status
 					indexes :public, type: 'boolean'
 				end
 			end
@@ -27,9 +24,8 @@ module Pulitzer
 		# Instance Methods
 		# def instance_method_name ... end
 		def as_indexed_json(options={})
-			as_json().merge( 'public' => self.published? )
+			as_json().merge( 'public' => (self.anyone? && self.active?) )
 		end
-
 
 	end
 

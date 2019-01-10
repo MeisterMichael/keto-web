@@ -1,0 +1,32 @@
+.container
+	.row
+		.col-xs-12
+			%div{ style: 'margin-top: 1.5em;' }
+				= form_tag '', method: :get, class: 'form' do
+					.row
+						.col-xs-12.col-md-6.col-md-offset-3
+							.form-group
+								= text_field_tag :q, params[:q], class: 'form-control input-lg'
+							.text-center
+								= submit_tag 'Search', class: 'btn btn-primary'
+			%div{ style: 'margin-top: 1em;' }
+				- if params[:q]
+					showing
+					- if @results.total_count > 0
+						#{@results.limit_value * (@results.current_page - 1) + 1}-#{@results.limit_value * (@results.current_page - 1) + @results.count}
+						of
+					=pluralize @results.total_count, 'result'
+					for "#{params[:q].truncate(40)}"
+				- else
+					=pluralize @results.total_count, 'result'
+			- @results.each do |result|
+				%div{ style: 'margin-top: 2em;' }
+					%a{ href: result.url }
+						%span=result.to_s
+						- if result.respond_to? :description
+							%span{ style: 'display: block;color: #333;' }=raw result.description
+						%span{ style: 'display: block;color: #333;font-size: 0.8em;' }=result.url.truncate(50)
+
+	.row{ style: 'margin: 2em 0;' }
+		.col-sm-12
+			= raw paginate( @results )
