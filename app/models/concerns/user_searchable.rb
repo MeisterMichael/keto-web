@@ -18,7 +18,7 @@ module UserSearchable
 				indexes :full_text, analyzer: 'english', index_options: 'offsets'
 				indexes :status
 				indexes :role
-				indexes :tags
+				# indexes :tags
 				indexes :public, type: 'boolean'
 			end
 		end
