@@ -66,4 +66,9 @@ class ApplicationController < ActionController::Base
 			true
 		end
 
+		def set_page_meta( options = {} )
+			options = options.merge( title: "#{options[:title]} - #{Pulitzer.app_name}" ) if options[:title].present? && not( options[:title].downcase.include?(Pulitzer.app_name.downcase) )
+			super( options )
+		end
+
 end
