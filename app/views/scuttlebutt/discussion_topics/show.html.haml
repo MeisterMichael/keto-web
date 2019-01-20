@@ -35,8 +35,8 @@
 							%blockquote.small.fr-view
 								= raw @topic.sanitized_content
 					.media-actions#topic_actions
-						.addthis_inline_share_toolbox.share-5
 						= render 'scuttlebutt/posts/social_bar', post: @topic, args: { subscribable: true, selector: "#topic_actions" }
+						.addthis_inline_share_toolbox.share-5.mt-2
 
 
 					.list-unstyled.mt-4
