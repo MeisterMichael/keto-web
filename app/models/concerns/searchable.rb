@@ -88,7 +88,7 @@ module Searchable
 	end
 
 	def self.public_simple_search( term, options = {} )
-		options[:in] ||= [Pulitzer::Media,BazaarMedia,Recipe,Scuttlebutt::DiscussionTopic]
+		options[:in] ||= [Pulitzer::Media,Recipe,Scuttlebutt::DiscussionTopic] #,BazaarMedia
 		options[:class_boosts] ||= { BazaarMedia.name => 100 }
 		options[:where] ||= {}
 		options[:where][:public] = true
@@ -130,7 +130,7 @@ module Searchable
 	end
 
 	def self.searchable_classes
-		[Pulitzer::Media,Scuttlebutt::DiscussionTopic,BazaarMedia,GeoAddress,User,Recipe]
+		[Pulitzer::Media,Scuttlebutt::DiscussionTopic,Recipe]# ,BazaarMedia,GeoAddress,User
 	end
 
 	module ClassMethods
