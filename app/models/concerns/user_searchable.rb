@@ -1,6 +1,6 @@
 module UserSearchable
 	extend ActiveSupport::Concern
-
+=begin
 	included do
 		include Searchable
 
@@ -42,5 +42,5 @@ module UserSearchable
 			self.email,
 		].join("\n")
 	end
-
+=end
 end

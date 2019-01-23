@@ -1,6 +1,6 @@
 module BazaarMediaSearchable
 	extend ActiveSupport::Concern
-
+=begin
 	included do
 		include Searchable
 
@@ -29,5 +29,5 @@ module BazaarMediaSearchable
 		as_json().merge( 'public' => self.published? )
 	end
 
-
+=end
 end

@@ -1,6 +1,6 @@
 module GeoAddressSearchable
 	extend ActiveSupport::Concern
-
+=begin
 	included do
 		include Searchable
 
@@ -51,5 +51,5 @@ module GeoAddressSearchable
 			self.country_abbrev,
 		].join("\n")
 	end
-
+=end
 end
