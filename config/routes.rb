@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 	mount Bunyan::Engine, :at => '/'
 	mount Edison::Engine, :at => '/'
 	mount Bazaar::Engine, :at => '/'
-	mount Dewey::Engine, :at => '/'
+	# mount Dewey::Engine, :at => '/'
 
 	resources :bazaar_media_admin do
 		get :preview, on: :member
