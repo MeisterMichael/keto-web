@@ -81,7 +81,7 @@ swell_engines_path = ENV['SWELL_ENGINE_PATH'] || '../engines'
 # gem 'bunyan', path: "#{swell_engines_path}/bunyan"
 # gem 'edison', path: "#{swell_engines_path}/edison"
 # gem 'socratic', path: "#{swell_engines_path}/socratic"
-# gem 'dewey', path: "#{swell_engines_path}/dewey"
+gem 'dewey', path: "#{swell_engines_path}/dewey"
 
 # Prod *****
 gem 'swell_id', git: 'https://github.com/gkparishphilp/swell_id.git', :tag => "v1.4.0", :branch => 'master'

@@ -99,6 +99,15 @@ GIT
       friendly_id (~> 5.1.0)
       rails (>= 5.2.0)
 
+PATH
+  remote: ../../engines/dewey
+  specs:
+    dewey (1.0.0)
+      acts-as-taggable-array-on
+      devise
+      friendly_id (~> 5.1.0)
+      rails (>= 5.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -454,6 +463,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   dalli
+  dewey!
   edison!
   elasticsearch-model!
   elasticsearch-rails!

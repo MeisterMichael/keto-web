@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_02_200800) do
+ActiveRecord::Schema.define(version: 2019_01_29_212500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -574,6 +574,64 @@ ActiveRecord::Schema.define(version: 2018_11_02_200800) do
     t.index ["user_id"], name: "index_bunyan_events_on_user_id"
   end
 
+  create_table "dewey_course_cohorts", force: :cascade do |t|
+    t.bigint "course_id"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "enrollment_starts_at"
+    t.datetime "enrollment_ends_at"
+    t.bigint "instructor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_dewey_course_cohorts_on_course_id"
+    t.index ["instructor_id"], name: "index_dewey_course_cohorts_on_instructor_id"
+  end
+
+  create_table "dewey_courses", force: :cascade do |t|
+    t.string "title"
+    t.string "avatar"
+    t.text "description"
+    t.text "syllabus"
+    t.string "slug"
+    t.datetime "publish_at"
+    t.interval "duration"
+    t.integer "max_cohort_size"
+    t.integer "status", default: 0
+    t.integer "availability", default: 1
+    t.integer "course_type", default: 1
+    t.integer "lesson_schedule", default: 1
+    t.integer "start_schedule", default: 1
+    t.bigint "instructor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instructor_id"], name: "index_dewey_courses_on_instructor_id"
+  end
+
+  create_table "dewey_enrollment_lessons", force: :cascade do |t|
+    t.bigint "enrollment_id"
+    t.bigint "lesson_id"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.float "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["enrollment_id"], name: "index_dewey_enrollment_lessons_on_enrollment_id"
+    t.index ["lesson_id"], name: "index_dewey_enrollment_lessons_on_lesson_id"
+  end
+
+  create_table "dewey_enrollments", force: :cascade do |t|
+    t.bigint "course_cohort_id"
+    t.bigint "user_id"
+    t.datetime "started_at"
+    t.datetime "ends_at"
+    t.datetime "completed_at"
+    t.float "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_cohort_id"], name: "index_dewey_enrollments_on_course_cohort_id"
+    t.index ["user_id"], name: "index_dewey_enrollments_on_user_id"
+  end
+
   create_table "edison_experiments", force: :cascade do |t|
     t.string "title"
     t.string "slug"
@@ -759,6 +817,21 @@ ActiveRecord::Schema.define(version: 2018_11_02_200800) do
     t.datetime "updated_at", null: false
     t.index ["food_id"], name: "index_ingredients_on_food_id"
     t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.bigint "course_id"
+    t.string "title"
+    t.string "avatar"
+    t.text "description"
+    t.integer "seq", default: 0
+    t.integer "status", default: 0
+    t.interval "duration"
+    t.text "overview"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lessons_on_course_id"
   end
 
   create_table "nutrients", force: :cascade do |t|
