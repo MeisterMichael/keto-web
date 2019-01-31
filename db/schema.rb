@@ -610,6 +610,7 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
   create_table "dewey_enrollment_lessons", force: :cascade do |t|
     t.bigint "enrollment_id"
     t.bigint "lesson_id"
+    t.datetime "published_at"
     t.datetime "started_at"
     t.datetime "completed_at"
     t.float "score"

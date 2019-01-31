@@ -6,6 +6,11 @@ Rails.application.routes.draw do
 	resources :admin
 
 	resources :courses
+	resources :enrollment_lessons do
+		put :complete, on: :member
+		patch :complete, on: :member
+	end
+	resources :enrollments
 
 	resources :ingredient_admin
 
