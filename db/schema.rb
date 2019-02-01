@@ -607,6 +607,9 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
     t.string "title"
     t.string "avatar"
     t.text "description"
+    t.text "short_description"
+    t.text "introduction"
+    t.text "content"
     t.text "syllabus"
     t.string "slug"
     t.datetime "publish_at"
@@ -735,6 +738,7 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
     t.datetime "publish_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "keto_score", default: 0
     t.string "type"
     t.string "measure_unit", default: "g"
     t.string "usda_ndbno"
@@ -742,7 +746,6 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
     t.json "usda_cache", default: {}
     t.float "serving_size_in_measure_units"
     t.text "serving_size"
-    t.integer "keto_score", default: 0
     t.index ["category_id"], name: "index_foods_on_category_id"
     t.index ["keto_score"], name: "index_foods_on_keto_score"
     t.index ["slug"], name: "index_foods_on_slug", unique: true
