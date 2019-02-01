@@ -5,7 +5,7 @@ module Dewey
 			include DeweyConcern
 
 			def index
-				@courses = Dewey::Course.published
+				@courses = Dewey::Course.published.where.not( availability: 'invite_only' )
 				@courses = @courses.order( publish_at: :desc ).page(params[:page]).per(10)
 				set_page_meta( page_title: 'Courses' )
 			end
