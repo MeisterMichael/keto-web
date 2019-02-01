@@ -5,22 +5,21 @@ Rails.application.routes.draw do
 
 	resources :admin
 
-	resources :courses
-	resources :course_content_admin
-	resources :enrollment_course_contents do
-		put :complete, on: :member
-		patch :complete, on: :member
+	scope module: 'dewey' do
+		resources :courses
+		resources :course_content_admin
+		resources :enrollment_course_contents do
+			put :complete, on: :member
+			patch :complete, on: :member
+		end
+		resources :enrollments
 	end
-	resources :enrollments
 
 	resources :ingredient_admin
 
 	resources :inspiration_admin do
 		get :preview, on: :member
 	end
-
-	resources :lesson_admin
-	resources :lessons
 
 	resources :recipes
 	resources :recipe_admin do
