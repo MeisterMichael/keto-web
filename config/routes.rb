@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 	resources :admin
 
 	resources :courses
-	resources :enrollment_lessons do
+	resources :course_content_admin
+	resources :enrollment_course_contents do
 		put :complete, on: :member
 		patch :complete, on: :member
 	end

@@ -15,7 +15,7 @@ class User < ApplicationRecord
 	has_one_attached :avatar_attachment
 
 	has_many :enrollments, class_name: 'Dewey::Enrollment'
-	has_many :enrollment_lessons, class_name: 'Dewey::EnrollmentLesson', through: :enrollments
+	has_many :enrollment_course_contents, class_name: 'Dewey::EnrollmentCourseContent', through: :enrollments
 	has_many :posts, class_name: 'Scuttlebutt::Post'
 
 	### VALIDATIONS	---------------------------------------------

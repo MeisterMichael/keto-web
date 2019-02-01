@@ -587,6 +587,22 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
     t.index ["instructor_id"], name: "index_dewey_course_cohorts_on_instructor_id"
   end
 
+  create_table "dewey_course_contents", force: :cascade do |t|
+    t.bigint "course_id"
+    t.string "title"
+    t.string "avatar"
+    t.text "description"
+    t.integer "seq", default: 0
+    t.integer "status", default: 0
+    t.interval "duration"
+    t.interval "release_offset"
+    t.text "overview"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_dewey_course_contents_on_course_id"
+  end
+
   create_table "dewey_courses", force: :cascade do |t|
     t.string "title"
     t.string "avatar"
@@ -599,7 +615,8 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
     t.integer "status", default: 0
     t.integer "availability", default: 1
     t.integer "course_type", default: 1
-    t.integer "lesson_schedule", default: 1
+    t.integer "course_content_schedule", default: 1
+    t.integer "course_content_flow", default: 1
     t.integer "start_schedule", default: 1
     t.bigint "instructor_id"
     t.datetime "created_at", null: false
@@ -607,17 +624,17 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
     t.index ["instructor_id"], name: "index_dewey_courses_on_instructor_id"
   end
 
-  create_table "dewey_enrollment_lessons", force: :cascade do |t|
+  create_table "dewey_enrollment_course_contents", force: :cascade do |t|
     t.bigint "enrollment_id"
-    t.bigint "lesson_id"
+    t.bigint "course_content_id"
     t.datetime "published_at"
     t.datetime "started_at"
     t.datetime "completed_at"
     t.float "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["enrollment_id"], name: "index_dewey_enrollment_lessons_on_enrollment_id"
-    t.index ["lesson_id"], name: "index_dewey_enrollment_lessons_on_lesson_id"
+    t.index ["course_content_id"], name: "index_dewey_enrollment_course_contents_on_course_content_id"
+    t.index ["enrollment_id"], name: "index_dewey_enrollment_course_contents_on_enrollment_id"
   end
 
   create_table "dewey_enrollments", force: :cascade do |t|
@@ -818,21 +835,6 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
     t.datetime "updated_at", null: false
     t.index ["food_id"], name: "index_ingredients_on_food_id"
     t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
-  end
-
-  create_table "lessons", force: :cascade do |t|
-    t.bigint "course_id"
-    t.string "title"
-    t.string "avatar"
-    t.text "description"
-    t.integer "seq", default: 0
-    t.integer "status", default: 0
-    t.interval "duration"
-    t.text "overview"
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_lessons_on_course_id"
   end
 
   create_table "nutrients", force: :cascade do |t|
