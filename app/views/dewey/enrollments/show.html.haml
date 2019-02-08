@@ -62,3 +62,5 @@
 												for #{ time_ago_in_words released_at }
 										%td.text-right
 											\-
+			- if defined?( Scuttlebutt )
+				= render 'scuttlebutt/comments/widget', parent_obj: @enrollment.course_cohort, args: { page: params[:page] }
