@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_29_212500) do
+ActiveRecord::Schema.define(version: 2019_02_07_233036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -738,7 +738,6 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
     t.datetime "publish_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "keto_score", default: 0
     t.string "type"
     t.string "measure_unit", default: "g"
     t.string "usda_ndbno"
@@ -746,10 +745,98 @@ ActiveRecord::Schema.define(version: 2019_01_29_212500) do
     t.json "usda_cache", default: {}
     t.float "serving_size_in_measure_units"
     t.text "serving_size"
+    t.integer "keto_score", default: 0
     t.index ["category_id"], name: "index_foods_on_category_id"
     t.index ["keto_score"], name: "index_foods_on_keto_score"
     t.index ["slug"], name: "index_foods_on_slug", unique: true
     t.index ["tags"], name: "index_foods_on_tags", using: :gin
+  end
+
+  create_table "franklin_metrics", force: :cascade do |t|
+    t.string "title"
+    t.integer "category_id"
+    t.integer "unit_id"
+    t.integer "user_id"
+    t.string "slug"
+    t.text "aliases", default: [], array: true
+    t.text "description"
+    t.integer "availability", default: 0
+    t.string "default_period", default: "all_time"
+    t.string "default_value_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "franklin_observations", force: :cascade do |t|
+    t.string "tmp_id"
+    t.integer "unit_id"
+    t.integer "user_id"
+    t.integer "parent_id"
+    t.integer "lft"
+    t.integer "rgt"
+    t.integer "observed_id"
+    t.string "observed_type"
+    t.string "title"
+    t.string "content"
+    t.float "value"
+    t.string "rx"
+    t.text "notes"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.datetime "recorded_at"
+    t.integer "status", default: 1
+    t.hstore "properties", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "franklin_targets", force: :cascade do |t|
+    t.integer "parent_obj_id"
+    t.string "parent_obj_type"
+    t.integer "user_id"
+    t.integer "unit_id"
+    t.string "target_type", default: "value"
+    t.float "value"
+    t.float "min"
+    t.float "max"
+    t.string "direction", default: "at_most"
+    t.string "period", default: "all_time"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.integer "status", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "franklin_units", force: :cascade do |t|
+    t.integer "base_unit_id"
+    t.integer "imperial_correlate_id"
+    t.integer "user_id"
+    t.integer "metric_id"
+    t.float "conversion_factor", default: 1.0
+    t.integer "custom_base_unit_id"
+    t.float "custom_conversion_factor"
+    t.string "name"
+    t.string "slug"
+    t.string "abbrev"
+    t.integer "unit_type", default: 0
+    t.text "aliases", default: [], array: true
+    t.boolean "imperial", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "franklin_user_inputs", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "result_obj_id"
+    t.string "result_obj_type"
+    t.text "content"
+    t.string "source"
+    t.string "action", default: "created"
+    t.string "result_status", default: "success"
+    t.text "system_notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

@@ -49,3 +49,6 @@ node_modules/
 
 .idea
 *.dump
+
+**/.DS_Store
+.DS_Store
