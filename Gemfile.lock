@@ -44,11 +44,11 @@ GIT
 
 GIT
   remote: https://github.com/MeisterMichael/dewey.git
-  revision: 50ffd4aba04536d69cfc2203cd4c3f70b9ecf8bb
+  revision: a0e2dcdba962307593dc86be5a253bbe2df712ab
   branch: master
-  tag: v1.0.0
+  tag: v1.1.0
   specs:
-    dewey (1.0.0)
+    dewey (1.1.0)
       acts-as-taggable-array-on
       devise
       friendly_id (~> 5.1.0)

@@ -6,7 +6,7 @@
 			%nav{ 'aria-label' => 'breadcrumb' }
 				%ol.breadcrumb
 					%li.breadcrumb-item
-						%a{ href: main_app.dewey_courses_path() } Courses
+						%a{ href: dewey.courses_path() } Courses
 					%li.breadcrumb-item.active{ 'aria-current' => 'page' }= @course.title
 
 			%h1= @course.title
