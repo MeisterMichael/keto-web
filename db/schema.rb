@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.text "tags", default: [], array: true
+    t.string "type"
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -738,6 +739,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.datetime "publish_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "keto_score", default: 0
     t.string "type"
     t.string "measure_unit", default: "g"
     t.string "usda_ndbno"
@@ -745,7 +747,6 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.json "usda_cache", default: {}
     t.float "serving_size_in_measure_units"
     t.text "serving_size"
-    t.integer "keto_score", default: 0
     t.index ["category_id"], name: "index_foods_on_category_id"
     t.index ["keto_score"], name: "index_foods_on_keto_score"
     t.index ["slug"], name: "index_foods_on_slug", unique: true
@@ -990,6 +991,27 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.index ["slug"], name: "index_pulitzer_categories_on_slug", unique: true
     t.index ["type"], name: "index_pulitzer_categories_on_type"
     t.index ["user_id"], name: "index_pulitzer_categories_on_user_id"
+  end
+
+  create_table "pulitzer_content_sections", force: :cascade do |t|
+    t.string "parent_type"
+    t.bigint "parent_id"
+    t.string "name"
+    t.string "title"
+    t.text "description"
+    t.string "slug"
+    t.string "content_zone", default: ""
+    t.integer "seq", default: 1
+    t.string "partial", default: "default"
+    t.string "css_style", default: ""
+    t.string "css_classes", default: [], array: true
+    t.text "content"
+    t.hstore "properties", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id", "parent_type", "content_zone", "seq"], name: "cont_sections_on_parent"
+    t.index ["parent_type", "parent_id"], name: "index_pulitzer_content_sections_on_parent_type_and_parent_id"
+    t.index ["slug"], name: "index_pulitzer_content_sections_on_slug", unique: true
   end
 
   create_table "pulitzer_media", force: :cascade do |t|

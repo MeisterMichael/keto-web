@@ -1,7 +1,7 @@
 
 -# = render 'application/swell_theme/multipage_header', args: { class: 'header-light' }
 = render 'application/swell_theme/multipage_header', args: { class: '' }
-= render 'application/flash', args: {}
+= render 'partials/ui/flash', args: {}
 / CONTENT -------------------------------------------------------------------------------
 - if @media.cover_image.present?
 	/ Intro Section

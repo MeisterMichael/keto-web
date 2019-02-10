@@ -18,5 +18,11 @@
 			.row
 				.col-12
 					= raw @media.content
+
+
+
+	- @media.content_sections.each do |section|
+		.fr-view= render_section( section )
+
 	/ End Blank Section
 	/ End CONTENT ----------------------------------------------------------------------------

@@ -74,25 +74,25 @@ gem 'stripe'
 swell_engines_path = ENV['SWELL_ENGINE_PATH'] || '../engines'
 
 # Dev *****
-# gem 'swell_id', path: "#{swell_engines_path}/swell_id"
-# gem 'pulitzer', path: "#{swell_engines_path}/pulitzer"
+gem 'swell_id', path: "#{swell_engines_path}/swell_id"
+gem 'pulitzer', path: "#{swell_engines_path}/pulitzer"
 # gem 'scuttlebutt', path: "#{swell_engines_path}/scuttlebutt"
 # gem 'bazaar', path: "#{swell_engines_path}/bazaar"
 # gem 'bunyan', path: "#{swell_engines_path}/bunyan"
 # gem 'edison', path: "#{swell_engines_path}/edison"
 # gem 'socratic', path: "#{swell_engines_path}/socratic"
-# gem 'dewey', path: "#{swell_engines_path}/dewey"
+gem 'dewey', path: "#{swell_engines_path}/dewey"
 gem 'franklin', path: "#{swell_engines_path}/franklin"
 
 # Prod *****
-gem 'swell_id', git: 'https://github.com/gkparishphilp/swell_id.git', :tag => "v1.4.0", :branch => 'master'
-gem 'pulitzer', git: 'https://github.com/gkparishphilp/pulitzer.git', :tag => "v1.9.0", :branch => 'master'
+# gem 'swell_id', git: 'https://github.com/gkparishphilp/swell_id.git', :tag => "v1.4.0", :branch => 'master'
+# gem 'pulitzer', git: 'https://github.com/gkparishphilp/pulitzer.git', :tag => "v1.9.0", :branch => 'master'
 gem 'scuttlebutt', git: 'https://github.com/gkparishphilp/scuttlebutt.git', :tag => "v1.4.0", :branch => 'master'
 gem 'bazaar', git: 'https://github.com/MeisterMichael/bazaar.git', :tag => "v0.14.1", :branch => 'master'
 gem 'bunyan', git: 'https://github.com/Groundswell/bunyan.git', :tag => "v2.0.0", :branch => 'master'
 gem 'edison', git: 'https://github.com/Groundswell/edison.git', :tag => "v2.0.0", :branch => 'master'
 gem 'socratic', git: 'https://github.com/Groundswell/socratic.git', :tag => "v2.0.0", :branch => 'master'
-gem 'dewey', git: 'https://github.com/MeisterMichael/dewey.git', :tag => "v1.1.0", :branch => 'master'
+# gem 'dewey', git: 'https://github.com/MeisterMichael/dewey.git', :tag => "v1.1.0", :branch => 'master'
 
 
 

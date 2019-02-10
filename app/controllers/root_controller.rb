@@ -5,6 +5,7 @@ class RootController < ApplicationController
 	layout 'application_covered'
 
 	include Pulitzer::Concerns::RootConcern
+	include SwellId::Concerns::PermissionConcern
 
 	# this is the homepage!
 	def index

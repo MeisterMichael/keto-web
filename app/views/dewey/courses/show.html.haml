@@ -20,4 +20,4 @@
 						= render 'dewey/enrollments/enroll_button', course_cohort: course_cohort, args: {}
 			.addthis_inline_share_toolbox.share-5.mb-5
 			- if defined?( Scuttlebutt )
-				= render 'scuttlebutt/comments/widget', parent_obj: @enrollment.course_cohort, args: { page: params[:page] }
+				= render 'scuttlebutt/comments/widget', parent_obj: @course, args: { page: params[:page] }
