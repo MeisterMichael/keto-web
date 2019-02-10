@@ -62,6 +62,18 @@ GIT
     scuttlebutt (1.4.0)
       rails (>= 5.2.0)
 
+GIT
+  remote: https://github.com/gkparishphilp/swell_id.git
+  revision: 8381220a600642fdfe74c78e0bde729d8b862b3e
+  branch: master
+  tag: v1.5.0
+  specs:
+    swell_id (1.5.0)
+      acts-as-taggable-array-on
+      devise
+      friendly_id (~> 5.1.0)
+      rails (>= 5.2.0)
+
 PATH
   remote: ../../engines/dewey
   specs:
@@ -103,15 +115,6 @@ PATH
       route_downcaser
       sass-rails (~> 5.0)
       sitemap_generator
-
-PATH
-  remote: ../../engines/swell_id
-  specs:
-    swell_id (1.4.0)
-      acts-as-taggable-array-on
-      devise
-      friendly_id (~> 5.1.0)
-      rails (>= 5.2.0)
 
 GEM
   remote: https://rubygems.org/
