@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
 	resources :admin
 
+	resources :course_page_admin do
+		get :preview, on: :member
+	end
+
 	resources :ingredient_admin
 
 	resources :inspiration_admin do
@@ -38,7 +42,6 @@ Rails.application.routes.draw do
 	mount Edison::Engine, :at => '/'
 	mount Bazaar::Engine, :at => '/'
 	mount Dewey::Engine, :at => '/'
-	mount Franklin::Engine, :at => '/'
 
 	resources :bazaar_media_admin do
 		get :preview, on: :member
