@@ -1,0 +1,7 @@
+.card.card-body.bg-light.mb-4
+	.nav.flex-column
+		%a.nav-link{ href: dewey.enrollment_path( enrollment ), class: ( args[:page].blank? ? 'active' : '' ) } Home
+		- course.course_pages.active.where( "pulitzer_media.publish_at <= :now", now: Time.zone.now ).order(lft: :asc).each_with_index do |page, index|
+			%a.nav-link{ href: page.url, class: ( args[:page] == page ? 'active' : '' ) }
+				%i Chapter #{index+1}:
+				= page.title

@@ -14,6 +14,6 @@
 		- @course.course_pages.where.not( status: :trash ).order( lft: :asc ).each do |page|
 			%tr
 				%td
-					%a{ href: page.url }=page.title
+					%a{ href: main_app.edit_course_page_admin_path(page)  }=page.title
 				%td
 					= page.status

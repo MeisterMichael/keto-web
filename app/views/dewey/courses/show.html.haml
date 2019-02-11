@@ -18,6 +18,12 @@
 				- else
 					- @course_cohorts.each do |course_cohort|
 						= render 'dewey/enrollments/enroll_button', course_cohort: course_cohort, args: {}
+			.mb-5
+				- @course.course_pages.active.where( "pulitzer_media.publish_at <= :now", now: Time.zone.now ).order(lft: :asc).each do |page|
+					%div
+						%h5= page.title
+						= raw page.description
+
 			.addthis_inline_share_toolbox.share-5.mb-5
 			- if defined?( Scuttlebutt )
 				= render 'scuttlebutt/comments/widget', parent_obj: @course, args: { page: params[:page] }

@@ -1,0 +1,16 @@
+.container
+	.row
+		.col-12
+			%nav{ 'aria-label' => 'breadcrumb' }
+				%ol.breadcrumb
+					%li.breadcrumb-item
+						%a{ href: dewey.courses_path() } Courses
+					%li.breadcrumb-item
+						%a{ href: @course.url }= @course.title
+					%li.breadcrumb-item.active{ 'aria-current' => 'page' } Enrollment
+
+			%h1
+				Enrollment
+				%small= @course.title
+			.mb-3
+				= render 'dewey/enrollments/enroll_button', course_cohort: @enrollment.course_cohort, args: {}
