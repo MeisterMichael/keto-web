@@ -5,10 +5,6 @@ Rails.application.routes.draw do
 
 	resources :admin
 
-	resources :course_page_admin do
-		get :preview, on: :member
-	end
-
 	resources :ingredient_admin
 
 	resources :inspiration_admin do

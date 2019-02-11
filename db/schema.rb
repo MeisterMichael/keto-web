@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_07_233036) do
+ActiveRecord::Schema.define(version: 2019_02_11_081800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -625,6 +625,8 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.bigint "instructor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "course_page_id"
+    t.index ["course_page_id"], name: "index_dewey_courses_on_course_page_id"
     t.index ["instructor_id"], name: "index_dewey_courses_on_instructor_id"
   end
 
