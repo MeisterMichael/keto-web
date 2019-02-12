@@ -43,7 +43,7 @@
 					.sticky-top{ style: 'top: 100px;' }
 						= render 'dewey/enrollments/sidebar', course: @course, enrollment: @enrollment, args: { page: @media }
 				.col-md-8.col-lg-9
-					.fr-view.mtb-30
+					.fr-view.mb-30
 						= raw @media.content
 					- @media.content_sections.each do |section|
 						= render_section( section )
