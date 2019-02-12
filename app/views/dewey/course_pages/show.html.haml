@@ -36,4 +36,4 @@
 					- @media.content_sections.each do |section|
 						= render_section( section )
 					- if defined?( Scuttlebutt )
-						= render 'scuttlebutt/comments/widget', parent_obj: @course.course_page, args: { page: params[:page] }
+						= render 'scuttlebutt/comments/widget', parent_obj: @media, args: { page: params[:page] }
