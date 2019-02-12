@@ -1,6 +1,6 @@
 - if @media.cover_image.present?
 	/ Intro Section
-	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => @media.cover_image }
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1.pb-4{"data-background-img" => @media.cover_image }
 		.container
 			.row.title
 				%h2.h2=@media.title
@@ -13,7 +13,7 @@
 	/ End Intro Section
 - else
 	/ Intro Section
-	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+	-# %section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1.pb-4
 		.container
 			.row.title
 				%h2.h2=@media.title
@@ -23,7 +23,19 @@
 					%a{ href: dewey.enrollment_path( @enrollment ) }>= @media.course.title
 					\/
 					%span>=@media.title
-.container.pt-4.pb-2
+	.container
+		.row
+			.col-12
+				%h1= @media.title
+				%nav{ 'aria-label' => 'breadcrumb' }
+					%ol.breadcrumb
+						%li.breadcrumb-item
+							%a{ href: dewey.enrollments_path() } My Courses
+						%li.breadcrumb-item{ 'aria-current' => 'page' }
+							%a{ href: dewey.enrollment_path( @enrollment ) }= @media.course.title
+						%li.breadcrumb-item.active{ 'aria-current' => 'page' }=@media.title
+
+.container.pb-2
 	.row
 		.col-12
 			.row
