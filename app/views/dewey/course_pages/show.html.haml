@@ -28,5 +28,5 @@
 					%h1= @media.title
 					.fr-view.mtb-30
 						= raw @media.content
-					-# @media.content_sections.each do |section|
+					- @media.content_sections.each do |section|
 						= render_section( section )

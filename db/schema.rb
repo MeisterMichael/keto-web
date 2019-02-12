@@ -999,18 +999,23 @@ ActiveRecord::Schema.define(version: 2019_02_11_081800) do
     t.string "parent_type"
     t.bigint "parent_id"
     t.string "name"
-    t.string "title"
+    t.string "header"
     t.text "description"
     t.string "slug"
     t.string "content_zone", default: ""
     t.integer "seq", default: 1
     t.string "partial", default: "default"
-    t.string "css_style", default: ""
-    t.string "css_classes", default: [], array: true
+    t.string "section_style", default: ""
+    t.string "section_classes", default: [], array: true
     t.text "content"
     t.hstore "properties", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "header_tag", default: "h2"
+    t.string "header_classes"
+    t.string "header_style"
+    t.string "content_classes"
+    t.string "content_style"
     t.index ["parent_id", "parent_type", "content_zone", "seq"], name: "cont_sections_on_parent"
     t.index ["parent_type", "parent_id"], name: "index_pulitzer_content_sections_on_parent_type_and_parent_id"
     t.index ["slug"], name: "index_pulitzer_content_sections_on_slug", unique: true

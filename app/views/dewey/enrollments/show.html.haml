@@ -20,5 +20,5 @@
 
 					.fr-view.mtb-30
 						= raw @course.course_page.content
-					-# @course.course_page.content_sections.each do |section|
+					- @course.course_page.content_sections.each do |section|
 						= render_section( section )
