@@ -66,6 +66,32 @@ GIT
     elasticsearch-rails (6.0.0)
 
 GIT
+  remote: https://github.com/gkparishphilp/pulitzer.git
+  revision: 9eb82535e366b94e5a0401894a66199228c87851
+  branch: master
+  tag: v1.15.0
+  specs:
+    pulitzer (1.15.0)
+      acts-as-taggable-array-on
+      awesome_nested_set (~> 3.1)
+      carrierwave
+      codemirror-rails
+      coffee-rails (~> 4.2.2)
+      devise
+      fog-aws
+      friendly_id (~> 5.1.0)
+      haml
+      jquery-rails
+      jquery-ui-rails
+      kaminari
+      pg
+      pundit
+      rails (>= 5.2.0)
+      route_downcaser
+      sass-rails (~> 5.0)
+      sitemap_generator
+
+GIT
   remote: https://github.com/gkparishphilp/scuttlebutt.git
   revision: 145e5e9891a8bb8d6aa561c47954bba874bc2fdb
   branch: master
@@ -95,29 +121,6 @@ PATH
       rails (~> 5.2.0)
       statsample
       unitwise
-
-PATH
-  remote: ../../engines/pulitzer
-  specs:
-    pulitzer (1.14.1)
-      acts-as-taggable-array-on
-      awesome_nested_set (~> 3.1)
-      carrierwave
-      codemirror-rails
-      coffee-rails (~> 4.2.2)
-      devise
-      fog-aws
-      friendly_id (~> 5.1.0)
-      haml
-      jquery-rails
-      jquery-ui-rails
-      kaminari
-      pg
-      pundit
-      rails (>= 5.2.0)
-      route_downcaser
-      sass-rails (~> 5.0)
-      sitemap_generator
 
 GEM
   remote: https://rubygems.org/
