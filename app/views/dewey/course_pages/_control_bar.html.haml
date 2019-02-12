@@ -1,9 +1,13 @@
-.text-right
+.text-center.row
 	- if (previous_course_page = @previous_course_pages.first).present?
-		%a.btn.btn-md.btn-primary{ href: dewey.enrollment_course_page_path( previous_course_page.id, enrollment_id: @enrollment.id ) } Previous
+		.col-6
+			%a.btn.btn-block.btn-sm.btn-dark{ href: dewey.enrollment_course_page_path( previous_course_page.id, enrollment_id: @enrollment.id ) } Previous
 	- else
-		%a.btn.btn-md.btn-primary{ href: dewey.enrollment_path( @enrollment ) } Previous
+		.col-6
+			%a.btn.btn-block.btn-sm.btn-dark{ href: dewey.enrollment_path( @enrollment ) } Previous
 	- if (next_course_page = @next_course_pages.first).present?
-		%a.btn.btn-md.btn-primary{ href: dewey.enrollment_course_page_path( next_course_page.id, enrollment_id: @enrollment.id ) } Next
+		.col-6
+			%a.btn.btn-block.btn-sm.btn-dark{ href: dewey.enrollment_course_page_path( next_course_page.id, enrollment_id: @enrollment.id ) } Next
 	- else
-		%a.btn.btn-md.btn-primary{ href: dewey.enrollment_path( @enrollment ) } Done
+		.col-6
+			%a.btn.btn-block.btn-sm.btn-dark{ href: dewey.enrollment_path( @enrollment ) } Done

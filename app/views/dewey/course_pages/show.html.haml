@@ -40,12 +40,14 @@
 		.col-12
 			.row
 				.col-md-4.col-lg-3.d-none.d-md-block
-					= render 'dewey/enrollments/sidebar', course: @course, enrollment: @enrollment, args: { page: @media }
+					.sticky-top{ style: 'top: 100px;' }
+						= render 'dewey/enrollments/sidebar', course: @course, enrollment: @enrollment, args: { page: @media }
 				.col-md-8.col-lg-9
-					= render 'control_bar', args: {}
 					.fr-view.mtb-30
 						= raw @media.content
 					- @media.content_sections.each do |section|
 						= render_section( section )
+					.mb-4
+						= render 'control_bar', args: {}
 					- if defined?( Scuttlebutt )
 						= render 'scuttlebutt/comments/widget', parent_obj: @media, args: { page: params[:page] }
