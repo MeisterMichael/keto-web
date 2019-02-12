@@ -67,11 +67,11 @@ GIT
 
 GIT
   remote: https://github.com/gkparishphilp/pulitzer.git
-  revision: 9eb82535e366b94e5a0401894a66199228c87851
+  revision: 018bcdcf8384b088a8ed32f6eae1aa92e331976b
   branch: master
-  tag: v1.15.0
+  tag: v1.15.1
   specs:
-    pulitzer (1.15.0)
+    pulitzer (1.15.1)
       acts-as-taggable-array-on
       awesome_nested_set (~> 3.1)
       carrierwave
