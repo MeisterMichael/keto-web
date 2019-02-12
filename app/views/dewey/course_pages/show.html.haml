@@ -1,24 +1,39 @@
--# if @media.cover_attachment.attached?
-	%img.pb-3{ src: @media.cover_attachment.service_url }
-.container
+- if @media.cover_image.present?
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => @media.cover_image }
+		.container
+			.row.title
+				%h2.h2=@media.title
+				.page-breadcrumb
+					%a{ href: dewey.enrollments_path() }> My Courses
+					\/
+					%a{ href: dewey.enrollment_path( @enrollment ) }>= @media.course.title
+					\/
+					%span>=@media.title
+	/ End Intro Section
+- else
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+		.container
+			.row.title
+				%h2.h2=@media.title
+				.page-breadcrumb
+					%a{ href: dewey.enrollments_path() }> My Courses
+					\/
+					%a{ href: dewey.enrollment_path( @enrollment ) }>= @media.course.title
+					\/
+					%span>=@media.title
+.container.pt-4.pb-2
 	.row
 		.col-12
-			%nav{ 'aria-label' => 'breadcrumb' }
-				%ol.breadcrumb
-					%li.breadcrumb-item
-						%a{ href: dewey.enrollments_path() } My Courses
-					%li.breadcrumb-item{ 'aria-current' => 'page' }
-						%a{ href: dewey.enrollment_path( @enrollment ) }= @media.course.title
-					%li.breadcrumb-item.active{ 'aria-current' => 'page' }=@media.title
-
 			.row
 				.col-md-4.col-lg-3.d-none.d-md-block
 					= render 'dewey/enrollments/sidebar', course: @course, enrollment: @enrollment, args: { page: @media }
 				.col-md-8.col-lg-9
 					= render 'control_bar', args: {}
-					
-					%h1= @media.title
 					.fr-view.mtb-30
 						= raw @media.content
 					- @media.content_sections.each do |section|
 						= render_section( section )
+					- if defined?( Scuttlebutt )
+						= render 'scuttlebutt/comments/widget', parent_obj: @course.course_page, args: { page: params[:page] }

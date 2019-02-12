@@ -1,21 +1,38 @@
 - if @course.cover_attachment.attached?
-	%img.pb-3{ src: @course.cover_attachment.service_url }
-.container
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => @course.cover_attachment.service_url }
+		.container
+			.row.title
+				%h2.h2=@course.title
+				.page-breadcrumb
+					%a{ href: dewey.enrollments_path() }> My Courses
+					\/
+					%span>= @course.title
+	/ End Intro Section
+- else
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+		.container
+			.row.title
+				%h2.h2=@course.title
+				.page-breadcrumb
+					%a{ href: dewey.enrollments_path() }> My Courses
+					\/
+					%span>= @course.title
+.container.pt-4.pb-2
 	.row
 		.col-12
-			%nav{ 'aria-label' => 'breadcrumb' }
-				%ol.breadcrumb
-					%li.breadcrumb-item
-						%a{ href: dewey.enrollments_path() } My Courses
-					%li.breadcrumb-item.active{ 'aria-current' => 'page' }= @course.title
-
 			.row
 				.col-md-4.col-lg-3.d-none.d-md-block
 					= render 'sidebar', course: @course, enrollment: @enrollment, args: {}
 				.col-md-8.col-lg-9
 					= render 'control_bar', args: {}
-					
+
 					.fr-view.mtb-30
 						= raw @course.course_page.content
 					- @course.course_page.content_sections.each do |section|
 						= render_section( section )
+
+					-# .addthis_inline_share_toolbox.share-5.mb-5
+					- if defined?( Scuttlebutt )
+						= render 'scuttlebutt/comments/widget', parent_obj: @course.course_page, args: { page: params[:page] }
