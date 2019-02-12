@@ -92,7 +92,7 @@ gem 'bazaar', git: 'https://github.com/MeisterMichael/bazaar.git', :tag => "v0.1
 gem 'bunyan', git: 'https://github.com/Groundswell/bunyan.git', :tag => "v2.0.0", :branch => 'master'
 gem 'edison', git: 'https://github.com/Groundswell/edison.git', :tag => "v2.0.0", :branch => 'master'
 gem 'socratic', git: 'https://github.com/Groundswell/socratic.git', :tag => "v2.0.0", :branch => 'master'
-gem 'dewey', git: 'https://github.com/MeisterMichael/dewey.git', :tag => "v1.2.0", :branch => 'master'
+gem 'dewey', git: 'https://github.com/MeisterMichael/dewey.git', :tag => "v1.2.1", :branch => 'master'
 
 
 

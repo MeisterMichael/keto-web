@@ -1,12 +1,16 @@
-.card.card-body.bg-light.mb-4
-	.nav.flex-column
-		%a.nav-link{ href: dewey.enrollment_path( enrollment ), class: ( args[:page].blank? ? 'active' : '' ) } Home
-		-# %a.nav-link{ href: course.course_page.url, class: ( args[:page] == course.course_page ? 'active' : '' ) }
-			= course.course_page.title
-		- Dewey::CoursePage.each_with_level(course.course_page.descendants.active.where( "pulitzer_media.publish_at <= :now", now: Time.zone.now )) do |page, level|
-			- if args[:page] && ( args[:page] == page || page.is_ancestor_of?(args[:page]) )
-				%a.nav-link.active{ href: page.url, style: "padding-left: #{level}rem" }
-					= page.title
-			- else
-				%a.nav-link{ href: page.url, style: "padding-left: #{level}rem" }
-					= page.title
+
+.card.bg-light.mb-4
+	.card-body
+		%h4.card-title
+			%a{ href: dewey.enrollment_path( enrollment ) }= course.title
+		.card-text
+			.nav.flex-column
+				-# %a.nav-link{ href: dewey.enrollment_course_page_path( course.course_page ), class: ( args[:page] == course.course_page ? 'active' : '' ) }
+					= course.course_page.title
+				- Dewey::CoursePage.each_with_level(course.course_page.descendants.active.publish_at_before_now) do |page, level|
+					- if args[:page] && ( args[:page] == page || page.is_ancestor_of?(args[:page]) )
+						%a.nav-link.active{ href: dewey.enrollment_course_page_path( page.id, enrollment_id: enrollment.id ), style: "padding-left: #{level-1}rem" }
+							= page.title
+					- else
+						%a.nav-link{ href: dewey.enrollment_course_page_path( page.id, enrollment_id: enrollment.id ), style: "padding-left: #{level-1}rem" }
+							= page.title

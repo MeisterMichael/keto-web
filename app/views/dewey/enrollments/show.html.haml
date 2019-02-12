@@ -10,11 +10,15 @@
 					%li.breadcrumb-item.active{ 'aria-current' => 'page' }= @course.title
 
 			.row
+				.col-md-4.col-lg-3.d-none.d-md-block
+					= render 'sidebar', course: @course, enrollment: @enrollment, args: {}
 				.col-md-8.col-lg-9
-					%h1= @course.title
+
+					.text-right
+						- if @next_course_pages.first
+							%a.btn.btn-md.btn-primary{ href: dewey.enrollment_course_page_path( @next_course_pages.first.id, enrollment_id: @enrollment.id ) } Begin
+
 					.fr-view.mtb-30
 						= raw @course.course_page.content
 					-# @course.course_page.content_sections.each do |section|
 						= render_section( section )
-				.col-md-4.col-lg-3
-					= render 'sidebar', course: @course, enrollment: @enrollment, args: {}
