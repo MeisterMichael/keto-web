@@ -5,6 +5,13 @@ Rails.application.routes.draw do
 
 	resources :admin
 
+
+	scope module: 'dewey' do
+	  resources :enrollment_course_pages do
+			get :next_lecture, on: :collection
+		end
+	end
+
 	resources :ingredient_admin
 
 	resources :inspiration_admin do

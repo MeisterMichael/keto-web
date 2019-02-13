@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_11_081800) do
+ActiveRecord::Schema.define(version: 2019_02_12_153100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -641,6 +641,16 @@ ActiveRecord::Schema.define(version: 2019_02_11_081800) do
     t.datetime "updated_at", null: false
     t.index ["course_content_id"], name: "index_dewey_enrollment_course_contents_on_course_content_id"
     t.index ["enrollment_id"], name: "index_dewey_enrollment_course_contents_on_enrollment_id"
+  end
+
+  create_table "dewey_enrollment_course_pages", force: :cascade do |t|
+    t.bigint "enrollment_id"
+    t.bigint "course_page_id"
+    t.integer "status", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_page_id"], name: "index_dewey_enrollment_course_pages_on_course_page_id"
+    t.index ["enrollment_id"], name: "index_dewey_enrollment_course_pages_on_enrollment_id"
   end
 
   create_table "dewey_enrollments", force: :cascade do |t|

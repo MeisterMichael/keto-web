@@ -1,4 +1,3 @@
 .text-center.row
-	- if (next_course_page = @next_course_pages.first).present?
-		.col-12.col-md-4.offset-md-4
-			%a.btn.btn-block.btn-md.btn-primary{ href: dewey.enrollment_course_page_path( next_course_page.id, enrollment_id: @enrollment.id ) } Begin
+	.col-12.col-md-4.offset-md-4
+		%a.btn.btn-block.btn-md.btn-primary{ href: main_app.next_lecture_enrollment_course_pages_path( enrollment_id: @enrollment.id ) } Start Next Lecture

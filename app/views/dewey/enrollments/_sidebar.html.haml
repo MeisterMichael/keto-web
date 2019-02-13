@@ -10,8 +10,10 @@
 				- Dewey::CoursePage.each_with_level(course.course_page.descendants.active.publish_at_before_now) do |page, level|
 					- if args[:page] && ( args[:page] == page || page.is_ancestor_of?(args[:page]) )
 						%a.nav-link.active{ href: dewey.enrollment_course_page_path( page.id, enrollment_id: enrollment.id ), style: "padding-left: #{level-1}rem" }
+							%i{ class: (case Dewey::EnrollmentCoursePage.where( enrollment: enrollment, course_page: page ).first.try(:status) || 'none' when 'completed' then 'fas fa-circle' when 'started' then 'fas fa-adjust' else 'far fa-circle' end) }
 							= page.title
 					- else
 						%a.nav-link{ href: dewey.enrollment_course_page_path( page.id, enrollment_id: enrollment.id ), style: "padding-left: #{level-1}rem" }
+							%i{ class: (case Dewey::EnrollmentCoursePage.where( enrollment: enrollment, course_page: page ).first.try(:status) || 'none' when 'completed' then 'fas fa-circle' when 'started' then 'fas fa-adjust' else 'far fa-circle' end) }
 							= page.title
 			= yield

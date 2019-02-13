@@ -1,13 +1,7 @@
 .text-center.row
-	- if (previous_course_page = @previous_course_pages.first).present?
-		.col-6
-			%a.btn.btn-block.btn-sm.btn-dark{ href: dewey.enrollment_course_page_path( previous_course_page.id, enrollment_id: @enrollment.id ) } Previous Lecture
-	- else
-		.col-6
-			%a.btn.btn-block.btn-sm.btn-dark{ href: dewey.enrollment_path( @enrollment ) } Back
-	- if (next_course_page = @next_course_pages.first).present?
-		.col-6
-			%a.btn.btn-block.btn-sm.btn-dark{ href: dewey.enrollment_course_page_path( next_course_page.id, enrollment_id: @enrollment.id ) } Complete &amp; Continue
-	- else
-		.col-6
-			%a.btn.btn-block.btn-sm.btn-dark{ href: dewey.enrollment_path( @enrollment ) } Complete &amp; Continue
+	.col-6
+		%a.btn.btn-block.btn-sm.btn-dark{ href: main_app.enrollment_course_pages_path( enrollment_course_page: { course_page_id: @media.id, enrollment_id: @enrollment.id }, direction: 'previous' ), data: { method: :post } }
+			Previous Lecture
+	.col-6
+		%a.btn.btn-block.btn-sm.btn-dark{ href: main_app.enrollment_course_pages_path( enrollment_course_page: { course_page_id: @media.id, enrollment_id: @enrollment.id } ), data: { method: :post } }
+			Complete &amp; Continue
