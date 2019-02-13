@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
 	scope module: 'dewey' do
 	  resources :enrollment_course_pages do
-			get :next_lecture, on: :collection
+			get :next, on: :collection
 		end
 	end
 

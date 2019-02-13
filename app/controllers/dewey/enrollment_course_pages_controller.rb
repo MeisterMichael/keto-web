@@ -27,7 +27,7 @@ module Dewey
 
 		end
 
-		def next_lecture
+		def next
 			@enrollment = current_user.enrollments.find( params[:enrollment_id] )
 			@course = @enrollment.course
 			@enrollment_course_pages = Dewey::EnrollmentCoursePage.completed.where( enrollment: @enrollment )
