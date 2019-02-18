@@ -10,12 +10,14 @@ class RecipesController < ApplicationController
 		@tags = []# Recipe.published.tags_counts
 
 		@query = params[:q] if params[:q].present?
-		@tagged = params[:tagged]
+		@tagged = params[:tagged] || params[:tagged_path].try(:gsub,/\-/,' ')
 		@author = User.friendly.find( params[:by] ) if params[:by].present?
 		@category = RecipeCategory.friendly.find( params[:category] || params[:cat] ) if ( params[:category] || params[:cat] ).present?
 
+		@titleized_tagged = @tagged.titleize if @tagged
+
 		@title = @category.try(:name)
-		@title ||= "Recipes"
+		@title ||= "#{@titleized_tagged} Recipes"
 
 		@recipes = Recipe.published.order( publish_at: :desc )
 		@recipes = @recipes.where( category: @category ) if @category

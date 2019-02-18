@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 	end
 
 	resources :recipes
+	get '/:tagged_path/recipes' => 'recipes#index', as: 'tagged_recipes'
 	resources :recipe_admin do
 		get :preview, on: :member
 	end

@@ -53,7 +53,7 @@
 			%ul.widget-tag
 				- tag_cloud.each do |tag,count|
 					%li
-						%a{ href: main_app.recipes_path( tagged: tag ) }= tag
+						%a{ href: main_app.tagged_recipes_path( tagged_path: tag.gsub(/\s/,'-') ) }= tag
 -#
 	.panel.panel-default
 		.panel-heading
