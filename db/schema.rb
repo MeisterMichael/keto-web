@@ -739,7 +739,6 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.datetime "publish_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "keto_score", default: 0
     t.string "type"
     t.string "measure_unit", default: "g"
     t.string "usda_ndbno"
@@ -747,17 +746,35 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.json "usda_cache", default: {}
     t.float "serving_size_in_measure_units"
     t.text "serving_size"
+    t.integer "keto_score", default: 0
     t.index ["category_id"], name: "index_foods_on_category_id"
     t.index ["keto_score"], name: "index_foods_on_keto_score"
     t.index ["slug"], name: "index_foods_on_slug", unique: true
     t.index ["tags"], name: "index_foods_on_tags", using: :gin
   end
 
+  create_table "franklin_foods", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "serving_unit_id"
+    t.bigint "category_id"
+    t.float "serving_amount"
+    t.string "name"
+    t.string "slug"
+    t.text "description"
+    t.text "aliases", default: [], array: true
+    t.hstore "properties", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_franklin_foods_on_category_id"
+    t.index ["serving_unit_id"], name: "index_franklin_foods_on_serving_unit_id"
+    t.index ["user_id"], name: "index_franklin_foods_on_user_id"
+  end
+
   create_table "franklin_metrics", force: :cascade do |t|
     t.string "title"
-    t.integer "category_id"
-    t.integer "unit_id"
-    t.integer "user_id"
+    t.bigint "category_id"
+    t.bigint "unit_id"
+    t.bigint "user_id"
     t.string "slug"
     t.text "aliases", default: [], array: true
     t.text "description"
@@ -766,17 +783,30 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.string "default_value_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_franklin_metrics_on_category_id"
+    t.index ["unit_id"], name: "index_franklin_metrics_on_unit_id"
+    t.index ["user_id"], name: "index_franklin_metrics_on_user_id"
+  end
+
+  create_table "franklin_nutrients", force: :cascade do |t|
+    t.bigint "food_id"
+    t.bigint "metric_id"
+    t.float "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_franklin_nutrients_on_food_id"
+    t.index ["metric_id"], name: "index_franklin_nutrients_on_metric_id"
   end
 
   create_table "franklin_observations", force: :cascade do |t|
     t.string "tmp_id"
-    t.integer "unit_id"
-    t.integer "user_id"
-    t.integer "parent_id"
+    t.string "observed_type"
+    t.bigint "observed_id"
+    t.bigint "unit_id"
+    t.bigint "user_id"
+    t.bigint "parent_id"
     t.integer "lft"
     t.integer "rgt"
-    t.integer "observed_id"
-    t.string "observed_type"
     t.string "title"
     t.string "content"
     t.float "value"
@@ -789,13 +819,17 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.hstore "properties", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["observed_type", "observed_id"], name: "index_franklin_observations_on_observed_type_and_observed_id"
+    t.index ["parent_id"], name: "index_franklin_observations_on_parent_id"
+    t.index ["unit_id"], name: "index_franklin_observations_on_unit_id"
+    t.index ["user_id"], name: "index_franklin_observations_on_user_id"
   end
 
   create_table "franklin_targets", force: :cascade do |t|
-    t.integer "parent_obj_id"
     t.string "parent_obj_type"
-    t.integer "user_id"
-    t.integer "unit_id"
+    t.bigint "parent_obj_id"
+    t.bigint "user_id"
+    t.bigint "unit_id"
     t.string "target_type", default: "value"
     t.float "value"
     t.float "min"
@@ -807,16 +841,19 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["parent_obj_type", "parent_obj_id"], name: "index_franklin_targets_on_parent_obj_type_and_parent_obj_id"
+    t.index ["unit_id"], name: "index_franklin_targets_on_unit_id"
+    t.index ["user_id"], name: "index_franklin_targets_on_user_id"
   end
 
   create_table "franklin_units", force: :cascade do |t|
-    t.integer "base_unit_id"
-    t.integer "imperial_correlate_id"
-    t.integer "user_id"
-    t.integer "metric_id"
+    t.bigint "base_unit_id"
+    t.bigint "imperial_correlate_id"
+    t.bigint "user_id"
+    t.bigint "metric_id"
+    t.bigint "custom_base_unit_id"
     t.float "conversion_factor", default: 1.0
-    t.integer "custom_base_unit_id"
-    t.float "custom_conversion_factor"
+    t.float "custom_conversion_factor", default: 1.0
     t.string "name"
     t.string "slug"
     t.string "abbrev"
@@ -825,12 +862,17 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.boolean "imperial", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["base_unit_id"], name: "index_franklin_units_on_base_unit_id"
+    t.index ["custom_base_unit_id"], name: "index_franklin_units_on_custom_base_unit_id"
+    t.index ["imperial_correlate_id"], name: "index_franklin_units_on_imperial_correlate_id"
+    t.index ["metric_id"], name: "index_franklin_units_on_metric_id"
+    t.index ["user_id"], name: "index_franklin_units_on_user_id"
   end
 
   create_table "franklin_user_inputs", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "result_obj_id"
+    t.bigint "user_id"
     t.string "result_obj_type"
+    t.bigint "result_obj_id"
     t.text "content"
     t.string "source"
     t.string "action", default: "created"
@@ -838,6 +880,8 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.text "system_notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["result_obj_type", "result_obj_id"], name: "index_franklin_user_inputs_on_result_obj_type_and_result_obj_id"
+    t.index ["user_id"], name: "index_franklin_user_inputs_on_user_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -1334,6 +1378,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.integer "wholesale_profile_id"
     t.integer "preferred_shipping_address_id"
     t.integer "preferred_billing_address_id"
+    t.boolean "use_imperial_units", default: true
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true

@@ -87,7 +87,7 @@ GIT
       rails (>= 5.2.0)
 
 PATH
-  remote: ../../engines/franklin
+  remote: ../engines/franklin
   specs:
     franklin (0.1.0)
       chronic_duration
@@ -97,7 +97,7 @@ PATH
       unitwise
 
 PATH
-  remote: ../../engines/pulitzer
+  remote: ../engines/pulitzer
   specs:
     pulitzer (1.14.1)
       acts-as-taggable-array-on
