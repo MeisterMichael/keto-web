@@ -1,0 +1,7 @@
+.text-center.row
+	.col-6
+		%a.btn.btn-block.btn-sm.btn-dark{ href: main_app.enrollment_course_pages_path( enrollment_course_page: { course_page_id: @media.id, enrollment_id: @enrollment.id }, direction: 'previous' ), data: { method: :post } }
+			Previous Lecture
+	.col-6
+		%a.btn.btn-block.btn-sm.btn-dark{ href: main_app.enrollment_course_pages_path( enrollment_course_page: { course_page_id: @media.id, enrollment_id: @enrollment.id } ), data: { method: :post } }
+			Complete &amp; Continue

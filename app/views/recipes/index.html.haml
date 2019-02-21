@@ -4,7 +4,7 @@
 %section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => ( @recipes.first.try(:cover_image) || "https://keto-daily.com/wp-content/uploads/2018/10/Keto-Jicama-Fries-Basket-2.jpg" ) }
 	.container
 		.row.title
-			%h2.h2 Recipes
+			%h2.h2 #{@titleized_tagged} Recipes
 			.page-breadcrumb
 				%a{ href: '/' } Home
 				\/

@@ -1,15 +1,27 @@
 - if @course.cover_attachment.attached?
-	%img.pb-3{ src: @course.cover_attachment.service_url }
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => @course.cover_attachment.service_url }
+		.container
+			.row.title
+				%h2.h2=@course.title
+				.page-breadcrumb
+					%a{ href: dewey.courses_path() }> Courses
+					\/
+					%span>= @course.title
+	/ End Intro Section
+- else
+	/ Intro Section
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+		.container
+			.row.title
+				%h2.h2=@course.title
+				.page-breadcrumb
+					%a{ href: dewey.courses_path() }> Courses
+					\/
+					%span>= @course.title
 .container
 	.row
 		.col-12
-			%nav{ 'aria-label' => 'breadcrumb' }
-				%ol.breadcrumb
-					%li.breadcrumb-item
-						%a{ href: dewey.courses_path() } Courses
-					%li.breadcrumb-item.active{ 'aria-current' => 'page' }= @course.title
-
-			%h1= @course.title
 			.fr-view.mtb-30
 				= raw @course.description
 			.mb-5
@@ -17,12 +29,11 @@
 					%strong Currently Not Enrolling
 				- else
 					- @course_cohorts.each do |course_cohort|
-						= render 'dewey/enrollments/enroll_button', course_cohort: course_cohort, args: {}
-			.mb-5
-				- @course.course_pages.active.where( "pulitzer_media.publish_at <= :now", now: Time.zone.now ).order(lft: :asc).each do |page|
-					%div
+						= render 'dewey/enrollments/enroll_button', course_cohort: course_cohort, args: { label: 'Enroll Now for FREE!' }
+			-# .mb-5
+				- Dewey::CoursePage.each_with_level(@course.course_page.descendants.active.where( "pulitzer_media.publish_at <= :now", now: Time.zone.now )) do |page, level|
+					%div{ style: "margin-left: #{level-1}em" }
 						%h5= page.title
-						= raw page.description
 
 			.addthis_inline_share_toolbox.share-5.mb-5
 			- if defined?( Scuttlebutt )

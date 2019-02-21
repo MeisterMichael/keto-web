@@ -5,8 +5,11 @@ Rails.application.routes.draw do
 
 	resources :admin
 
-	resources :course_page_admin do
-		get :preview, on: :member
+
+	scope module: 'dewey' do
+	  resources :enrollment_course_pages do
+			get :next, on: :collection
+		end
 	end
 
 	resources :ingredient_admin
@@ -16,6 +19,7 @@ Rails.application.routes.draw do
 	end
 
 	resources :recipes
+	get '/:tagged_path/recipes' => 'recipes#index', as: 'tagged_recipes'
 	resources :recipe_admin do
 		get :preview, on: :member
 	end

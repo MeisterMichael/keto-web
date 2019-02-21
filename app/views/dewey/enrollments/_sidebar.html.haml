@@ -1,7 +1,20 @@
-.card.card-body.bg-light.mb-4
-	.nav.flex-column
-		%a.nav-link{ href: dewey.enrollment_path( enrollment ), class: ( args[:page].blank? ? 'active' : '' ) } Home
-		- course.course_pages.active.where( "pulitzer_media.publish_at <= :now", now: Time.zone.now ).order(lft: :asc).each_with_index do |page, index|
-			%a.nav-link{ href: page.url, class: ( args[:page] == page ? 'active' : '' ) }
-				%i Chapter #{index+1}:
-				= page.title
+
+.card.bg-light.mb-4
+	.card-body
+		%h4.card-title
+			%a{ href: dewey.enrollment_path( enrollment ) }= course.title
+		.card-text
+			.nav.flex-column
+				-# %a.nav-link{ href: dewey.enrollment_course_page_path( course.course_page ), class: ( args[:page] == course.course_page ? 'active' : '' ) }
+					= course.course_page.title
+				- Dewey::CoursePage.each_with_level(course.course_page.descendants.active.publish_at_before_now) do |page, level|
+					- if ( status = Dewey::EnrollmentCoursePage.where( enrollment: enrollment, course_page: page ).first.try(:status) || 'none' ).present?
+						- if args[:page] && ( args[:page] == page || page.is_ancestor_of?(args[:page]) )
+							%a.nav-link.active{ href: dewey.enrollment_course_page_path( page.id, enrollment_id: enrollment.id ), style: "padding-left: #{level-1}rem", class: (case status when 'completed' then 'text-muted' else '' end) }
+								%i{ class: (case status when 'completed' then 'fas fa-check-circle' when 'started' then 'fas fa-adjust' else 'far fa-circle' end) }
+								= page.title
+						- else
+							%a.nav-link{ href: dewey.enrollment_course_page_path( page.id, enrollment_id: enrollment.id ), style: "padding-left: #{level-1}rem", class: (case status when 'completed' then 'text-muted' else '' end) }
+								%i{ class: (case status when 'completed' then 'fas fa-check-circle' when 'started' then 'fas fa-adjust' else 'far fa-circle' end) }
+								= page.title
+			= yield

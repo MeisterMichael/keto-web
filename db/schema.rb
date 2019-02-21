@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_07_233036) do
+ActiveRecord::Schema.define(version: 2019_02_20_221841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -625,6 +625,8 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.bigint "instructor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "course_page_id"
+    t.index ["course_page_id"], name: "index_dewey_courses_on_course_page_id"
     t.index ["instructor_id"], name: "index_dewey_courses_on_instructor_id"
   end
 
@@ -639,6 +641,16 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.datetime "updated_at", null: false
     t.index ["course_content_id"], name: "index_dewey_enrollment_course_contents_on_course_content_id"
     t.index ["enrollment_id"], name: "index_dewey_enrollment_course_contents_on_enrollment_id"
+  end
+
+  create_table "dewey_enrollment_course_pages", force: :cascade do |t|
+    t.bigint "enrollment_id"
+    t.bigint "course_page_id"
+    t.integer "status", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_page_id"], name: "index_dewey_enrollment_course_pages_on_course_page_id"
+    t.index ["enrollment_id"], name: "index_dewey_enrollment_course_pages_on_enrollment_id"
   end
 
   create_table "dewey_enrollments", force: :cascade do |t|
@@ -757,7 +769,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.bigint "user_id"
     t.bigint "serving_unit_id"
     t.bigint "category_id"
-    t.float "serving_amount"
+    t.float "serving_amount", default: 100.0
     t.string "name"
     t.string "slug"
     t.text "description"
@@ -773,7 +785,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
   create_table "franklin_metrics", force: :cascade do |t|
     t.string "title"
     t.bigint "category_id"
-    t.bigint "unit_id"
+    t.bigint "default_unit_id"
     t.bigint "user_id"
     t.string "slug"
     t.text "aliases", default: [], array: true
@@ -784,7 +796,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_franklin_metrics_on_category_id"
-    t.index ["unit_id"], name: "index_franklin_metrics_on_unit_id"
+    t.index ["default_unit_id"], name: "index_franklin_metrics_on_default_unit_id"
     t.index ["user_id"], name: "index_franklin_metrics_on_user_id"
   end
 
@@ -802,13 +814,13 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.string "tmp_id"
     t.string "observed_type"
     t.bigint "observed_id"
-    t.bigint "unit_id"
+    t.bigint "recorded_unit_id"
     t.bigint "user_id"
     t.bigint "parent_id"
     t.integer "lft"
     t.integer "rgt"
     t.string "title"
-    t.string "content"
+    t.text "content"
     t.float "value"
     t.string "rx"
     t.text "notes"
@@ -821,7 +833,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.datetime "updated_at", null: false
     t.index ["observed_type", "observed_id"], name: "index_franklin_observations_on_observed_type_and_observed_id"
     t.index ["parent_id"], name: "index_franklin_observations_on_parent_id"
-    t.index ["unit_id"], name: "index_franklin_observations_on_unit_id"
+    t.index ["recorded_unit_id"], name: "index_franklin_observations_on_recorded_unit_id"
     t.index ["user_id"], name: "index_franklin_observations_on_user_id"
   end
 
@@ -1041,18 +1053,23 @@ ActiveRecord::Schema.define(version: 2019_02_07_233036) do
     t.string "parent_type"
     t.bigint "parent_id"
     t.string "name"
-    t.string "title"
+    t.string "header"
     t.text "description"
     t.string "slug"
     t.string "content_zone", default: ""
     t.integer "seq", default: 1
     t.string "partial", default: "default"
-    t.string "css_style", default: ""
-    t.string "css_classes", default: [], array: true
+    t.string "section_style", default: ""
+    t.string "section_classes", default: [], array: true
     t.text "content"
     t.hstore "properties", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "header_tag", default: "h2"
+    t.string "header_classes"
+    t.string "header_style"
+    t.string "content_classes"
+    t.string "content_style"
     t.index ["parent_id", "parent_type", "content_zone", "seq"], name: "cont_sections_on_parent"
     t.index ["parent_type", "parent_id"], name: "index_pulitzer_content_sections_on_parent_type_and_parent_id"
     t.index ["slug"], name: "index_pulitzer_content_sections_on_slug", unique: true

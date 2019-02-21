@@ -33,7 +33,7 @@
 		.post-tag.pull-left
 			- recipe.tags.each do |tag|
 				%span
-					%a{ href: main_app.recipes_path( tagged: tag ) }>=tag
+					%a{ href: main_app.tagged_recipes_path( tagged_path: tag.gsub(/\s/,'-') ) }>=tag
 					- unless tag == recipe.tags.last
 						,
 		.post-more-link.pull-right
