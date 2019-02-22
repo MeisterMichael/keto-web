@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 		get :preview, on: :member
 	end
 
+	get '/how', to: redirect( 'https://docs.google.com/document/d/13QIT3wQZKmNjCg9sIfYmOGwfDSiL7nvBdgoyicmArlM/edit' )
+
 	resources :recipes
 	get '/:tagged_path/recipes' => 'recipes#index', as: 'tagged_recipes'
 	resources :recipe_admin do
