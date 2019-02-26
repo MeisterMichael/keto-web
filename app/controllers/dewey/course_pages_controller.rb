@@ -13,6 +13,23 @@ module Dewey
 			@enrollment_course_page = Dewey::EnrollmentCoursePage.create_with( status: 'started' ).where( enrollment_id: @enrollment.id, course_page_id: media.id ).first_or_create
 			@enrollment_course_page.touch
 
+
+			if media.content.try(:strip).blank?
+
+				@enrollment_course_page.completed!
+
+				other_course_pages = @course.course_page.descendants.publish_at_before_now.active.where.not( id: @enrollment_course_page.course_page.id )
+				@redirect_course_page = other_course_pages.where.not( lft: 0..@enrollment_course_page.course_page.left ).order(lft: :asc).first
+
+				if @redirect_course_page.present?
+					redirect_to enrollment_course_page_path( @redirect_course_page.id, enrollment_id: @enrollment.id )
+				else
+					redirect_to enrollment_path( @enrollment.id )
+				end
+
+				return false
+			end
+
 			super(media)
 		end
 
