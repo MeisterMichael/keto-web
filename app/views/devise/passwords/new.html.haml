@@ -1,0 +1,23 @@
+
+%section.inner-intro{ style: 'height: auto;padding: 0;' }
+	.container
+		.row.title
+			%h2.h2 Reset Password
+			.page-breadcrumb
+				%a{ href: main_app.root_path() }> Home
+				\/
+				%span Reset Password
+			.col-12.col-md-6.offset-md-3
+				.card.mt-4
+					.card-body
+						%p.text-center.mb-4
+							Please Enter Your Email Address to recover your password
+						= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :role => 'form', class: 'form'}) do |f|
+							.form-group
+								= f.label :email, 'Email'
+								= f.text_field :email, autofocus: true, placeholder: "email", class: 'form-control'
+
+							.form-group.text-center
+								= f.submit 'Reset Password', class: 'btn btn-md btn-black'
+						.text-left
+							%a{ href: "/login" } Login

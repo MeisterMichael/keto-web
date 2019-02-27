@@ -43,8 +43,18 @@
 		= render 'application/swell_theme/multipage_searchoverlaymenu'
 		= render 'application/swell_theme/multipage_sidemenu'
 		.wrapper
-			= render 'application/swell_theme/multipage_header', args: {}
+			= render 'application/swell_theme/multipage_header', args: { class: 'header-light' }
 			= render 'partials/ui/flash', args: {}
+			- if defined?(resource) && resource.errors.present?
+				.container-fluid#flash-container
+					.row
+						.col-12.col-sm-10.offset-sm-1.animated.fadeInDown.delay-2#flash
+							- resource.errors.full_messages.each do |error|
+								.alert.alert-dismissable{ class: "alert-danger" }
+									%button.close{ type: "button", 'aria-hidden' => true, data: { dismiss: "alert" } }
+										&times;
+									%span.alert-body
+										= raw error
 			= yield
 			= render 'application/swell_theme/multipage_footer'
 
