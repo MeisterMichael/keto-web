@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 		get :preview, on: :member
 	end
 
+	get '/how', to: redirect( 'https://docs.google.com/document/d/13QIT3wQZKmNjCg9sIfYmOGwfDSiL7nvBdgoyicmArlM/edit' )
+
 	resources :recipes
 	get '/:tagged_path/recipes' => 'recipes#index', as: 'tagged_recipes'
 	resources :recipe_admin do
@@ -29,12 +31,12 @@ Rails.application.routes.draw do
 	resources :usda_food_admin
 
 	devise_scope :user do
+		get '/forgot' => 'passwords#new', as: 'forgot'
 		get '/login' => 'sessions#new', as: 'login'
 		get '/logout' => 'sessions#destroy', as: 'logout'
 		get '/register' => 'registrations#new', as: 'register'
 	end
-	devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions' }
-
+	devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions', :passwords => 'passwords' }
 
 	resources :users, path: User.mounted_path
 
