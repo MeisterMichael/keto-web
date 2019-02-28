@@ -19,10 +19,12 @@ class RecipesController < ApplicationController
 		@title = @category.try(:name)
 		@title ||= "#{@titleized_tagged} Recipes"
 
-		@recipes = Recipe.published.order( publish_at: :desc )
+		@recipes = Recipe.publish_at_before_now.active
+		@recipes = @recipes.anyone unless current_user.present?
 		@recipes = @recipes.where( category: @category ) if @category
 		@recipes = @recipes.with_any_tags( @tagged ) if @tagged
 		@recipes = @recipes.where( user: @author ) if @author
+		@recipes = @recipes.order( publish_at: :desc )
 
 		# set count before pagination
 		@count = @recipes.count
@@ -48,7 +50,11 @@ class RecipesController < ApplicationController
   private
 	# Use callbacks to share common setup or constraints between actions.
 	def set_recipe
-		@recipe = Recipe.published.friendly.find( params[:id] )
+		if current_user.present?
+			@recipe = Recipe.publish_at_before_now.active.friendly.find( params[:id] )
+		else
+			@recipe = Recipe.publish_at_before_now.active.anyone.friendly.find( params[:id] )
+		end
 	end
 
 

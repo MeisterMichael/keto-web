@@ -27,6 +27,7 @@
 	.post-header
 		%h5
 			%a{:href => recipe.url}=recipe.title
+			%small MEMBER EXCLUSIVE
 	- unless args[:mode] == :thumb
 		.post-entry
 			= raw recipe.description
