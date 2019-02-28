@@ -8,6 +8,7 @@ class Food < ActiveRecord::Base
 	before_save :set_avatar
 
 	enum status: { 'draft' => 0, 'active' => 1, 'archive' => 2, 'trash' => 3 }
+	enum availability: { 'anyone' => 1, 'logged_in_users' => 2 }
 
 	has_many :food_nutrients, -> { joins(:nutrient).order('nutrients.position ASC, nutrients.id ASC') }
 	has_many :nutrients, through: :food_nutrients
@@ -47,12 +48,20 @@ class Food < ActiveRecord::Base
 		end
 	end
 
+	def self.publish_at_before_now( args = {} )
+		where( publish_at: Time.at(0)..Time.zone.now )
+	end
+
+	def publish_at_before_now?( args = {} )
+		publish_at <= Time.zone.now
+	end
+
 	def self.published( args = {} )
-		where( "publish_at <= :now", now: Time.zone.now ).active
+		publish_at_before_now.active.anyone
 	end
 
 	def published?
-		active? && publish_at < Time.zone.now
+		active? && publish_at_before_now? && anyone?
 	end
 
 

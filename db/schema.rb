@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_12_153100) do
+ActiveRecord::Schema.define(version: 2019_02_27_132800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -751,7 +751,6 @@ ActiveRecord::Schema.define(version: 2019_02_12_153100) do
     t.datetime "publish_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "keto_score", default: 0
     t.string "type"
     t.string "measure_unit", default: "g"
     t.string "usda_ndbno"
@@ -759,6 +758,9 @@ ActiveRecord::Schema.define(version: 2019_02_12_153100) do
     t.json "usda_cache", default: {}
     t.float "serving_size_in_measure_units"
     t.text "serving_size"
+    t.integer "keto_score", default: 0
+    t.integer "availability", default: 1
+    t.index ["availability", "status", "publish_at"], name: "index_foods_on_availability_and_status_and_publish_at"
     t.index ["category_id"], name: "index_foods_on_category_id"
     t.index ["keto_score"], name: "index_foods_on_keto_score"
     t.index ["slug"], name: "index_foods_on_slug", unique: true

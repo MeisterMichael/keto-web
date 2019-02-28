@@ -55,7 +55,7 @@ class RecipeAdminController < AdminController
 
 	private
 		def recipe_params
-			params.require( :recipe ).permit( :title, :description, :avatar, :content, :status, :prep_time, :cook_time, :serves, :tags_csv, :category_id, :avatar_attachment, :cover_attachment, :nutrition_facts_attachment, :parse_nutrient_facts, { embedded_attachments: [], other_attachments: [] } )
+			params.require( :recipe ).permit( :title, :description, :avatar, :content, :status, :availability, :prep_time, :cook_time, :serves, :tags_csv, :category_id, :avatar_attachment, :cover_attachment, :nutrition_facts_attachment, :parse_nutrient_facts, { embedded_attachments: [], other_attachments: [] } )
 		end
 
 		def set_recipe
