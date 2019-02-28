@@ -859,11 +859,11 @@ ActiveRecord::Schema.define(version: 2019_02_20_221841) do
   end
 
   create_table "franklin_units", force: :cascade do |t|
-    t.bigint "base_unit_id"
+    t.bigint "convert_to_unit_id"
     t.bigint "imperial_correlate_id"
     t.bigint "user_id"
     t.bigint "metric_id"
-    t.bigint "custom_base_unit_id"
+    t.bigint "custom_convert_to_unit_id"
     t.float "conversion_factor", default: 1.0
     t.float "custom_conversion_factor", default: 1.0
     t.string "name"
@@ -874,8 +874,8 @@ ActiveRecord::Schema.define(version: 2019_02_20_221841) do
     t.boolean "imperial", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["base_unit_id"], name: "index_franklin_units_on_base_unit_id"
-    t.index ["custom_base_unit_id"], name: "index_franklin_units_on_custom_base_unit_id"
+    t.index ["convert_to_unit_id"], name: "index_franklin_units_on_convert_to_unit_id"
+    t.index ["custom_convert_to_unit_id"], name: "index_franklin_units_on_custom_convert_to_unit_id"
     t.index ["imperial_correlate_id"], name: "index_franklin_units_on_imperial_correlate_id"
     t.index ["metric_id"], name: "index_franklin_units_on_metric_id"
     t.index ["user_id"], name: "index_franklin_units_on_user_id"
