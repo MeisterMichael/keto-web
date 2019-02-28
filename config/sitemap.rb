@@ -42,4 +42,8 @@ SitemapGenerator::Sitemap.create do
 		add recipes_path, lastmod: updated_at
 	end
 
+	Recipe.published.find_each do |recipe|
+		add recipe.path, lastmod: recipe.updated_at
+	end
+
 end
