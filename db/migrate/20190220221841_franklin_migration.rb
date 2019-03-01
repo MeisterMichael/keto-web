@@ -6,7 +6,7 @@ class FranklinMigration < ActiveRecord::Migration[5.1]
 
 
 		create_table :franklin_foods do |t|
-			t.references 		:user
+			t.references 		:user 
 			t.references		:serving_unit
 			t.references		:category
 			t.float 			:serving_amount, default: 100
@@ -15,7 +15,7 @@ class FranklinMigration < ActiveRecord::Migration[5.1]
 			t.text 				:description
 			t.text     			:aliases,		default: [],	 array: true
 			t.hstore   			:properties,    default: {}
-
+			
 			t.timestamps
 		end
 
@@ -23,7 +23,7 @@ class FranklinMigration < ActiveRecord::Migration[5.1]
 			t.references 		:food
 			t.references		:metric
 			t.float 			:amount
-
+			
 			t.timestamps
 		end
 
@@ -38,7 +38,7 @@ class FranklinMigration < ActiveRecord::Migration[5.1]
 			t.integer  			:availability,       default: 0
 			t.string   			:default_period,     default: :all_time
 			t.string   			:default_value_type
-
+			
 			t.timestamps
 		end
 
@@ -60,7 +60,7 @@ class FranklinMigration < ActiveRecord::Migration[5.1]
 			t.datetime 			:recorded_at
 			t.integer  			:status,        default: 1
 			t.hstore   			:properties,    default: {}
-
+			
 			t.timestamps
 		end
 
@@ -77,16 +77,16 @@ class FranklinMigration < ActiveRecord::Migration[5.1]
 			t.datetime 			:start_at
 			t.datetime 			:end_at
 			t.integer  			:status,          default: 1
-
+			
 			t.timestamps
     	end
 
     	create_table :franklin_units, force: :cascade do |t|
-			t.references 		:convert_to_unit
+			t.references 		:base_unit
 			t.references 		:imperial_correlate
 			t.references 		:user
 			t.references 		:metric
-			t.references		:custom_convert_to_unit
+			t.references		:custom_base_unit
 			t.float    			:conversion_factor,			default: 1.0
 			t.float    			:custom_conversion_factor,	default: 1.0
 			t.string   			:name

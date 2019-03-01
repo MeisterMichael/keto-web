@@ -113,7 +113,7 @@ GIT
       rails (>= 5.2.0)
 
 PATH
-  remote: ../../engines/franklin
+  remote: ../engines/franklin
   specs:
     franklin (0.1.0)
       chronic_duration
@@ -461,7 +461,7 @@ GEM
     signed_multiset (0.2.1)
     sitemap_generator (6.0.2)
       builder (~> 3.0)
-    spreadsheet (1.2.1)
+    spreadsheet (1.2.0)
       ruby-ole (>= 1.0)
     spring (2.0.2)
       activesupport (>= 4.2)
