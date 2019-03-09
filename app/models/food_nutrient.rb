@@ -6,6 +6,19 @@ class FoodNutrient < ActiveRecord::Base
 	belongs_to :nutrient
 	belongs_to :food
 
+	def for_measure( food_measure )
+		multiplier = food_measure.equivalent_measure_units / food.serving_size_in_measure_units
+
+		food_nutrient = FoodNutrient.new(
+			nutrient: self.nutrient,
+			food: self.food,
+			amount_per_serving: (amount_per_serving * multiplier).round(10),
+		)
+		food_nutrient.estimated_calories = (estimated_calories * multiplier).round(10) unless estimated_calories.nil?
+
+		food_nutrient
+	end
+
 	def daily_recommended_percent
 		if nutrient.daily_recommended_value.present? && nutrient.daily_recommended_value > 0
 			self.amount_per_serving / self.nutrient.daily_recommended_value
