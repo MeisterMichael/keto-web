@@ -1,0 +1,42 @@
+- cache "#{food.cache_key}-#{food.updated_at.to_i}-#{food_measure.cache_key}-#{food_measure.updated_at.to_i}-#{args.to_json}" do
+	.nutrition-facts
+		.nf-title Nutrition Facts
+		-# = food.to_json
+		-# = food_measure.to_json
+		- if food.serves.present?
+			.nf-servings Servings: #{food.serves}
+		- elsif food.serving_size.present?
+			.nf-servings Servings Size: #{food_measure.quantity} #{food_measure.unit} (#{food_measure.equivalent_measure_units} #{food.measure_unit})
+		.nf-nutrient-header Amount per serving
+
+		- if ( food_nutrients = food.food_nutrients.joins(:nutrient).merge(Nutrient.where( fact_name: 'Calories' )) ).present?
+			- food_nutrients.limit(1).each do |food_nutrient|
+				.nf-nutrient{ class: "nf-nutrient-type-calories" }
+					.nf-nutrient-title=food_nutrient.nutrient.fact_name
+					- if food_nutrient.amount_per_serving
+						.nf-nutrient-weight
+							#{food_nutrient.amount_per_serving}#{food_nutrient.nutrient.unit}
+					- else
+						.nf-nutrient-amount
+							#{food_nutrient.amount.to_i} #{food_nutrient.unit}
+		%table
+			%thead
+				%tr
+					%th
+					%th.nf-nutrient-dkv %DKV
+					%th.nf-nutrient-dv %DV
+			%tbody
+				- if ( food_nutrients = food.food_nutrients.joins(:nutrient).merge(Nutrient.macros) ).present?
+					- food_nutrients.to_a.sort_by{|food_nutrient| ['Total Fat','Cholesterol','Total Carbohydrate','Potassium, K','Sodium, Na','Protein'].index(food_nutrient.nutrient.fact_name) || Float::INFINITY }.each do |food_nutrient|
+						= render 'fact_row', food_nutrient: food_nutrient.for_measure( food_measure ), args: args
+						- if ( children = food.food_nutrients.joins(:nutrient).merge(food_nutrient.nutrient.children) ).present?
+							- children.each do |child|
+								= render 'fact_row', food_nutrient: child.for_measure( food_measure ), args: args.merge({ classes: 'nf-nutrient-child' })
+				- else
+					%tr
+						%td{ colspan: 3 } No Nutrition Facts
+		- unless args[:size] == :small
+			.nf-citation
+				* The % Daily Value (DV) tells you how much a nutrient in a food serving contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.
+		.nf-citation
+			** The % Daily Keto Value (DKV) tells you how much of a nutrient in a food serving contributes to a daily keto diet. 2,000 calories a day is used for general nutrition advice.

@@ -23,8 +23,10 @@
 	.container
 		.row
 			.col-12
-				= form_tag main_app.foods_path(), method: :GET do
-					= text_field_tag :q, @query, class: 'form-control'
+				= form_tag main_app.foods_path(), method: :GET, class: 'form-inline' do
+					= text_field_tag :q, @query, class: 'form-control mb-2 mr-sm-2', style: 'width: 40%;'
+					%button.btn.btn-primary.btn-md.mb-2
+						%i.fa.fa-search
 
 / Blog Post Section
 %section.pb-5
