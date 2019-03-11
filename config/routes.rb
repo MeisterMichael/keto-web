@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 		end
 	end
 
+	resources :foods, path: '/nutrition_facts'
+
 	resources :ingredient_admin
 
 	resources :inspiration_admin do

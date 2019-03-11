@@ -17,6 +17,49 @@ class Nutrient < ActiveRecord::Base
 	include FriendlyId
 	friendly_id :slugger, use: [ :slugged, :history ]
 
+	def children
+		if fact_name == 'Total Carbohydrate'
+			Nutrient.unscoped.macros_carb
+		elsif fact_name == 'Total Fat'
+			Nutrient.unscoped.macros_fat
+		else
+			Nutrient.none
+		end
+	end
+
+	def self.macros
+		self.where( fact_name: [
+			# 'Calories',
+			'Protein',
+			'Total Fat',
+			'Total Carbohydrate',
+			'Potassium, K',
+			'Sodium, Na',
+			'calories',
+			# 'Water',
+			'Cholesterol',
+		] )
+	end
+
+	def self.macros_fat
+		self.where( fact_name: [
+			'Saturated Fat',
+			'Monounsaturated Fat',
+			'Polyunsaturated Fat',
+			'Trans Fat',
+			# 'Cholesterol',
+		] )
+	end
+
+	def self.macros_carb
+		self.where( fact_name: [
+			'Dietary Fiber',
+			'Total Sugars',
+			'Net Carbohydrates',
+			'Starch',
+		] )
+	end
+
 	def self.find_or_create_by_title( title, args = {} )
 		nutrient = Nutrient.where( "LOWER(title) = ?", title.downcase ).first
 		nutrient ||= Nutrient.create( title: title )

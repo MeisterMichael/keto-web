@@ -1,7 +1,7 @@
 .row
 	.col-xs-12.col-md-6
 		%h1=@food.title
-		%div= render "food/facts", food: @food, args: {}
+		%div= render "foods/facts", food: @food, args: {}
 	.col-xs-12.col-md-3
 		= form_for Ingredient.new( food: @food ), url: main_app.ingredient_admin_index_path() do |f|
 			= f.hidden_field :food_id

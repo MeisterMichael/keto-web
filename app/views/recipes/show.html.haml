@@ -52,7 +52,7 @@
 							= raw @recipe.content
 							-# if @recipe.present? && @recipe.food_nutrients.present?
 								.ptb-3
-									= render 'food/facts', food: @recipe, args: {}
+									= render 'foods/facts', food: @recipe, args: {}
 							-# elsif @recipe.nutrition_facts_attachment.attached?
 								.ptb-3
 									= image_tag @recipe.nutrition_facts_attachment.service_url, class: 'mx-auto d-block nutrition-facts'

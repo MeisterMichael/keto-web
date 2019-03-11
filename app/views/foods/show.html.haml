@@ -1,0 +1,30 @@
+%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+	.container
+		.row.title
+			%h2.h2
+				=@food.title
+				%br
+				\- Keto Nutrition Facts -
+			.page-breadcrumb
+				%a{ href: '/' }> Home
+				\/
+				%a{ href: main_app.foods_path( q: params[:q] ) }> Keto Nutrition Facts
+%section.ptb.ptb-sm-80
+	.container
+		.row
+			.col-12
+
+				%div.pull-right= render "foods/facts", food: @food, args: {}
+			-# .col-xs-12.col-md-3
+				.form-group
+					%label Measures
+				- @food.food_measures.each do |food_measure|
+					%div
+						= food_measure.quantity
+						= food_measure.unit
+						\=
+						= food_measure.equivalent_measure_units
+						= @food.measure_unit
+
+				%div
+					= @food.serving_size
