@@ -14,6 +14,7 @@ class FoodsController < ApplicationController
 
 	def show
 		@food = UsdaFood.friendly.find( params[:id] )
+		@food.force_fetch_details! if @food.food_nutrients.count <= 2
 		@food.fetch_details!
 
 		@measure_unit = @food.measure_unit
