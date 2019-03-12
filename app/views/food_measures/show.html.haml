@@ -4,6 +4,7 @@
 			.col-12
 				%h1.h2
 					=@title
+					%small Keto Nutrition Facts
 					-# %br
 					-# \- Keto Nutrition Facts -
 				%nav
@@ -20,7 +21,7 @@
 			- if @food.content.present?
 				.col-12.col-md-8.mb-5
 					.fr-view= raw @food.content
-					
+
 				.col-12.col-md-4
 					= render 'foods/keto_measure_facts', food: @food, food_measure: @food_measure, args: {}
 					.mt-5
