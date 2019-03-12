@@ -48,9 +48,9 @@ SitemapGenerator::Sitemap.create do
 
 	UsdaFood.published.find_each do |food|
 		add food.path, lastmod: food.updated_at
-		
-		food.food_measurements.each do |food_measurement|
-			add Rails.application.routes.url_helpers.food_measure_path( food_measurement, only_path: true ), lastmod: [food.updated_at,food_measurement.updated_at].max
+
+		food.food_measures.each do |food_measure|
+			add Rails.application.routes.url_helpers.food_measure_path( food_measure, only_path: true ), lastmod: [food.updated_at,food_measure.updated_at].max
 		end
 	end
 
