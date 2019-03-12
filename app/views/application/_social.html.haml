@@ -1,8 +1,10 @@
 
-.mb-4.text-center.fs-3
-	= render 'scuttlebutt/subscriptions/widget', parent_obj: object, args: { css_class: 'btn btn-default btn-sm' }.deep_merge(args[:subscriptions] || {})
-.mb-4.text-center.fs-3
-	= render 'scuttlebutt/votes/widget', parent_obj: object, args: {}.deep_merge(args[:votes] || {})
+- unless args[:disable_subscribe]
+	.mb-4.text-center.fs-3
+		= render 'scuttlebutt/subscriptions/widget', parent_obj: object, args: { css_class: 'btn btn-default btn-sm' }.deep_merge(args[:subscriptions] || {})
+- unless args[:disable_vote]
+	.mb-4.text-center.fs-3
+		= render 'scuttlebutt/votes/widget', parent_obj: object, args: {}.deep_merge(args[:votes] || {})
 .addthis_inline_share_toolbox.share-5.mb-5
 - if args[:user].present?
 	-# %hr/

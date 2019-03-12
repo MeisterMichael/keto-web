@@ -12,6 +12,12 @@ Rails.application.routes.draw do
 		end
 	end
 
+	get '/nutrition_facts/:quantity/:unit/:food_id' => 'food_measures#show', as: 'food_measure', :constraints => { :quantity => /[0-9A-Za-z\-\.]+/ }
+	direct 'food_measure' do |model, args|
+		(args || {}).merge( { controller: 'food_measures', action: 'show', quantity: model.quantity, unit: model.unit.parameterize, food_id: model.food.slug } )
+		#{ }"/nutrition_facts/#{CGI.escape model.quantity.to_s}/#{model.unit.parameterize}/#{model.food.slug}"
+	end
+
 	resources :foods, path: '/nutrition_facts'
 
 	resources :ingredient_admin

@@ -1,0 +1,2 @@
+- cache "#{food.cache_key}-#{food.updated_at.to_i}-#{args.to_json}" do
+	= render 'foods/keto_measure_facts', food: food, food_measure: food.food_measures.first, args: args

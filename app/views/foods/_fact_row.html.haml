@@ -3,7 +3,7 @@
 		.nf-nutrient-title=food_nutrient.nutrient.fact_name
 		- if food_nutrient.amount_per_serving
 			.nf-nutrient-weight
-				#{food_nutrient.amount_per_serving}#{food_nutrient.nutrient.unit}
+				#{food_nutrient.amount_per_serving.round(2)}#{food_nutrient.nutrient.unit}
 		- else
 			.nf-nutrient-amount
 				#{food_nutrient.amount.to_i} #{food_nutrient.unit}

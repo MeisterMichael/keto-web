@@ -1,0 +1,50 @@
+%table.table.table-striped.table-hover.table-borderless.table-responsive-md
+	%thead
+		%tr
+			%th{ scope: :col }  Measure
+			%th{ scope: :col }  Calories
+			%th{ scope: :col }  Total Fat
+			%th{ scope: :col }  Net Carbs
+			%th{ scope: :col }  Protein
+			%th{ scope: :col }  Fiber
+			%th{ scope: :col } &nbsp;
+	%tbody
+		- food_measures.each do |food_measure|
+			%tr
+				%td{ scope: :row }
+					%a{ href: main_app.food_measure_path( food_measure, q: args[:query] ) }
+						= food_measure.quantity
+						= food_measure.unit
+						(#{food_measure.equivalent_measure_units} #{food_measure.food.measure_unit})
+				- ['Calories','Total Fat', 'Net Carbohydrates', 'Protein', 'Dietary Fiber'].each do |fact_name|
+					%td
+						- if ( food_nutrient = food_measure.food.food_nutrients.joins(:nutrient).merge(Nutrient.where( fact_name: fact_name )).first )
+							- measure_food_nutrient = food_nutrient.for_measure( food_measure )
+							#{measure_food_nutrient.amount_per_serving.round(1)} #{food_nutrient.nutrient.unit}
+							%small.d-block.d-lg-inline
+								- if ['Net Carbohydrates', 'Protein'].include? fact_name
+									(#{(measure_food_nutrient.amount_per_serving * 4).round(1)} kcal)
+								- elsif ['Total Fat'].include? fact_name
+									(#{(measure_food_nutrient.amount_per_serving * 9).round(1)} kcal)
+						- else
+							\-
+				%td
+					%a.btn.btn-sm.btn-dark{ href: main_app.food_measure_path( food_measure, q: args[:query] ) } View
+		- if args[:food]
+			%tr
+				%td
+					%a{ href: main_app.food_path( id: args[:food].slug, q: args[:query] ) }
+						= args[:food].serving_size
+				- ['Calories','Total Fat', 'Net Carbohydrates', 'Protein', 'Dietary Fiber'].each do |fact_name|
+					%td
+						- if ( food_nutrient = args[:food].food_nutrients.joins(:nutrient).merge(Nutrient.where( fact_name: fact_name )).first )
+							#{food_nutrient.amount_per_serving.round(1)} #{food_nutrient.nutrient.unit}
+							%small.d-block.d-lg-inline
+								- if ['Net Carbohydrates', 'Protein'].include? fact_name
+									(#{(food_nutrient.amount_per_serving * 4).round(1)} kcal)
+								- elsif ['Total Fat'].include? fact_name
+									(#{(food_nutrient.amount_per_serving * 9).round(1)} kcal)
+						- else
+							\-
+				%td
+					%a.btn.btn-sm.btn-dark{ href: main_app.food_path( id: args[:food].slug, q: args[:query] ) } View

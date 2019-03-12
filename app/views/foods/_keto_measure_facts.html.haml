@@ -1,6 +1,6 @@
 - cache "#{food.cache_key}-#{food.updated_at.to_i}-#{food_measure.cache_key}-#{food_measure.updated_at.to_i}-#{args.to_json}" do
 	.nutrition-facts
-		.nf-title Nutrition Facts
+		.nf-title Keto Nutrition Facts
 		-# = food.to_json
 		-# = food_measure.to_json
 		- if food.serves.present?
@@ -21,17 +21,9 @@
 					%th.nf-nutrient-dkv %DKV
 					%th.nf-nutrient-dv %DV
 			%tbody
-				- if ( food_nutrients = food.food_nutrients.joins(:nutrient).merge(Nutrient.macros) ).present?
-					- food_nutrients.to_a.sort_by{|food_nutrient| ['Total Fat','Cholesterol','Total Carbohydrate','Potassium, K','Sodium, Na','Protein'].index(food_nutrient.nutrient.fact_name) || Float::INFINITY }.each do |food_nutrient|
+				- if ( food_nutrients = food.food_nutrients.joins(:nutrient).merge(Nutrient.keto_macros) ).present?
+					- food_nutrients.to_a.sort_by{|food_nutrient| ['Total Fat','Net Carbohydrates','Protein'].index(food_nutrient.nutrient.fact_name) || Float::INFINITY }.each do |food_nutrient|
 						= render 'foods/fact_row', food_nutrient: food_nutrient.for_measure( food_measure ), args: args
-						- if ( children = food.food_nutrients.joins(:nutrient).merge(food_nutrient.nutrient.children) ).present?
-							- children.each do |child|
-								= render 'foods/fact_row', food_nutrient: child.for_measure( food_measure ), args: args.merge({ classes: 'nf-nutrient-child' })
 				- else
 					%tr
 						%td{ colspan: 3 } No Nutrition Facts
-		-# unless args[:size] == :small
-			.nf-citation
-				* The % Daily Value (DV) tells you how much a nutrient in a food serving contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.
-		-# .nf-citation
-			** The % Daily Keto Value (DKV) tells you how much of a nutrient in a food serving contributes to a daily keto diet. 2,000 calories a day is used for general nutrition advice.

@@ -1,0 +1,7 @@
+
+= form_tag main_app.foods_path(), method: :GET do
+	.input-group
+		= text_field_tag :q, args[:query], class: 'form-control mb-2 mr-sm-2', placeholder: 'e.g. raw spinach, pan fried bacon, ghost pepper salsa', 'aria-label' => 'Food Search'
+		.input-group-append
+			%button.btn.btn-primary.btn-md.mb-2
+				Search

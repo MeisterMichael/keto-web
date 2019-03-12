@@ -1,65 +1,34 @@
-%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+%section
 	.container
-		.row.title
-			%h2.h2
-				=@food.title
-				-# %br
-				-# \- Keto Nutrition Facts -
-			.page-breadcrumb
-				%a{ href: '/' }> Home
-				\/
-				%a{ href: main_app.foods_path( q: params[:q] ) }> Keto Nutrition Facts
+		.row
+			.col-12
+				%h1.h2
+					=@food.title
+					- if current_user.try(:admin?)
+						%small
+							%a{ href: main_app.edit_usda_food_admin_path( @food ) } admin
+					-# %br
+					-# \- Keto Nutrition Facts -
+				%nav
+					%ol.breadcrumb
+						%li.breadcrumb-item
+							%a{ href: '/' }> Home
+						%li.breadcrumb-item.active
+							%a{ href: main_app.foods_path( q: params[:q] ) }> Keto Nutrition Facts
 %section.mt-5.mb-4
 	.container
 		.row
 			.col-12
-				%h2.mb-0 Keto Nutrition Facts
-				%table.table.table-striped.table-hover.table-borderless.table-responsive-md
-					%thead
-						%tr
-							%th{ scope: :col }  Amount
-							%th{ scope: :col }  Calories
-							%th{ scope: :col }  Total Fat
-							%th{ scope: :col }  Net Carbs
-							%th{ scope: :col }  Protein
-							%th{ scope: :col }  Fiber
-					%tbody
-						- @food.food_measures.each do |food_measure|
-							%tr
-								%td{ scope: :row }
-									= food_measure.quantity
-									= food_measure.unit
-									(#{food_measure.equivalent_measure_units} #{@food.measure_unit})
-								- ['Calories','Total Fat', 'Net Carbohydrates', 'Protein', 'Dietary Fiber'].each do |fact_name|
-									%td
-										- if ( food_nutrient = @food.food_nutrients.joins(:nutrient).merge(Nutrient.where( fact_name: fact_name )).first )
-											- measure_food_nutrient = food_nutrient.for_measure( food_measure )
-											#{measure_food_nutrient.amount_per_serving.round(1)} #{food_nutrient.nutrient.unit}
-											%small.d-block.d-lg-inline
-												- if ['Net Carbohydrates', 'Protein'].include? fact_name
-													(#{(measure_food_nutrient.amount_per_serving * 4).round(1)} kcal)
-												- elsif ['Total Fat'].include? fact_name
-													(#{(measure_food_nutrient.amount_per_serving * 9).round(1)} kcal)
-										- else
-											\-
-						%tr
-							%td
-								= @food.serving_size
-							- ['Calories','Total Fat', 'Net Carbohydrates', 'Protein', 'Dietary Fiber'].each do |fact_name|
-								%td
-									- if ( food_nutrient = @food.food_nutrients.joins(:nutrient).merge(Nutrient.where( fact_name: fact_name )).first )
-										#{food_nutrient.amount_per_serving.round(1)} #{food_nutrient.nutrient.unit}
-										%small.d-block.d-lg-inline
-											- if ['Net Carbohydrates', 'Protein'].include? fact_name
-												(#{(food_nutrient.amount_per_serving * 4).round(1)} kcal)
-											- elsif ['Total Fat'].include? fact_name
-												(#{(food_nutrient.amount_per_serving * 9).round(1)} kcal)
-									- else
-										\-
-%section.mb-5
+				- if @food.content.present?
+					.fr-view.mb-5= raw @food.content
+				%h2.h5.mb-0.text-center Keto Nutrition Facts
+				= render 'foods/measures_table', food_measures: @food.food_measures, args: { food: @food, query: params[:q] }
+
+
+%section.mt-5.mb-5
 	.container
 		.row
-			.col-12.col-md-8
-				= render 'application/social', object: @food, args: { page: params[:page] }
-			.col-12.col-md-4
+			.col-12.col-md-10.offset-md-1
+				= render 'application/social', object: @food, args: { page: params[:page], disable_subscribe: true, disable_vote: true }
+			-# .col-12.col-md-4
 				= render 'foods/measure_facts', food: @food, food_measure: @food_measure, args: {}

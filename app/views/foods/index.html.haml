@@ -1,60 +1,37 @@
-/
-	CONTENT --------------------------------------------------------------------------------->
-	<!-- Intro Section
-%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1{"data-background-img" => "https://keto-daily.com/wp-content/uploads/2018/10/Keto-Jicama-Fries-Basket-2.jpg" }
-	.container
-		.row.title
-			%h2.h2 Keto Nutrition Facts
-			.page-breadcrumb
-				%a{ href: '/' } Home
-				\/
-				- if @tagged.present?
+- if @query
+	%section
+		.container
+			.row
+				.col-12
+					%h4 Keto Nutrition Facts Search
+					.row.mt-3
+						.col-12.col-md-6
+							= render 'search_form', args: { query: @query }
 
-					%a{ href: main_app.foods_path() } Nutrition
-					\/
-					%span=@tagged
+	%section.pb-5.pt-2
+		.container
+			.row
+				- if @foods.present?
+					- @foods.each do |food|
+						= render 'foods/row', food: food, args: { query: @query }
 				- else
-					%span Nutrition
+					.col-12
+						No Results.  Modifying your search results and try again.
+- else
+	%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+		.container
+			.row.title
+				%h2.h2 Keto Nutrition Facts Search
+				-# .page-breadcrumb
+					%a{ href: '/' } Home
+					\/
+					- if @tagged.present?
 
-/ End Intro Section
-
-
-%section.pt-5.pb-3
-	.container
-		.row
-			.col-12
-				= form_tag main_app.foods_path(), method: :GET, class: 'form-inline' do
-					= text_field_tag :q, @query, class: 'form-control mb-2 mr-sm-2', style: 'width: 40%;'
-					%button.btn.btn-primary.btn-md.mb-2
-						%i.fa.fa-search
-
-/ Blog Post Section
-%section.pb-5
-	.container
-		/ Post Item
-		.row
-			- @foods.each do |food|
-				= render 'foods/row', food: food, args: { query: @query }
-
-		/ End Post Item
-		/ Pagination Nav
-
-		-# .pagination-nav.mt-60.mt-xs-30
-			= raw paginate @foods
-		-# .pagination-nav.mt-60.mt-xs-30
-			%ul
-				%li
-					%a{:href => "#"}
-						%i.fa.fa-angle-left
-				%li.active
-					%a{:href => "#"} 1
-				%li
-					%a{:href => "#"} 2
-				%li
-					%a{:href => "#"} 3
-				%li
-					%a{:href => "#"}
-						%i.fa.fa-angle-right
-		/ End Pagination Nav
-/ End Blog Post Section
-/ End CONTENT ----------------------------------------------------------------------------
+						%a{ href: main_app.foods_path() } Keto Nutrition Facts
+						\/
+						%span=@tagged
+					- else
+						%span Keto Nutrition Facts
+				.row.mt-3
+					.col-12.col-md-6.offset-md-3
+						= render 'search_form', args: { query: @query }

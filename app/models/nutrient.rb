@@ -17,6 +17,10 @@ class Nutrient < ActiveRecord::Base
 	include FriendlyId
 	friendly_id :slugger, use: [ :slugged, :history ]
 
+	def self.calories
+		where( fact_name: 'Calories' )
+	end
+
 	def children
 		if fact_name == 'Total Carbohydrate'
 			Nutrient.unscoped.macros_carb
@@ -25,6 +29,15 @@ class Nutrient < ActiveRecord::Base
 		else
 			Nutrient.none
 		end
+	end
+
+	def self.keto_macros
+		self.where( fact_name: [
+			# 'Calories',
+			'Protein',
+			'Total Fat',
+			'Net Carbohydrates',
+		] )
 	end
 
 	def self.macros
