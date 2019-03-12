@@ -4,11 +4,14 @@ class FoodsController < ApplicationController
 	def index
 		@query = params[:q]
 
-		@foods = UsdaFood.none
-		@foods = UsdaFood.usda_search( @query, db: :standard, sort: :relevance ) if @query
-		@foods = @foods + UsdaFood.usda_search( @query, db: :branded, sort: :relevance ) if @query
-		@foods.collect(&:save)
-		@foods = @foods.select(&:active?) + @foods.select(&:draft?)
+		if @query
+			@foods = UsdaFood.usda_search( @query, db: :standard, sort: :relevance )
+			@foods = @foods + UsdaFood.usda_search( @query, db: :branded, sort: :relevance )
+			@foods.collect(&:save)
+			@foods = @foods.select(&:active?) + @foods.select(&:draft?)
+		else
+			@foods = UsdaFood.published.order( created_at: :desc ).page(params[:page]).per(20)
+		end
 
 		set_page_meta( title: "Nutrition Search Results" )
 

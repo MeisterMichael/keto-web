@@ -1,0 +1,6 @@
+
+%div
+	%a{ href: main_app.food_path( food.slug, q: args[:query] ) }
+		%h5.h5
+			= food.title
+		%div= render 'keto_facts', food: food, args: {}
