@@ -8,6 +8,7 @@ class FoodsController < ApplicationController
 		@foods = UsdaFood.usda_search( @query, db: :standard, sort: :relevance ) if @query
 		@foods = @foods + UsdaFood.usda_search( @query, db: :branded, sort: :relevance ) if @query
 		@foods.collect(&:save)
+		@foods = @foods.select(&:active?) + @foods.select(&:draft?)
 
 		set_page_meta( title: "Nutrition Search Results" )
 
