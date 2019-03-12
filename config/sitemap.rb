@@ -49,9 +49,13 @@ SitemapGenerator::Sitemap.create do
 	UsdaFood.published.find_each do |food|
 		add food.path, lastmod: food.updated_at
 
-		food.food_measures.each do |food_measure|
+		food.food_measures.find_each do |food_measure|
 			add Rails.application.routes.url_helpers.food_measure_path( food_measure, only_path: true ), lastmod: [food.updated_at,food_measure.updated_at].max
 		end
+	end
+
+	Dewey::Course.published.find_each do |course|
+		add course.path, lastmod: course.updated_at
 	end
 
 end
