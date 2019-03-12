@@ -1,4 +1,4 @@
-- cache "#{food.cache_key}-#{food.updated_at.to_i}-#{food_measure.cache_key}-#{food_measure.updated_at.to_i}-#{args.to_json}" do
+- cache "#{food.cache_key}-#{food.updated_at.to_i}-#{food_measure.try(:cache_key)}-#{food_measure.try(:updated_at).to_i}-#{args.to_json}" do
 	.nutrition-facts
 		.nf-title Keto Nutrition Facts
 		-# = food.to_json
@@ -6,11 +6,14 @@
 		- if food.serves.present?
 			.nf-servings Servings: #{food.serves}
 		- elsif food.serving_size.present?
-			.nf-servings Servings Size: #{food_measure.quantity} #{food_measure.unit} (#{food_measure.equivalent_measure_units} #{food.measure_unit})
+			- if food_measure
+				.nf-servings Servings Size: #{food_measure.quantity} #{food_measure.unit} (#{food_measure.equivalent_measure_units} #{food.measure_unit})
+			- else
+				.nf-servings Servings Size: #{food.serving_size_in_measure_units} #{food.measure_unit}
 		.nf-nutrient-header Amount per serving
 
 		- if ( food_nutrients = food.food_nutrients.joins(:nutrient).merge(Nutrient.calories) ).present?
-			- food_nutrients.limit(1).to_a.collect{|food_nutrient| food_nutrient.for_measure( food_measure ) }.each do |food_nutrient|
+			- food_nutrients.limit(1).to_a.collect{|food_nutrient| (food_nutrient.for_measure( food_measure ) || food_nutrient) }.each do |food_nutrient|
 				.nf-nutrient{ class: "nf-nutrient-type-calories" }
 					.nf-nutrient-title=food_nutrient.nutrient.fact_name
 					#{food_nutrient.amount_per_serving.to_i}
@@ -23,7 +26,7 @@
 			%tbody
 				- if ( food_nutrients = food.food_nutrients.joins(:nutrient).merge(Nutrient.keto_macros) ).present?
 					- food_nutrients.to_a.sort_by{|food_nutrient| ['Total Fat','Net Carbohydrates','Protein'].index(food_nutrient.nutrient.fact_name) || Float::INFINITY }.each do |food_nutrient|
-						= render 'foods/fact_row', food_nutrient: food_nutrient.for_measure( food_measure ), args: args
+						= render 'foods/fact_row', food_nutrient: (food_nutrient.for_measure( food_measure ) || food_nutrient), args: args
 				- else
 					%tr
 						%td{ colspan: 3 } No Nutrition Facts

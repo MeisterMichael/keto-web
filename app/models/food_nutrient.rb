@@ -7,6 +7,8 @@ class FoodNutrient < ActiveRecord::Base
 	belongs_to :food
 
 	def for_measure( food_measure )
+		return nil unless food_measure
+
 		multiplier = food_measure.equivalent_measure_units / food.serving_size_in_measure_units
 
 		food_nutrient = FoodNutrient.new(
