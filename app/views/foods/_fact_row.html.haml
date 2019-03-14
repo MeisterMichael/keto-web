@@ -12,11 +12,12 @@
 			#{(value * 100).round()}%
 		- else
 			&nbsp;
-	%td.text-right.nf-nutrient-dv
-		- if (value = food_nutrient.daily_recommended_percent).present?
-			#{(value * 100).round()}%
-		- else
-			&nbsp;
+	- unless args[:hide_dv]
+		%td.text-right.nf-nutrient-dv
+			- if (value = food_nutrient.daily_recommended_percent).present?
+				#{(value * 100).round()}%
+			- else
+				&nbsp;
 -# .nf-nutrient{ class: "nf-nutrient-type-#{food_nutrient.nutrient.slug} #{args[:classes]}" }
 	.nf-nutrient-title=food_nutrient.nutrient.fact_name
 	- if food_nutrient.amount_per_serving

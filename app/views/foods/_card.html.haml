@@ -1,6 +1,39 @@
+- cache "#{food.cache_key}-#{food.updated_at.to_i}-#{args.to_json}" do
+	.nutrition-facts{ style: 'width: 100%' }
+		.nf-title
+			%a{ href: main_app.food_path( food.slug, q: args[:query] ) }= food.title
+		-# .nf-servings.mt-1 Keto Nutrition Facts
+		-# = food.to_json
+		-# = food.food_measures.first.to_json
+		- unless food.description.blank?
+			.fr-view.mt-1= raw food.description
+		- if food.serves.present?
+			.nf-servings Servings: #{food.serves}
+		- elsif food.serving_size.present?
+			- if food.food_measures.first
+				.nf-servings Servings Size: #{food.food_measures.first.quantity} #{food.food_measures.first.unit} (#{food.food_measures.first.equivalent_measure_units} #{food.measure_unit})
+			- else
+				.nf-servings Servings Size: #{food.serving_size_in_measure_units} #{food.measure_unit}
+		.nf-nutrient-header Amount per serving
 
-%div
-	%a{ href: main_app.food_path( food.slug, q: args[:query] ) }
-		%h5.h5
-			= food.title
-	%div= render 'keto_facts', food: food, args: {}
+		- if ( food_nutrients = food.food_nutrients.joins(:nutrient).merge(Nutrient.calories) ).present?
+			- food_nutrients.limit(1).to_a.collect{|food_nutrient| (food_nutrient.for_measure( food.food_measures.first ) || food_nutrient) }.each do |food_nutrient|
+				.nf-nutrient{ class: "nf-nutrient-type-calories" }
+					.nf-nutrient-title=food_nutrient.nutrient.fact_name
+					#{food_nutrient.amount_per_serving.to_i}
+		%table{ style: 'width: 100%' }
+			%thead
+				%tr
+					%th
+					%th.nf-nutrient-dv %DKV
+			%tbody
+				- if ( food_nutrients = food.food_nutrients.joins(:nutrient).merge(Nutrient.keto_macros) ).present?
+					- food_nutrients.to_a.sort_by{|food_nutrient| ['Total Fat','Net Carbohydrates','Protein'].index(food_nutrient.nutrient.fact_name) || Float::INFINITY }.each do |food_nutrient|
+						= render 'foods/fact_row', food_nutrient: (food_nutrient.for_measure( food.food_measures.first ) || food_nutrient), args: args.merge( hide_dv: true )
+				- else
+					%tr
+						%td{ colspan: 3 } No Nutrition Facts
+		%a.btn.btn-sm.btn-light.btn-block.mt-1.d-none.d-lg-block{ href: main_app.food_path( food.slug, q: args[:query] ) }
+			more nutrition information
+		%a.btn.btn-sm.btn-light.btn-block.mt-1.d-block.d-lg-none{ href: main_app.food_path( food.slug, q: args[:query] ) }
+			more info
