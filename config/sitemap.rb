@@ -20,6 +20,7 @@ SitemapGenerator::Sitemap.create do
 	add '/'
 	add '/discussions'
 	add "/articles"
+	add '/keto-diet-foods', lastmod: Food.where( type: 'Recipe' ).or( Food.where( type: 'UsdaFood' ).with_any_tags( %w(keto) ) ).published.order( updated_at: :desc ).first.try(:updated_at)
 	add "/recipes"
 	add '/shop'
 

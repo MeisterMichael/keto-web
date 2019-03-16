@@ -1,0 +1,22 @@
+
+%section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
+	.container
+		.row.title
+			%h2.h2 Keto Diet Foods
+- if @foods.total_count > 0
+	- cache "list-count-#{@foods.total_count}-#{@foods.current_page}" do
+		%section.mt-3
+			.container
+				.row.masonry
+					- @foods.each do |food|
+						.col-12.col-sm-8.offset-sm-2.col-md-5.offset-md-0.col-lg-4.mb-5.nf-item
+							%a.card.d-block{:href => food.url}
+								- if food.avatar
+									%img.card-img-top{:alt => food.title, :src => food.avatar}
+								.card-body
+									%h5.card-title=food.title
+									%p.card-text=raw food.description
+									.btn.btn-primary View
+
+				.pagination-nav.mt-60.mt-xs-30
+					= raw paginate @foods

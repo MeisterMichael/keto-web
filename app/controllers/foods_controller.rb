@@ -1,6 +1,15 @@
 
 class FoodsController < ApplicationController
 
+	def list
+
+		@foods = Food.where( type: 'Recipe' ).or( Food.where( type: 'UsdaFood' ).with_any_tags( %w(keto) ) ).published.order( title: :asc )
+		@foods = @foods.page( params[:page] ).per(40)
+
+		set_page_meta( title: "Keto Diet Foods" )
+
+	end
+
 	def index
 		@query = params[:q]
 
