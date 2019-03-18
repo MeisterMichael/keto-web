@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 		#{ }"/nutrition_facts/#{CGI.escape model.quantity.to_s}/#{model.unit.parameterize}/#{model.food.slug}"
 	end
 
+
+	get '/:tagged_path/foods' => 'foods#list', as: 'tagged_list_foods'
 	get '/keto-diet-foods' => 'foods#list', as: 'list_foods'
 	resources :foods, path: '/nutrition_facts'
 

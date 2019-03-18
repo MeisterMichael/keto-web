@@ -3,10 +3,17 @@ class FoodsController < ApplicationController
 
 	def list
 
+		@tagged = params[:tagged] || params[:tagged_path].try(:gsub,/\-/,' ')
+		@titleized_tagged = @tagged.titleize if @tagged
+
 		@foods = Food.where( type: 'Recipe' ).or( Food.where( type: 'UsdaFood' ).with_any_tags( %w(keto) ) ).published.order( title: :asc )
+		@foods = @foods.with_any_tags( @tagged ) if @tagged
 		@foods = @foods.page( params[:page] ).per(40)
 
-		set_page_meta( title: "Keto Diet Foods" )
+		@title = "#{@titleized_tagged.singularize} Foods" if @titleized_tagged && @foods.total_count > 0
+		@title ||= "Keto Diet Foods"
+
+		set_page_meta( title: @title )
 
 	end
 

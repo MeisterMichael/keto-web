@@ -2,7 +2,7 @@
 %section.inner-intro.dark-bg.bg-image.overlay-dark.parallax.parallax-background1
 	.container
 		.row.title
-			%h2.h2 Keto Diet Foods
+			%h2.h2=@title
 - if @foods.total_count > 0
 	- cache "list-count-#{@foods.total_count}-#{@foods.current_page}" do
 		%section.mt-3
