@@ -54,7 +54,7 @@ SitemapGenerator::Sitemap.create do
 			add Rails.application.routes.url_helpers.food_measure_path( food_measure, only_path: true ), lastmod: [food.updated_at,food_measure.updated_at].max
 		end
 
-		food.food_nutrients.includes(:nutrients).find_each do |food_nutrient|
+		food.food_nutrients.includes(:nutrient).find_each do |food_nutrient|
 			puts Rails.application.routes.url_helpers.food_nutrient_path( food_id: food.slug, nutrient_name: food_nutrient.nutrient.fact_name.parameterize, only_path: true ), lastmod: [food.updated_at,food_nutrient.updated_at].max
 		end
 	end
