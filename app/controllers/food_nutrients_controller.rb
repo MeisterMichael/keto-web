@@ -19,23 +19,6 @@ class FoodNutrientsController < ApplicationController
 		@title = "How many #{@nutrient.fact_name.pluralize} are in #{@food.title}?"
 		@answer = "#{@food_measure.quantity.to_s.gsub(/\.0$/,'')} #{@food_measure.unit} contains #{@food_nutrient.amount_per_serving}#{%w( g ml ).include?( @nutrient.unit.downcase ) ? @nutrient.unit : ''} #{@food_nutrient.amount_per_serving > 1.0 ? @nutrient.fact_name.downcase.pluralize : @nutrient.fact_name.downcase.singularize}."
 
-		@structured_data = {
-			"@context" => "https://schema.org",
-			"@type" => "QAPage",
-			"mainEntity" => {
-				"@type" => "Question",
-				"name" => @title,
-				# "text" => "...",
-				"answerCount" => 1,
-				"dateCreated" => @food.updated_at.iso8601,
-				"acceptedAnswer" => {
-					"@type" => "Answer",
-					"text" => @answer,
-					"dateCreated" => ( @food_nutrient.updated_at + (@food_nutrient.id % 60).minutes ).iso8601,
-				},
-			}
-		}
-
 		set_page_meta( title: @title )
 	end
 
