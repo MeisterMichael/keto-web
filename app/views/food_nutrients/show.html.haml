@@ -1,0 +1,19 @@
+%section
+	.container
+		.row
+			.col-12
+				%h1.h2
+					=@title
+				%nav
+					%ol.breadcrumb
+						%li.breadcrumb-item
+							%a{ href: '/' }> Home
+						%li.breadcrumb-item.active
+							Question
+%section.mt-5.mb-4
+	.container
+		.row
+			.col
+				%h5
+				%h5 Answer
+				#{@food_measure.quantity.to_s.gsub(/\.0$/,'')} #{@food_measure.unit} contains #{pluralize @food_nutrient.amount_per_serving, @nutrient.fact_name.downcase}.

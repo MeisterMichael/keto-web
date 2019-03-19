@@ -53,6 +53,10 @@ SitemapGenerator::Sitemap.create do
 		food.food_measures.find_each do |food_measure|
 			add Rails.application.routes.url_helpers.food_measure_path( food_measure, only_path: true ), lastmod: [food.updated_at,food_measure.updated_at].max
 		end
+
+		food.food_nutrients.include(:nutrients).find_each do |food_nutrient|
+			puts Rails.application.routes.url_helpers.food_nutrient_path( food_id: food.slug, nutrient_name: food_nutrient.nutrient.fact_name.parameterize, only_path: true ), lastmod: [food.updated_at,food_nutrient.updated_at].max
+		end
 	end
 
 	Dewey::Course.published.find_each do |course|
@@ -61,9 +65,8 @@ SitemapGenerator::Sitemap.create do
 
 	Food.where( type: 'Recipe' ).or( Food.where( type: 'UsdaFood' ).with_any_tags( %w(keto) ) ).published.media_tag_cloud(limit: 100000).sort_by{|r| -r.second}.collect(&:first).each do |tag|
 		updated_at = Food.published.with_any_tags( tag ).order( updated_at: :desc ).first.try(:updated_at)
-		recipes_path = Rails.application.routes.url_helpers.tagged_list_foods_path( tagged_path: tag.gsub(/\s/,'-') )
-
-		add recipes_path, lastmod: updated_at
+		foods_path = Rails.application.routes.url_helpers.tagged_list_foods_path( tagged_path: tag.gsub(/\s/,'-') )
+		add foods_path, lastmod: updated_at
 	end
 
 end

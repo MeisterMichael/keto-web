@@ -26,6 +26,7 @@ class UsdaFoodAdminController < AdminController
 	def update
 
 		@food.attributes = food_params
+		@food.slug = nil if @food.title.changed?
 
 		if @food.save
 			set_flash 'Food Updated'

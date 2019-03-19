@@ -7,7 +7,7 @@ class FoodsController < ApplicationController
 		@titleized_tagged = @tagged.titleize if @tagged
 
 		@foods = Food.where( type: 'Recipe' ).or( Food.where( type: 'UsdaFood' ).with_any_tags( %w(keto) ) ).published.order( title: :asc )
-		@foods = @foods.with_any_tags( @tagged ) if @tagged
+		@foods = @foods.with_any_tags( [@tagged.singularize, @tagged.pluralize, @tagged] ) if @tagged
 		@foods = @foods.page( params[:page] ).per(40)
 
 		@title = "#{@titleized_tagged.singularize} Foods" if @titleized_tagged && @foods.total_count > 0
