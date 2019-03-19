@@ -1,3 +1,5 @@
+%script{:type => "application/ld+json"}
+	= raw @structured_data.to_json
 %section
 	.container
 		.row
@@ -16,4 +18,4 @@
 			.col
 				%h5
 				%h5 Answer
-				#{@food_measure.quantity.to_s.gsub(/\.0$/,'')} #{@food_measure.unit} contains #{pluralize @food_nutrient.amount_per_serving, @nutrient.fact_name.downcase}.
+				= @answer
