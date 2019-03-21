@@ -7,7 +7,7 @@
 					%small Keto Nutrition Facts
 					- if current_user.try(:admin?)
 						%small
-							%a.btn.btn-sm.btn-light{ href: main_app.edit_usda_food_admin_path( @food ) } Edit
+							%a.btn.btn-sm.btn-light{ href: main_app.edit_food_admin_path( @food ) } Edit
 					-# %br
 					-# \- Keto Nutrition Facts -
 				%nav

@@ -2,8 +2,6 @@
 # https://ndb.nal.usda.gov/ndb/doc/apilist/API-LIST.md
 class UsdaFood < Food
 
-	mounted_at '/nutrition_facts'
-
 	def self.base_unit( unit )
 		if Measurement::Unit[unit].present?
 			return 'g' if Measurement::Unit[unit].aliases.select{|a| a.include? 'gram' }.present?

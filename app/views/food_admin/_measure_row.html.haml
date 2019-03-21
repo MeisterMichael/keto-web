@@ -1,0 +1,9 @@
+
+.form-group
+	.row
+		.col-xs-4
+			= number_field_tag "food_measures[#{index}][quantity]", food_measure.quantity, class: 'form-control', :step => 0.01
+		.col-xs-4
+			= text_field_tag "food_measures[#{index}][unit]", food_measure.unit, class: 'form-control'
+		.col-xs-4
+			= text_field_tag "food_measures[#{index}][equivalent_measure_units]", food_measure.equivalent_measure_units, class: 'form-control'

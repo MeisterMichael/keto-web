@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 	end
 
 
+	resources :food_admin
+
 	get '/:nutrient_name/in/:food_id' => 'food_nutrients#show', as: 'food_nutrient'
 	get '/:tagged_path/foods' => 'foods#list', as: 'tagged_list_foods'
 	get '/keto-diet-foods' => 'foods#list', as: 'list_foods'

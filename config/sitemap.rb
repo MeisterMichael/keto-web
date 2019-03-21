@@ -20,7 +20,7 @@ SitemapGenerator::Sitemap.create do
 	add '/'
 	add '/discussions'
 	add "/articles"
-	add '/keto-diet-foods', lastmod: Food.where( type: 'Recipe' ).or( Food.where( type: 'UsdaFood' ).with_any_tags( %w(keto) ) ).published.order( updated_at: :desc ).first.try(:updated_at)
+	add '/keto-diet-foods', lastmod: Food.keto.published.order( updated_at: :desc ).first.try(:updated_at)
 	add "/recipes"
 	add '/shop'
 
@@ -63,7 +63,7 @@ SitemapGenerator::Sitemap.create do
 		add course.path, lastmod: course.updated_at
 	end
 
-	Food.where( type: 'Recipe' ).or( Food.where( type: 'UsdaFood' ).with_any_tags( %w(keto) ) ).published.media_tag_cloud(limit: 100000).sort_by{|r| -r.second}.collect(&:first).each do |tag|
+	Food.keto.published.media_tag_cloud(limit: 100000).sort_by{|r| -r.second}.collect(&:first).each do |tag|
 		updated_at = Food.published.with_any_tags( tag ).order( updated_at: :desc ).first.try(:updated_at)
 		foods_path = Rails.application.routes.url_helpers.tagged_list_foods_path( tagged_path: tag.gsub(/\s/,'-') )
 		add foods_path, lastmod: updated_at

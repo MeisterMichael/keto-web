@@ -22,13 +22,20 @@ class Food < ActiveRecord::Base
 
 	validates		:title, presence: true, unless: :allow_blank_title?
 
-	mounted_at '/foods'
+	mounted_at '/nutrition_facts'
 
 	include FriendlyId
 	friendly_id :slugger, use: [ :slugged, :history ]
 
 	acts_as_taggable_array_on :tags
 
+	def self.keto
+		where( type: 'Recipe' ).or( Food.with_any_tags( %w(keto) ) )
+	end
+
+	def self.not_recipe
+		where.not( type: 'Recipe' ).or(where( type: nil ))
+	end
 
 	def self.media_tag_cloud( args = {} )
 		args[:limit] ||= 7

@@ -6,7 +6,7 @@ class FoodsController < ApplicationController
 		@tagged = params[:tagged] || params[:tagged_path].try(:gsub,/\-/,' ')
 		@titleized_tagged = @tagged.titleize if @tagged
 
-		@foods = Food.where( type: 'Recipe' ).or( Food.where( type: 'UsdaFood' ).with_any_tags( %w(keto) ) ).published.order( title: :asc )
+		@foods = Food.keto.published.order( title: :asc )
 		@foods = @foods.with_any_tags( [@tagged.singularize, @tagged.pluralize, @tagged] ) if @tagged
 		@foods = @foods.page( params[:page] ).per(40)
 
@@ -26,7 +26,7 @@ class FoodsController < ApplicationController
 			@foods.collect(&:save)
 			@foods = @foods.select(&:active?) + @foods.select(&:draft?)
 		else
-			@foods = UsdaFood.published.order( created_at: :desc ).page(params[:page]).per(20)
+			@foods = Food.not_recipe.published.order( created_at: :desc ).page(params[:page]).per(20)
 		end
 
 		set_page_meta( title: "Nutrition Search Results" )
@@ -35,8 +35,10 @@ class FoodsController < ApplicationController
 
 	def show
 		@food = Food.friendly.find( params[:id] )
-		@food.force_fetch_details! if @food.food_nutrients.count <= 2
-		@food.fetch_details!
+		if @food.respond_to? :fetch_details!
+			@food.force_fetch_details! if @food.food_nutrients.count <= 2
+			@food.fetch_details!
+		end
 
 		@measure_unit = @food.measure_unit
 		# @food_measure = @food.food_measures.where( "LOWER(  || ' ' ||) = ?", params[:measure] ) if params[:measure].present?

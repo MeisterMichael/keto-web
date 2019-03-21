@@ -48,7 +48,7 @@ class Nutrient < ActiveRecord::Base
 			'Total Carbohydrate',
 			'Potassium, K',
 			'Sodium, Na',
-			'calories',
+			# 'calories',
 			# 'Water',
 			'Cholesterol',
 		] )

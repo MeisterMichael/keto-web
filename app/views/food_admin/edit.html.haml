@@ -1,0 +1,129 @@
+
+.container-fluid
+	.row
+		.col-xs-10
+			%ul.breadcrumb
+				%li
+					= link_to 'Admin', main_app.admin_index_path
+				%li
+					= link_to 'Food Admin', usda_food_admin_index_path
+				%li
+					%strong
+						Edit
+						= @food.title
+		-# .col-xs-2
+			%a.pull-right.btn.btn-primary{ href: preview_food_admin_path( @food.id ) }
+				%i.fa.fa-eye
+				Preview
+
+	= form_for @food, url: food_admin_path( @food ), as: :food do |f|
+		.row
+			.col-xs-8
+				.form-group
+					= f.text_field :title, class: 'form-control'
+
+				.row
+					.col-xs-4
+
+						.form-group
+							= f.label :avatar_attachment, "Avatar Image"
+							= f.file_field :avatar_attachment
+							- if @food.avatar
+								= image_tag @food.avatar, class: 'img-responsive'
+								%a.btn.btn-default{ 'data-clipboard-text' => @food.avatar }
+									%i.fa.fa-clipboard
+
+					.col-xs-4
+
+						.form-group
+							= f.label :cover_attachment, "Cover Image"
+							= f.file_field :cover_attachment
+							- if @food.cover_image
+								= image_tag @food.cover_image, class: 'img-responsive'
+								%a.btn.btn-default{ 'data-clipboard-text' => @food.cover_image }
+									%i.fa.fa-clipboard
+
+					.col-xs-4
+
+						.form-group
+							= f.label :nutrition_facts_attachment, "Nutrition Facts"
+							= f.file_field :nutrition_facts_attachment
+							- if @food.nutrition_facts_attachment.attached?
+								= image_tag @food.nutrition_facts_attachment.service_url, class: 'img-responsive'
+								%a.btn.btn-default{ 'data-clipboard-text' => @food.nutrition_facts_attachment.service_url }
+									%i.fa.fa-clipboard
+
+				.form-group
+					= f.label :description, 'Short Description'
+					= f.text_area :description, class: 'form-control wysiwyg', data: { wysiwyg: { height_min: 100, toolbar_sticky: true, toolbar_preset: 'admin_default', object_class: @food.class.base_class.name, object_id: @food.id }.to_json }
+
+				.form-group
+					= f.label :content
+					= f.text_area :content, class: 'form-control wysiwyg', data: { wysiwyg: { height_min: 200, toolbar_sticky: true, toolbar_preset: 'admin_default', object_class: @food.class.base_class.name, object_id: @food.id }.to_json }
+
+
+				.form-group
+					= f.label :measure_unit
+					= f.text_field :measure_unit, class: 'form-control'
+
+				.form-group
+					= f.label :serving_size_in_measure_units
+					= f.number_field :serving_size_in_measure_units, class: 'form-control'
+
+				.form-group
+					= f.label :serving_size
+					= f.text_field :serving_size, class: 'form-control'
+
+
+				.row
+					.col-xs-6
+						%strong Nutrient
+					.col-xs-6
+						%strong Amount
+				- Nutrient.calories.or(Nutrient.macros).or(Nutrient.macros_fat).or(Nutrient.macros_carb).order( 'lower(fact_name) asc' ).each do |nutrient|
+					= render 'nutrient_row', nutrient: nutrient, food_nutrient: @food.food_nutrients.where( nutrient: nutrient ).first_or_initialize, args: {}
+				%hr
+				-# Nutrient.macros.or(Nutrient.macros_fat).or(Nutrient.macros_carb).order( 'lower(fact_name) asc' ).each do |nutrient|
+					= render 'nutrient_row', nutrient: nutrient, food_nutrient: @food.food_nutrients.where( nutrient: nutrient ).first_or_initialize, args: {}
+
+
+				.row
+					.col-xs-4
+						%strong Quantity
+					.col-xs-4
+						%strong Unit
+					.col-xs-4
+						%strong #{@food.measure_unit}
+				- @food.food_measures.each_with_index do |food_measure,index|
+					= render 'measure_row', food_measure: food_measure, index: index, args: {}
+				= render 'measure_row', food_measure: FoodMeasure.new( food: @food ), index: @food.food_measures.count, args: {}
+
+
+
+			.col-xs-4
+				.well
+					.form-group
+						= f.label :tags_csv, 'Tags:'
+						= f.text_field :tags_csv, placeholder: 'Separate tags with commas', class: 'form-control'
+
+					.form-group
+						= f.label :status
+						= f.collection_select :status, @food.class.statuses, :first, :first, {}, class: 'form-control'
+
+					.form-group
+						= f.label :availability
+						= f.collection_select :availability, @food.class.availabilities, :first, :first, {}, class: 'form-control'
+
+
+					.form-group
+						= f.submit 'Update', class: 'btn btn-primary'
+						.pull-right= link_to 'Cancel', :back, class: 'btn btn-default btn-sm'
+
+
+					%hr
+					= link_to 'Show', @food.path
+					= link_to 'Back', food_admin_index_path
+
+				%div= render "foods/keto_facts", food: @food, args: {}
+				%br
+				%div= render "foods/facts", food: @food, args: {}

@@ -1,0 +1,8 @@
+
+.form-group
+	.row
+		.col-xs-6
+			= nutrient.fact_name
+			(#{@food.measure_unit})
+		.col-xs-6
+			= number_field_tag "food_nutrients[#{nutrient.id}][amount_per_serving]", food_nutrient.amount_per_serving, class: 'form-control', :step => 0.01
